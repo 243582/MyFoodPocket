@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SignUpActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <EditText
+            android:id="@+id/sign_up_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"/>
+        <EditText
+            android:id="@+id/sign_up_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ripeti password"/>
+        <EditText
+            android:id="@+id/sign_up_sex"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Sesso"/>
+        <EditText
+            android:id="@+id/sign_up_height"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Altezza"/>
+        <EditText
+            android:id="@+id/sign_up_weight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Peso"/>
+        <EditText
+            android:id="@+id/sign_up_birthdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Data di nascita"/>
+        <Button
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="sign_up_onclick"
+            android:text="Registrati"/>
+
+    </LinearLayout>
+
+</LinearLayout>

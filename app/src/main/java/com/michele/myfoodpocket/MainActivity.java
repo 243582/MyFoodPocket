@@ -18,16 +18,20 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.michele.myfoodpocket.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mAuth = FirebaseAuth.getInstance();
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -48,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         navigationView.getMenu().findItem(R.id.nav_home).setOnMenuItemClickListener(this);
         navigationView.getMenu().findItem(R.id.nav_profile).setOnMenuItemClickListener(this);
         navigationView.getMenu().findItem(R.id.nav_results).setOnMenuItemClickListener(this);
-        navigationView.getMenu().findItem(R.id.nav_home).setOnMenuItemClickListener(this);
+        navigationView.getMenu().findItem(R.id.nav_exit).setOnMenuItemClickListener(this);
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -89,6 +93,9 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
                 startActivity(new_intent);
                 break;
             case R.id.nav_exit:
+                mAuth.signOut();
+                new_intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(new_intent);
                 break;
         }
         return false;

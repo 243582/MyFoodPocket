@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "804470766934",
+    "firebase_url": "https://myfoodpocket-bf82e-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "myfoodpocket-bf82e",
+    "storage_bucket": "myfoodpocket-bf82e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:804470766934:android:9aaa21964ec82af94d6af7",
+        "android_client_info": {
+          "package_name": "com.michele.myfoodpocket"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "804470766934-nkariicrqjkr8s2efjfqt0g1b7cv232q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCykC4o922IcSPkGKWn8TYp1glXhDyDNnQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "804470766934-nkariicrqjkr8s2efjfqt0g1b7cv232q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
