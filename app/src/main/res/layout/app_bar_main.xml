@@ -12,7 +12,7 @@
         android:theme="@style/Theme.MyFoodPocket.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
-            app:navigationIcon="@drawable/ic_menu_camera"
+            app:navigationIcon="@drawable/ic_baseline_menu_24"
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"

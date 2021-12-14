@@ -6,11 +6,43 @@
     android:layout_height="match_parent"
     tools:context=".ProfileActivity">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Profilo"
-        tools:layout_editor_absoluteX="200dp"
-        tools:layout_editor_absoluteY="359dp" />
+        android:orientation="vertical"
+        >
+        <TextView
+            android:id="@+id/profile_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"/>
+        <TextView
+            android:id="@+id/profile_sex"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Sesso"/>
+        <EditText
+            android:id="@+id/profile_height"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Altezza"/>
+        <EditText
+            android:id="@+id/profile_weight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Peso"/>
+        <TextView
+            android:id="@+id/profile_birthdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Data di nascita"/>
+        <Button
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="profile_onclick"
+            android:text="Modifica informazioni"/>
+
+    </LinearLayout>
+
 </LinearLayout>

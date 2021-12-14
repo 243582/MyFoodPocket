@@ -47,6 +47,7 @@ public class LoginActivity extends AppCompatActivity implements MenuItem.OnMenuI
 
                             Intent new_intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(new_intent);
+                            finish(); // Kill dell'activity così non può essere ripresa con il back button
 
                         } else {
                             // If sign in fails, display a message to the user.
@@ -63,6 +64,7 @@ public class LoginActivity extends AppCompatActivity implements MenuItem.OnMenuI
     public void sign_up_onclick(View view) {
         Intent new_intent = new Intent(LoginActivity.this, SignUpActivity.class);
         startActivity(new_intent);
+        finish(); // Kill dell'activity così non può essere ripresa con il back button
     }
 
     @Override

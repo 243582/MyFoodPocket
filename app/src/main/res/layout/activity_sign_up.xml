@@ -16,35 +16,42 @@
             android:id="@+id/sign_up_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="mariorossi@gmail.com"
             android:hint="Email"/>
         <EditText
             android:id="@+id/sign_up_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="prova123!"
             android:hint="Password"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="prova123!"
             android:hint="Ripeti password"/>
         <EditText
             android:id="@+id/sign_up_sex"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="M"
             android:hint="Sesso"/>
         <EditText
             android:id="@+id/sign_up_height"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="172"
             android:hint="Altezza"/>
         <EditText
             android:id="@+id/sign_up_weight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="73"
             android:hint="Peso"/>
         <EditText
             android:id="@+id/sign_up_birthdate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="11/05/1998"
             android:hint="Data di nascita"/>
         <Button
             android:layout_gravity="center"

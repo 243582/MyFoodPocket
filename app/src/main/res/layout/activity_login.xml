@@ -16,11 +16,13 @@
             android:id="@+id/sign_in_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="mariorossi@gmail.com"
             android:hint="Email" />
         <EditText
             android:id="@+id/sign_in_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="prova123!"
             android:hint="Password" />
         <Button
             android:layout_gravity="center"

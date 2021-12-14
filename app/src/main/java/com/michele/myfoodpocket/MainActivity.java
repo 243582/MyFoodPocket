@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -19,6 +21,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.michele.myfoodpocket.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener {
@@ -60,9 +63,11 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
                 R.id.nav_home, R.id.nav_profile, R.id.nav_results, R.id.nav_exit)
                 .setOpenableLayout(drawer)
                 .build();
-        //NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        //NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        //NavigationUI.setupWithNavController(navigationView, navController);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        TextView tv = navHeader.findViewById(R.id.nav_header_main_email);
+        tv.setText(user.getEmail());
+
     }
 
     @Override
@@ -96,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
                 mAuth.signOut();
                 new_intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(new_intent);
+                finish(); // Kill dell'activity così non può essere ripresa con il back button
                 break;
         }
         return false;

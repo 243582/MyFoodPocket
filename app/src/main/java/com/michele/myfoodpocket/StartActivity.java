@@ -16,10 +16,12 @@ public class StartActivity extends AppCompatActivity {
         if(FirebaseAuth.getInstance().getCurrentUser() != null) {
             Intent new_intent = new Intent(StartActivity.this, MainActivity.class);
             startActivity(new_intent);
+            finish(); // Kill dell'activity così non può essere ripresa con il back button
         }
         else {
             Intent new_intent = new Intent(StartActivity.this, LoginActivity.class);
             startActivity(new_intent);
+            finish(); // Kill dell'activity così non può essere ripresa con il back button
         }
     }
 }
