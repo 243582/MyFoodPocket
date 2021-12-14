@@ -82,7 +82,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
-    public void profile_onclick(View view) {
+    public void profileOnClick(View view) {
         databaseReference = database.getReference("User");
 
         String newHeight = ((EditText)(findViewById(R.id.profile_height))).getText().toString();

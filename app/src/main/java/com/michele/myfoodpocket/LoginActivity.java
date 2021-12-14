@@ -45,8 +45,8 @@ public class LoginActivity extends AppCompatActivity implements MenuItem.OnMenuI
                                     Toast.LENGTH_SHORT).show();
 
 
-                            Intent new_intent = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(new_intent);
+                            Intent newIntent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(newIntent);
                             finish(); // Kill dell'activity così non può essere ripresa con il back button
 
                         } else {
@@ -61,9 +61,9 @@ public class LoginActivity extends AppCompatActivity implements MenuItem.OnMenuI
         // [END sign_in_with_email]
     }
 
-    public void sign_up_onclick(View view) {
-        Intent new_intent = new Intent(LoginActivity.this, SignUpActivity.class);
-        startActivity(new_intent);
+    public void signUpOnClick(View view) {
+        Intent newIntent = new Intent(LoginActivity.this, SignUpActivity.class);
+        startActivity(newIntent);
         finish(); // Kill dell'activity così non può essere ripresa con il back button
     }
 
@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity implements MenuItem.OnMenuI
         return false;
     }
 
-    public void sign_in_onclick(View view) {
+    public void signInOnClick(View view) {
         String email = ((EditText)(findViewById(R.id.sign_in_email))).getText().toString();
         String password = ((EditText)(findViewById(R.id.sign_in_password))).getText().toString();
 

@@ -85,22 +85,22 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
 
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {
-        Intent new_intent;
+        Intent newIntent;
         switch(menuItem.getItemId()) {
             case R.id.nav_home:
                 break;
             case R.id.nav_profile:
-                new_intent = new Intent(MainActivity.this, ProfileActivity.class);
-                startActivity(new_intent);
+                newIntent = new Intent(MainActivity.this, ProfileActivity.class);
+                startActivity(newIntent);
                 break;
             case R.id.nav_results:
-                new_intent = new Intent(MainActivity.this, ResultsActivity.class);
-                startActivity(new_intent);
+                newIntent = new Intent(MainActivity.this, ResultsActivity.class);
+                startActivity(newIntent);
                 break;
             case R.id.nav_exit:
                 mAuth.signOut();
-                new_intent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(new_intent);
+                newIntent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(newIntent);
                 finish(); // Kill dell'activity così non può essere ripresa con il back button
                 break;
         }

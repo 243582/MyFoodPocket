@@ -60,8 +60,8 @@ public class SignUpActivity extends AppCompatActivity {
                                 Toast.makeText(getBaseContext(), "Registrazione fallita.", Toast.LENGTH_SHORT).show();
                             }
                         });
-                        Intent new_intent = new Intent(SignUpActivity.this, MainActivity.class);
-                        startActivity(new_intent);
+                        Intent newIntent = new Intent(SignUpActivity.this, MainActivity.class);
+                        startActivity(newIntent);
                         finish(); // Kill dell'activity così non può essere ripresa con il back button
                     } else {
                         Log.d("APPSTATE", "createUserWithEmail:failure", task.getException());
@@ -74,7 +74,7 @@ public class SignUpActivity extends AppCompatActivity {
     // [END create_user_with_email]
     }
 
-    public void sign_up_onclick(View view) {
+    public void signUpOnClick(View view) {
         String email = ((EditText)(findViewById(R.id.sign_up_email))).getText().toString();
         String password = ((EditText)(findViewById(R.id.sign_up_password))).getText().toString();
         String sex = ((EditText)(findViewById(R.id.sign_up_sex))).getText().toString();
