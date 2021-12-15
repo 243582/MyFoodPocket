@@ -17,48 +17,48 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="mariorossi@gmail.com"
-            android:hint="Email"/>
+            android:hint="@string/sign_up_hint_email"/>
         <EditText
             android:id="@+id/sign_up_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="prova123!"
-            android:hint="Password"/>
+            android:hint="@string/sign_up_hint_password"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="prova123!"
-            android:hint="Ripeti password"/>
+            android:hint="@string/sign_up_hint_password_repeat"/>
         <EditText
             android:id="@+id/sign_up_sex"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="M"
-            android:hint="Sesso"/>
+            android:hint="@string/sign_up_hint_sex"/>
         <EditText
             android:id="@+id/sign_up_height"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="172"
-            android:hint="Altezza"/>
+            android:hint="@string/sign_up_hint_height"/>
         <EditText
             android:id="@+id/sign_up_weight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="73"
-            android:hint="Peso"/>
+            android:hint="@string/sign_up_hint_weight"/>
         <EditText
             android:id="@+id/sign_up_birthdate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="11/05/1998"
-            android:hint="Data di nascita"/>
+            android:hint="@string/sign_up_hint_birth_date"/>
         <Button
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="signUpOnClick"
-            android:text="Registrati"/>
+            android:text="@string/sign_up_button_sign_up"/>
 
     </LinearLayout>
 

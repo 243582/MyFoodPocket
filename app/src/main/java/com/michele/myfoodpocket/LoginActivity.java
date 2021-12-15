@@ -37,22 +37,16 @@ public class LoginActivity extends AppCompatActivity implements MenuItem.OnMenuI
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("APPSTATE", "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            //updateUI(user);
-                            Toast.makeText(LoginActivity.this, "Login: " + user.getEmail().toString(),
+                            Toast.makeText(LoginActivity.this, getResources().getString(R.string.login_toast_welcome_back) + " " + user.getEmail().toString(),
                                     Toast.LENGTH_SHORT).show();
-
 
                             Intent newIntent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(newIntent);
                             finish(); // Kill dell'activity così non può essere ripresa con il back button
 
                         } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w("APPSTATE", "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                            Toast.makeText(LoginActivity.this, getResources().getString(R.string.login_toast_autentication_failed),
                                     Toast.LENGTH_SHORT).show();
                             //updateUI(null);
                         }

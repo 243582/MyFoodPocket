@@ -17,19 +17,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="mariorossi@gmail.com"
-            android:hint="Email" />
+            android:hint="@string/login_hint_email" />
         <EditText
             android:id="@+id/sign_in_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="prova123!"
-            android:hint="Password" />
+            android:hint="@string/login_hint_password" />
         <Button
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="signInOnClick"
-            android:text="Login" />
+            android:text="@string/login_button_login" />
     </LinearLayout>
 
     <LinearLayout
@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="signUpOnClick"
-            android:text="Registrati" />
+            android:text="@string/login_button_signup" />
     </LinearLayout>
 
 </LinearLayout>

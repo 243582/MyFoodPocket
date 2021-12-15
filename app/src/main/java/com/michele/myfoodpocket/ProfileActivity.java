@@ -76,10 +76,8 @@ public class ProfileActivity extends AppCompatActivity {
             });
         }
         else {
-            Toast.makeText(this, "Impossibile recuperare l'utente.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.profile_toast_user_fail), Toast.LENGTH_SHORT).show();
         }
-
-
     }
 
     public void profileOnClick(View view) {
@@ -94,7 +92,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         databaseReference.updateChildren(childUpdates);
 
-        Toast.makeText(this, "Modifica effettuata con successo", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getResources().getString(R.string.profile_toast_modify_success), Toast.LENGTH_SHORT).show();
 
         Intent newIntent = new Intent(ProfileActivity.this, MainActivity.class);
         newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);

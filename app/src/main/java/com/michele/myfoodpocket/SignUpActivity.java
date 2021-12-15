@@ -40,7 +40,7 @@ public class SignUpActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
-                        Toast.makeText(getApplicationContext(), "Benvenuto " + user.getEmail().toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.sign_up_toast_welcome) + " " + user.getEmail().toString(), Toast.LENGTH_SHORT).show();
 
                         // Ho dovuto specificare l'URL perché quello ottenuto automaticamente non corrispondeva a quello effettivo del database Firebase
                         FirebaseDatabase database = FirebaseDatabase.getInstance("https://myfoodpocket-bf82e-default-rtdb.europe-west1.firebasedatabase.app/");
@@ -50,14 +50,14 @@ public class SignUpActivity extends AppCompatActivity {
                         {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Toast.makeText(getBaseContext(), "Registrazione effettuata con successo.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getBaseContext(), getResources().getString(R.string.sign_up_toast_register_success), Toast.LENGTH_SHORT).show();
                             }
                         }).addOnFailureListener(new OnFailureListener()
                         {
                             @Override
                             public void onFailure(@NonNull Exception e)
                             {
-                                Toast.makeText(getBaseContext(), "Registrazione fallita.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getBaseContext(), getResources().getString(R.string.sign_up_toast_register_failed), Toast.LENGTH_SHORT).show();
                             }
                         });
                         Intent newIntent = new Intent(SignUpActivity.this, MainActivity.class);
@@ -65,8 +65,8 @@ public class SignUpActivity extends AppCompatActivity {
                         finish(); // Kill dell'activity così non può essere ripresa con il back button
                     } else {
                         Log.d("APPSTATE", "createUserWithEmail:failure", task.getException());
-                        Toast.makeText(SignUpActivity.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
-                        Toast.makeText(SignUpActivity.this, "Authentication failed.",
+                        //Toast.makeText(SignUpActivity.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignUpActivity.this, getResources().getString(R.string.sign_up_toast_register_failed),
                                 Toast.LENGTH_SHORT).show();
                     }
                 }
