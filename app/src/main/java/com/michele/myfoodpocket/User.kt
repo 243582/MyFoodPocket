@@ -3,13 +3,13 @@ package com.michele.myfoodpocket
 class User {
     private var email : String = "";
     private var sex : String = "";
-    private var height : String = "";
-    private var weight : String = "";
+    private var height : Int = 0; // Altezza provvisoria che verrà poi sostituita con l'altezza dell'utente
+    private var weight : Float = 0.0f; // peso provvisorio che verrà poi sostituito con il peso dell'utente
     private var birthDate : String = "";
 
     constructor() {}
 
-    constructor(email : String, sex : String, height : String, weight : String, birthDate : String) {
+    constructor(email : String, sex : String, height : Int, weight : Float, birthDate : String) {
         this.email = email;
         this.sex = sex;
         this.height = height;
@@ -40,20 +40,20 @@ class User {
         return null;
     }
 
-    fun getHeight() : String {
+    fun getHeight() : Int {
         return this.height;
     }
 
-    fun setHeight(height : String) : Void? {
+    fun setHeight(height : Int) : Void? {
         this.height = height;
         return null;
     }
 
-    fun getWeight() : String {
+    fun getWeight() : Float {
         return this.weight;
     }
 
-    fun setWeight(weight : String) : Void? {
+    fun setWeight(weight : Float) : Void? {
         this.weight = weight;
         return null;
     }

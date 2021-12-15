@@ -52,6 +52,7 @@ public class ProfileActivity extends AppCompatActivity {
                         if(postSnapshot!= null && postSnapshot.getValue()!= null) {
                             userKey = postSnapshot.getKey();
                             userProfile = postSnapshot.getValue(User.class); // <= reference al nostro oggetto
+                            Log.d("DEBUGPROFILE", postSnapshot.getValue().toString());
                         }
                     }
 
@@ -60,9 +61,9 @@ public class ProfileActivity extends AppCompatActivity {
                     TextView tvSex = (TextView)(findViewById(R.id.profile_sex));
                     tvSex.setText(getResources().getString(R.string.profile_textview_sex) + " " + userProfile.getSex());
                     EditText etHeight = (EditText)(findViewById(R.id.profile_height));
-                    etHeight.setText(userProfile.getHeight());
+                    etHeight.setText("" + userProfile.getHeight());
                     EditText etWeight = (EditText) (findViewById(R.id.profile_weight));
-                    etWeight.setText(userProfile.getWeight());
+                    etWeight.setText("" + userProfile.getWeight());
                     TextView tvBirthdate = (TextView)(findViewById(R.id.profile_birthdate));
                     tvBirthdate.setText(getResources().getString(R.string.profile_textview_birth_date) + " " + userProfile.getBirthDate());
                 }
@@ -83,8 +84,8 @@ public class ProfileActivity extends AppCompatActivity {
     public void profileOnClick(View view) {
         databaseReference = database.getReference("User");
 
-        String newHeight = ((EditText)(findViewById(R.id.profile_height))).getText().toString();
-        String newWeight = ((EditText)(findViewById(R.id.profile_weight))).getText().toString();
+        int newHeight = Integer.parseInt(((EditText)(findViewById(R.id.profile_height))).getText().toString());
+        float newWeight = Float.parseFloat(((EditText)(findViewById(R.id.profile_weight))).getText().toString());
 
         Map<String, Object> childUpdates = new HashMap<>();
         childUpdates.put(userKey + "/height", newHeight);

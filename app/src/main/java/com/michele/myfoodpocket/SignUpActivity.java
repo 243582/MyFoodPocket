@@ -20,6 +20,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.time.LocalDate;
+
 public class SignUpActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
@@ -33,7 +35,7 @@ public class SignUpActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
     }
 
-    private void createAccount(String email, String password, String sex, String height, String weight, String birthdate) {
+    private void createAccount(String email, String password, String sex, int height, float weight, String birthdate) {
         // [START create_user_with_email]
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
@@ -83,6 +85,6 @@ public class SignUpActivity extends AppCompatActivity {
         String weight = ((EditText)(findViewById(R.id.sign_up_weight))).getText().toString();
         String birthdate = ((EditText)(findViewById(R.id.sign_up_birthdate))).getText().toString();
 
-        createAccount(email, password, sex, height, weight, birthdate);
+        createAccount(email, password, sex, Integer.parseInt(height), Float.parseFloat(weight), birthdate);
     }
 }
