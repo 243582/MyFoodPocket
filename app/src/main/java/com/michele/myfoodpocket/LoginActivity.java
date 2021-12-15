@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity implements MenuItem.OnMenuI
     public void signUpOnClick(View view) {
         Intent newIntent = new Intent(LoginActivity.this, SignUpActivity.class);
         startActivity(newIntent);
-        finish(); // Kill dell'activity così non può essere ripresa con il back button
+        //finish(); // Kill dell'activity così non può essere ripresa con il back button
     }
 
     @Override

@@ -61,6 +61,7 @@ public class SignUpActivity extends AppCompatActivity {
                             }
                         });
                         Intent newIntent = new Intent(SignUpActivity.this, MainActivity.class);
+                        newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK); // Kill di tutte le activity nello stack, così il back button non mi ritorna al login ma esce dall'app dopola registrazione
                         startActivity(newIntent);
                         finish(); // Kill dell'activity così non può essere ripresa con il back button
                     } else {

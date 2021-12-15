@@ -95,7 +95,7 @@ public class ProfileActivity extends AppCompatActivity {
         Toast.makeText(this, getResources().getString(R.string.profile_toast_modify_success), Toast.LENGTH_SHORT).show();
 
         Intent newIntent = new Intent(ProfileActivity.this, MainActivity.class);
-        newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP); // Kill di tutte le activity nello stack tranne l'ultima
         startActivity(newIntent);
         finish(); // Kill dell'activity così non può essere ripresa con il back button
     }
