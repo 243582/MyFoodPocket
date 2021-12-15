@@ -56,15 +56,15 @@ public class ProfileActivity extends AppCompatActivity {
                     }
 
                     TextView tvEmail = (TextView)(findViewById(R.id.profile_email));
-                    tvEmail.setText(userProfile.getEmail());
+                    tvEmail.setText(getResources().getString(R.string.profile_textview_email) + " " + userProfile.getEmail());
                     TextView tvSex = (TextView)(findViewById(R.id.profile_sex));
-                    tvSex.setText(userProfile.getSex());
+                    tvSex.setText(getResources().getString(R.string.profile_textview_sex) + " " + userProfile.getSex());
                     EditText etHeight = (EditText)(findViewById(R.id.profile_height));
                     etHeight.setText(userProfile.getHeight());
                     EditText etWeight = (EditText) (findViewById(R.id.profile_weight));
                     etWeight.setText(userProfile.getWeight());
                     TextView tvBirthdate = (TextView)(findViewById(R.id.profile_birthdate));
-                    tvBirthdate.setText(userProfile.getBirthDate());
+                    tvBirthdate.setText(getResources().getString(R.string.profile_textview_birth_date) + " " + userProfile.getBirthDate());
                 }
 
                 @Override

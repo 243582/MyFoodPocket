@@ -34,7 +34,13 @@
     /* Profile */
     <string name="profile_hint_height">Altezza</string>
     <string name="profile_hint_weight">Peso</string>
-    <string name="profile_button_modify">Modifica informazioni</string>
+    <string name="profile_button_modify">Modifica profilo</string>
     <string name="profile_toast_user_fail">Errore nel reperimento dell\'utente</string>
     <string name="profile_toast_modify_success">Modifica avvenuta con successo</string>
+    <string name="profile_textview_my_profile">Il mio profilo</string>
+    <string name="profile_textview_email">Email:</string>
+    <string name="profile_textview_sex">Sesso:</string>
+    <string name="profile_textview_height">Altezza:</string>
+    <string name="profile_textview_weight">Peso:</string>
+    <string name="profile_textview_birth_date">Data di nascita:</string>
 </resources>
