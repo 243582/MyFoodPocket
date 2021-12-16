@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -35,7 +36,7 @@ public class SignUpActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
     }
 
-    private void createAccount(String email, String password, String sex, int height, float weight, String birthdate) {
+    private void createAccount(String email, String password, int sex, int height, float weight, String birthdate, int sportFrequency) {
         // [START create_user_with_email]
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
@@ -47,7 +48,14 @@ public class SignUpActivity extends AppCompatActivity {
                         // Ho dovuto specificare l'URL perché quello ottenuto automaticamente non corrispondeva a quello effettivo del database Firebase
                         FirebaseDatabase database = FirebaseDatabase.getInstance("https://myfoodpocket-bf82e-default-rtdb.europe-west1.firebasedatabase.app/");
                         DatabaseReference myRef = database.getReference();
-                        User newUser = new User(email, sex, height, weight, birthdate);
+
+                        // Stabilisco il sesso in base all'input selezionato
+                        int sexChoice = sex + 1; // Sesso: maschio 1, femmina 2. Il +1 è per l'indice degli item dello Spinner che partono da 0
+
+                        // Stabilisco la frequenza di sport dell'utente
+                        int frequencySportChoice = sportFrequency + 1; // Sport: 1 leggero, 2 moderato, 3 pesante. Il +1 è per l'indice degli item dello spinner che partono da 0
+
+                        User newUser = new User(email, sexChoice, height, weight, birthdate, frequencySportChoice);
                         myRef.child("User").push().setValue(newUser).addOnSuccessListener(new OnSuccessListener<Void>()
                         {
                             @Override
@@ -80,11 +88,12 @@ public class SignUpActivity extends AppCompatActivity {
     public void signUpOnClick(View view) {
         String email = ((EditText)(findViewById(R.id.sign_up_email))).getText().toString();
         String password = ((EditText)(findViewById(R.id.sign_up_password))).getText().toString();
-        String sex = ((EditText)(findViewById(R.id.sign_up_sex))).getText().toString();
+        int sex = ((Spinner)(findViewById(R.id.sign_up_sex))).getSelectedItemPosition();
         String height = ((EditText)(findViewById(R.id.sign_up_height))).getText().toString();
         String weight = ((EditText)(findViewById(R.id.sign_up_weight))).getText().toString();
         String birthdate = ((EditText)(findViewById(R.id.sign_up_birthdate))).getText().toString();
+        int sportFrequency = ((Spinner)(findViewById(R.id.spinner_sport_frequency))).getSelectedItemPosition();
 
-        createAccount(email, password, sex, Integer.parseInt(height), Float.parseFloat(weight), birthdate);
+        createAccount(email, password, sex, Integer.parseInt(height), Float.parseFloat(weight), birthdate, sportFrequency);
     }
 }

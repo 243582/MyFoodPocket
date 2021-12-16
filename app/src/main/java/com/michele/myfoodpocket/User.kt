@@ -2,19 +2,21 @@ package com.michele.myfoodpocket
 
 class User {
     private var email : String = "";
-    private var sex : String = "";
+    private var sex : Int = 0; // Sesso provvisorio che verrà poi sostituito con quello dell'utente
     private var height : Int = 0; // Altezza provvisoria che verrà poi sostituita con l'altezza dell'utente
     private var weight : Float = 0.0f; // peso provvisorio che verrà poi sostituito con il peso dell'utente
     private var birthDate : String = "";
+    private var sportFrequency : Int = 0; // Frequenza sportiva provvisoria che poi verrà sostituita con quella dell'utente
 
     constructor() {}
 
-    constructor(email : String, sex : String, height : Int, weight : Float, birthDate : String) {
+    constructor(email : String, sex : Int, height : Int, weight : Float, birthDate : String, sportFrequency : Int) {
         this.email = email;
         this.sex = sex;
         this.height = height;
         this.weight = weight;
         this.birthDate = birthDate;
+        this.sportFrequency = sportFrequency;
     }
 
     override fun toString() : String {
@@ -31,11 +33,11 @@ class User {
         return null;
     }
 
-    fun getSex() : String {
+    fun getSex() : Int {
         return this.sex;
     }
 
-    fun setSex(sex : String) : Void? {
+    fun setSex(sex : Int) : Void? {
         this.sex = sex;
         return null;
     }
@@ -64,6 +66,15 @@ class User {
 
     fun setBirthDate(birthDate : String) : Void? {
         this.birthDate = birthDate;
+        return null;
+    }
+
+    fun getSportFrequency() : Int {
+        return this.sportFrequency;
+    }
+
+    fun setSportFrequency(sportFrequency: Int) : Void? {
+        this.sportFrequency = sportFrequency;
         return null;
     }
 }

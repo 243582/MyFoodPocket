@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,13 +60,16 @@ public class ProfileActivity extends AppCompatActivity {
                     TextView tvEmail = (TextView)(findViewById(R.id.profile_email));
                     tvEmail.setText(getResources().getString(R.string.profile_textview_email) + " " + userProfile.getEmail());
                     TextView tvSex = (TextView)(findViewById(R.id.profile_sex));
-                    tvSex.setText(getResources().getString(R.string.profile_textview_sex) + " " + userProfile.getSex());
+                    String tvSexString = (userProfile.getSex() == 1 ? getResources().getString(R.string.sex_1) : getResources().getString(R.string.sex_2));
+                    tvSex.setText(tvSexString);
                     EditText etHeight = (EditText)(findViewById(R.id.profile_height));
                     etHeight.setText("" + userProfile.getHeight());
                     EditText etWeight = (EditText) (findViewById(R.id.profile_weight));
                     etWeight.setText("" + userProfile.getWeight());
                     TextView tvBirthdate = (TextView)(findViewById(R.id.profile_birthdate));
                     tvBirthdate.setText(getResources().getString(R.string.profile_textview_birth_date) + " " + userProfile.getBirthDate());
+                    Spinner spinnerSportFrequency = (Spinner)(findViewById(R.id.profile_spinner_sport_frequency));
+                    spinnerSportFrequency.setSelection(userProfile.getSportFrequency()-1); // Sport: 1 leggero, 2 moderato, 3 pesante. Il -1 è per l'indice degli item dello spinner che partono da 0
                 }
 
                 @Override
@@ -86,10 +90,13 @@ public class ProfileActivity extends AppCompatActivity {
 
         int newHeight = Integer.parseInt(((EditText)(findViewById(R.id.profile_height))).getText().toString());
         float newWeight = Float.parseFloat(((EditText)(findViewById(R.id.profile_weight))).getText().toString());
+        int newSportFrequency = ((Spinner)(findViewById(R.id.profile_spinner_sport_frequency))).getSelectedItemPosition() + 1; // Sport: 1 leggero, 2 moderato, 3 pesante. Il +1 è per l'indice degli item dello spinner che partono da 0
+
 
         Map<String, Object> childUpdates = new HashMap<>();
         childUpdates.put(userKey + "/height", newHeight);
         childUpdates.put(userKey + "/weight", newWeight);
+        childUpdates.put(userKey + "/sportFrequency", newSportFrequency);
 
         databaseReference.updateChildren(childUpdates);
 

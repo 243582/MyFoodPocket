@@ -19,6 +19,20 @@
     <string name="sign_up_toast_welcome">Benvenuto</string>
     <string name="sign_up_toast_register_success">Registrazione effettuata con successo</string>
     <string name="sign_up_toast_register_failed">Registrazione fallita</string>
+    <string-array name="array_sex">
+        <item>Maschio</item>
+        <item>Femmina</item>
+    </string-array>
+    <string name="sex_1">Maschio</string>
+    <string name="sex_2">Femmina</string>
+    <string-array name="array_sport_choices">
+        <item>Attività fisica leggera</item>
+        <item>Attività fisica moderata</item>
+        <item>Attività fisica pesante</item>
+    </string-array>
+    <string name="sport_frequency_1">Attività fisica leggera</string>
+    <string name="sport_frequency_2">Attività fisica moderata</string>
+    <string name="sport_frequency_3">Attività fisica pesante</string>
 
     /* Navigation drawer */
     <string name="app_name">MyFoodPocket</string>
