@@ -6,17 +6,19 @@ class User {
     private var height : Int = 0; // Altezza provvisoria che verrà poi sostituita con l'altezza dell'utente
     private var weight : Float = 0.0f; // peso provvisorio che verrà poi sostituito con il peso dell'utente
     private var birthDate : String = "";
-    private var sportFrequency : Int = 0; // Frequenza sportiva provvisoria che poi verrà sostituita con quella dell'utente
+    private var workHeaviness : Int = 0; // Pesantezza del lavoro provvisoria che poi verrà sostituita con quella dell'utente
+    private var sportPracticed : Boolean = false; // Attività fisica sportiva provvisoria che poi verrà sostituita con quella dell'utente
 
     constructor() {}
 
-    constructor(email : String, sex : Int, height : Int, weight : Float, birthDate : String, sportFrequency : Int) {
+    constructor(email : String, sex : Int, height : Int, weight : Float, birthDate : String, workHeaviness : Int, sportPracticed : Boolean) {
         this.email = email;
         this.sex = sex;
         this.height = height;
         this.weight = weight;
         this.birthDate = birthDate;
-        this.sportFrequency = sportFrequency;
+        this.workHeaviness = workHeaviness;
+        this.sportPracticed = sportPracticed;
     }
 
     override fun toString() : String {
@@ -69,12 +71,21 @@ class User {
         return null;
     }
 
-    fun getSportFrequency() : Int {
-        return this.sportFrequency;
+    fun getWorkHeaviness() : Int {
+        return this.workHeaviness;
     }
 
-    fun setSportFrequency(sportFrequency: Int) : Void? {
-        this.sportFrequency = sportFrequency;
+    fun setWorkHeaviness(workHeaviness: Int) : Void? {
+        this.workHeaviness = workHeaviness;
+        return null;
+    }
+
+    fun getSportPracticed() : Boolean {
+        return this.sportPracticed;
+    }
+
+    fun setSportPracticed(sportPracticed: Boolean) : Void? {
+        this.sportPracticed = sportPracticed;
         return null;
     }
 }

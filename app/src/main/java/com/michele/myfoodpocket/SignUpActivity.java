@@ -36,7 +36,7 @@ public class SignUpActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
     }
 
-    private void createAccount(String email, String password, int sex, int height, float weight, String birthdate, int sportFrequency) {
+    private void createAccount(String email, String password, int sex, int height, float weight, String birthdate, int workHeaviness, int sportPracticed) {
         // [START create_user_with_email]
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
@@ -52,10 +52,13 @@ public class SignUpActivity extends AppCompatActivity {
                         // Stabilisco il sesso in base all'input selezionato
                         int sexChoice = sex + 1; // Sesso: maschio 1, femmina 2. Il +1 è per l'indice degli item dello Spinner che partono da 0
 
-                        // Stabilisco la frequenza di sport dell'utente
-                        int frequencySportChoice = sportFrequency + 1; // Sport: 1 leggero, 2 moderato, 3 pesante. Il +1 è per l'indice degli item dello spinner che partono da 0
+                        // Stabilisco il carico di lavoro dell'utente
+                        int workHeavinessChoice = workHeaviness + 1; // Lavoro: 1 leggero, 2 moderato, 3 pesante. Il +1 è per l'indice degli item dello spinner che partono da 0
 
-                        User newUser = new User(email, sexChoice, height, weight, birthdate, frequencySportChoice);
+                        // Stabilisco se l'utente fa sport oppure no
+                        boolean sportPracticeChoice = (sportPracticed == 0 ? true : false); // Sport: 0 praticato, 1 non praticato
+
+                        User newUser = new User(email, sexChoice, height, weight, birthdate, workHeavinessChoice, sportPracticeChoice);
                         myRef.child("User").push().setValue(newUser).addOnSuccessListener(new OnSuccessListener<Void>()
                         {
                             @Override
@@ -92,8 +95,9 @@ public class SignUpActivity extends AppCompatActivity {
         String height = ((EditText)(findViewById(R.id.sign_up_height))).getText().toString();
         String weight = ((EditText)(findViewById(R.id.sign_up_weight))).getText().toString();
         String birthdate = ((EditText)(findViewById(R.id.sign_up_birthdate))).getText().toString();
-        int sportFrequency = ((Spinner)(findViewById(R.id.spinner_sport_frequency))).getSelectedItemPosition();
+        int workHeaviness = ((Spinner)(findViewById(R.id.spinner_work_heaviness))).getSelectedItemPosition();
+        int sportPracticed = ((Spinner)(findViewById(R.id.spinner_sport_practiced))).getSelectedItemPosition();
 
-        createAccount(email, password, sex, Integer.parseInt(height), Float.parseFloat(weight), birthdate, sportFrequency);
+        createAccount(email, password, sex, Integer.parseInt(height), Float.parseFloat(weight), birthdate, workHeaviness, sportPracticed);
     }
 }

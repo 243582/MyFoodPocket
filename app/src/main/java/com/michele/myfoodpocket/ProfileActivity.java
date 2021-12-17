@@ -68,8 +68,11 @@ public class ProfileActivity extends AppCompatActivity {
                     etWeight.setText("" + userProfile.getWeight());
                     TextView tvBirthdate = (TextView)(findViewById(R.id.profile_birthdate));
                     tvBirthdate.setText(getResources().getString(R.string.profile_textview_birth_date) + " " + userProfile.getBirthDate());
-                    Spinner spinnerSportFrequency = (Spinner)(findViewById(R.id.profile_spinner_sport_frequency));
-                    spinnerSportFrequency.setSelection(userProfile.getSportFrequency()-1); // Sport: 1 leggero, 2 moderato, 3 pesante. Il -1 è per l'indice degli item dello spinner che partono da 0
+                    Spinner spinnerWorkHeaviness = (Spinner)(findViewById(R.id.profile_spinner_work_heaviness));
+                    spinnerWorkHeaviness.setSelection(userProfile.getWorkHeaviness()-1); // Lavoro: 1 leggero, 2 moderato, 3 pesante. Il -1 è per l'indice degli item dello spinner che partono da 0
+                    Spinner spinnerSportPracticed = (Spinner)(findViewById(R.id.profile_spinner_sport_practiced));
+                    int sportPracticedInt = (userProfile.getSportPracticed() == true ? 0 : 1);
+                    spinnerSportPracticed.setSelection(sportPracticedInt);
                 }
 
                 @Override
@@ -90,13 +93,15 @@ public class ProfileActivity extends AppCompatActivity {
 
         int newHeight = Integer.parseInt(((EditText)(findViewById(R.id.profile_height))).getText().toString());
         float newWeight = Float.parseFloat(((EditText)(findViewById(R.id.profile_weight))).getText().toString());
-        int newSportFrequency = ((Spinner)(findViewById(R.id.profile_spinner_sport_frequency))).getSelectedItemPosition() + 1; // Sport: 1 leggero, 2 moderato, 3 pesante. Il +1 è per l'indice degli item dello spinner che partono da 0
-
+        int newWorkheaviness = ((Spinner)(findViewById(R.id.profile_spinner_work_heaviness))).getSelectedItemPosition() + 1; // Lavoro: 1 leggero, 2 moderato, 3 pesante. Il +1 è per l'indice degli item dello spinner che partono da 0
+        int newSportPracticedInt = ((Spinner)(findViewById(R.id.profile_spinner_sport_practiced))).getSelectedItemPosition();
+        boolean newSportPracticedBool = (newSportPracticedInt == 0 ? true : false);
 
         Map<String, Object> childUpdates = new HashMap<>();
         childUpdates.put(userKey + "/height", newHeight);
         childUpdates.put(userKey + "/weight", newWeight);
-        childUpdates.put(userKey + "/sportFrequency", newSportFrequency);
+        childUpdates.put(userKey + "/workHeaviness", newWorkheaviness);
+        childUpdates.put(userKey + "/sportPracticed", newSportPracticedBool);
 
         databaseReference.updateChildren(childUpdates);
 

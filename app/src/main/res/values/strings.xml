@@ -25,14 +25,6 @@
     </string-array>
     <string name="sex_1">Maschio</string>
     <string name="sex_2">Femmina</string>
-    <string-array name="array_sport_choices">
-        <item>Attività fisica leggera</item>
-        <item>Attività fisica moderata</item>
-        <item>Attività fisica pesante</item>
-    </string-array>
-    <string name="sport_frequency_1">Attività fisica leggera</string>
-    <string name="sport_frequency_2">Attività fisica moderata</string>
-    <string name="sport_frequency_3">Attività fisica pesante</string>
 
     /* Navigation drawer */
     <string name="app_name">MyFoodPocket</string>
@@ -57,4 +49,24 @@
     <string name="profile_textview_height">Altezza:</string>
     <string name="profile_textview_weight">Peso:</string>
     <string name="profile_textview_birth_date">Data di nascita:</string>
+
+    /* Main */
+    <string name="basal_metabolic_rate">Metabolismo basale</string>
+    <string name="daily_calories_need">Apporto calorico giornaliero</string>
+    <string name="unit_of_measure">kcal</string>
+    <string name="main_toast_error_age">Errore nel calcolo dell\'età</string>
+
+    /* Sign up / Profile */
+    <string-array name="work_heaviness_choices">
+        <item>Attività lavorativa leggera</item>
+        <item>Attività lavorativa moderata</item>
+        <item>Attività lavorativa pesante</item>
+    </string-array>
+    <string name="work_heaviness_1">Attività lavorativa leggera</string>
+    <string name="work_heaviness_2">Attività lavorativa moderata</string>
+    <string name="work_heaviness_3">Attività lavorativa pesante</string>
+    <string-array name="sport_practiced">
+        <item>Sport praticato</item>
+        <item>Sport non praticato</item>
+    </string-array>
 </resources>
