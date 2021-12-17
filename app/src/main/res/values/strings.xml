@@ -65,6 +65,7 @@
     <string name="work_heaviness_1">Attività lavorativa leggera</string>
     <string name="work_heaviness_2">Attività lavorativa moderata</string>
     <string name="work_heaviness_3">Attività lavorativa pesante</string>
+    <string name="main_calories_taken">Calorie assunte oggi</string>
     <string-array name="sport_practiced">
         <item>Sport praticato</item>
         <item>Sport non praticato</item>

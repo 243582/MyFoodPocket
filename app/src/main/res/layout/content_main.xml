@@ -4,8 +4,9 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="70dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -18,5 +19,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/main_text_view_daily_calories" />
+        <TextView
+            android:id="@+id/main_text_view_calories_taken"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/main_calories_taken" />
+        <ProgressBar
+            android:layout_marginTop="10dp"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="false"
+            android:progress="50"
+            android:progressDrawable="@drawable/greenprogress"
+            android:id="@+id/main_progress_bar" />
     </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ScrollView>
 </LinearLayout>

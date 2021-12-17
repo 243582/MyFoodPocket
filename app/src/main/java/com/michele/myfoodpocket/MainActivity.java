@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,6 +44,9 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     private DatabaseReference databaseReference;
     private String userKey;
     private User userInfo;
+
+    private double basalMetabolicRate = 0;
+    private double dailyCaloriesNeed = 0;
 
     static final int MIN_AGE = 18;
     static final int MEDIUM_AGE_1 = 30;
@@ -177,8 +181,8 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
                     int birthdayMonth = Integer.parseInt(userInfo.getBirthDate().split("/")[1]);
                     int birthdayYear = Integer.parseInt(userInfo.getBirthDate().split("/")[2]);
                     int age = getAge(birthdayDay, birthdayMonth, birthdayYear);
-                    double basalMetabolicRate = 0;
-                    double dailyCaloriesNeed = 0;
+                    basalMetabolicRate = 0;
+                    dailyCaloriesNeed = 0;
                     TextView tvBasalMetabolicRate = findViewById(R.id.main_text_view_basal_metabolic_rate);
                     TextView tvCalories = findViewById(R.id.main_text_view_daily_calories);
 
@@ -194,6 +198,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
                             if(userInfo.getWorkHeaviness() == 1) {
                                 if(userInfo.getSportPracticed() == true) {
                                     dailyCaloriesNeed = basalMetabolicRate * 1.55;
+                                    Toast.makeText(getBaseContext(), dailyCaloriesNeed + "", Toast.LENGTH_SHORT).show();
                                     String dailyCaloriesPrint = String.format("%.0f", dailyCaloriesNeed);
                                     tvCalories.setText(getResources().getString(R.string.daily_calories_need) + ": " + dailyCaloriesPrint + " " + getResources().getString(R.string.unit_of_measure));
                                 }
@@ -342,6 +347,13 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
                             Toast.makeText(getBaseContext(), getResources().getString(R.string.main_toast_error_age), Toast.LENGTH_SHORT).show();
                         }
                     }
+
+                    // Una volta calcolato metabolismo basale e apporto calorico giornaliero, vengono segnalati i progressi giornalieri dell'utente
+                    ProgressBar pb = findViewById(R.id.main_progress_bar);
+                    TextView tvCaloriesTaken = findViewById(R.id.main_text_view_calories_taken);
+                    tvCaloriesTaken.setText(tvCaloriesTaken.getText() + ": " + 50); // 50 provvisorio, da sostituire poi
+                    pb.setProgress((int)(((2000 * 100) / dailyCaloriesNeed)));
+
                 }
 
                 @Override
