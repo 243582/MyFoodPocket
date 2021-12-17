@@ -189,86 +189,72 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
                                 basalMetabolicRate = 15.3 * userInfo.getWeight() + 679;
                             else
                                 basalMetabolicRate = 11.6 * userInfo.getWeight() + 879;
+                            String basalMetabolicRatePrint = String.format("%.0f", basalMetabolicRate);
+                            tvBasalMetabolicRate.setText(getResources().getString(R.string.basal_metabolic_rate) + ": " + basalMetabolicRatePrint + " " + getResources().getString(R.string.unit_of_measure));
                             if(userInfo.getWorkHeaviness() == 1) {
                                 if(userInfo.getSportPracticed() == true) {
                                     dailyCaloriesNeed = basalMetabolicRate * 1.55;
-                                    String basalMetabolicRatePrint = String.format("%.0f", basalMetabolicRate);
                                     String dailyCaloriesPrint = String.format("%.0f", dailyCaloriesNeed);
-                                    tvBasalMetabolicRate.setText(getResources().getString(R.string.basal_metabolic_rate) + ": " + basalMetabolicRatePrint + " " + getResources().getString(R.string.unit_of_measure));
                                     tvCalories.setText(getResources().getString(R.string.daily_calories_need) + ": " + dailyCaloriesPrint + " " + getResources().getString(R.string.unit_of_measure));
                                 }
                                 else {
                                     dailyCaloriesNeed = basalMetabolicRate * 1.41;
-                                    String basalMetabolicRatePrint = String.format("%.0f", basalMetabolicRate);
                                     String dailyCaloriesPrint = String.format("%.0f", dailyCaloriesNeed);
-                                    tvBasalMetabolicRate.setText(getResources().getString(R.string.basal_metabolic_rate) + ": " + basalMetabolicRatePrint + " " + getResources().getString(R.string.unit_of_measure));
                                     tvCalories.setText(getResources().getString(R.string.daily_calories_need) + ": " + dailyCaloriesPrint + " " + getResources().getString(R.string.unit_of_measure));
                                 }
                             }
                             else if(userInfo.getWorkHeaviness() == 2) {
                                 if(userInfo.getSportPracticed() == true) {
                                     dailyCaloriesNeed = basalMetabolicRate * 1.78;
-                                    String basalMetabolicRatePrint = String.format("%.0f", basalMetabolicRate);
                                     String dailyCaloriesPrint = String.format("%.0f", dailyCaloriesNeed);
-                                    tvBasalMetabolicRate.setText(getResources().getString(R.string.basal_metabolic_rate) + ": " + basalMetabolicRatePrint + " " + getResources().getString(R.string.unit_of_measure));
                                     tvCalories.setText(getResources().getString(R.string.daily_calories_need) + ": " + dailyCaloriesPrint + " " + getResources().getString(R.string.unit_of_measure));
                                 }
                                 else {
                                     dailyCaloriesNeed = basalMetabolicRate * 1.70;
-                                    String basalMetabolicRatePrint = String.format("%.0f", basalMetabolicRate);
                                     String dailyCaloriesPrint = String.format("%.0f", dailyCaloriesNeed);
-                                    tvBasalMetabolicRate.setText(getResources().getString(R.string.basal_metabolic_rate) + ": " + basalMetabolicRatePrint + " " + getResources().getString(R.string.unit_of_measure));
                                     tvCalories.setText(getResources().getString(R.string.daily_calories_need) + ": " + dailyCaloriesPrint + " " + getResources().getString(R.string.unit_of_measure));
                                 }
                             }
                             else if(userInfo.getWorkHeaviness() == 3) {
                                 if(userInfo.getSportPracticed() == true) {
                                     dailyCaloriesNeed = basalMetabolicRate * 2.10;
-                                    String basalMetabolicRatePrint = String.format("%.0f", basalMetabolicRate);
                                     String dailyCaloriesPrint = String.format("%.0f", dailyCaloriesNeed);
-                                    tvBasalMetabolicRate.setText(getResources().getString(R.string.basal_metabolic_rate) + ": " + basalMetabolicRatePrint + " " + getResources().getString(R.string.unit_of_measure));
                                     tvCalories.setText(getResources().getString(R.string.daily_calories_need) + ": " + dailyCaloriesPrint + " " + getResources().getString(R.string.unit_of_measure));
                                 }
                                 else {
                                     dailyCaloriesNeed = basalMetabolicRate * 2.01;
-                                    String basalMetabolicRatePrint = String.format("%.0f", basalMetabolicRate);
                                     String dailyCaloriesPrint = String.format("%.0f", dailyCaloriesNeed);
-                                    tvBasalMetabolicRate.setText(getResources().getString(R.string.basal_metabolic_rate) + ": " + basalMetabolicRatePrint + " " + getResources().getString(R.string.unit_of_measure));
                                     tvCalories.setText(getResources().getString(R.string.daily_calories_need) + ": " + dailyCaloriesPrint + " " + getResources().getString(R.string.unit_of_measure));
                                 }
                             }
                         }
                         else if(age >= MEDIUM_AGE_2 && age <= MAX_AGE-1) {
                             basalMetabolicRate = 11.9 * userInfo.getWeight() + 700;
+                            String basalMetabolicRatePrint = String.format("%.0f", basalMetabolicRate);
+                            tvBasalMetabolicRate.setText(getResources().getString(R.string.basal_metabolic_rate) + ": " + basalMetabolicRatePrint + " " + getResources().getString(R.string.unit_of_measure));
                             if(userInfo.getSportPracticed() == true) {
                                 dailyCaloriesNeed = basalMetabolicRate * 1.51;
-                                String basalMetabolicRatePrint = String.format("%.0f", basalMetabolicRate);
                                 String dailyCaloriesPrint = String.format("%.0f", dailyCaloriesNeed);
-                                tvBasalMetabolicRate.setText(getResources().getString(R.string.basal_metabolic_rate) + ": " + basalMetabolicRatePrint + " " + getResources().getString(R.string.unit_of_measure));
                                 tvCalories.setText(getResources().getString(R.string.daily_calories_need) + ": " + dailyCaloriesPrint + " " + getResources().getString(R.string.unit_of_measure));
                             }
                             else {
                                 dailyCaloriesNeed = basalMetabolicRate * 1.40;
-                                String basalMetabolicRatePrint = String.format("%.0f", basalMetabolicRate);
                                 String dailyCaloriesPrint = String.format("%.0f", dailyCaloriesNeed);
-                                tvBasalMetabolicRate.setText(getResources().getString(R.string.basal_metabolic_rate) + ": " + basalMetabolicRatePrint + " " + getResources().getString(R.string.unit_of_measure));
                                 tvCalories.setText(getResources().getString(R.string.daily_calories_need) + ": " + dailyCaloriesPrint + " " + getResources().getString(R.string.unit_of_measure));
                             }
                         }
                         else if(age >= MAX_AGE) {
                             basalMetabolicRate = 8.4 * userInfo.getWeight() + 819;
+                            String basalMetabolicRatePrint = String.format("%.0f", basalMetabolicRate);
+                            tvBasalMetabolicRate.setText(getResources().getString(R.string.basal_metabolic_rate) + ": " + basalMetabolicRatePrint + " " + getResources().getString(R.string.unit_of_measure));
                             if(userInfo.getSportPracticed() == true) {
                                 dailyCaloriesNeed = basalMetabolicRate * 1.51;
-                                String basalMetabolicRatePrint = String.format("%.0f", basalMetabolicRate);
                                 String dailyCaloriesPrint = String.format("%.0f", dailyCaloriesNeed);
-                                tvBasalMetabolicRate.setText(getResources().getString(R.string.basal_metabolic_rate) + ": " + basalMetabolicRatePrint + " " + getResources().getString(R.string.unit_of_measure));
                                 tvCalories.setText(getResources().getString(R.string.daily_calories_need) + ": " + dailyCaloriesPrint + " " + getResources().getString(R.string.unit_of_measure));
                             }
                             else {
                                 dailyCaloriesNeed = basalMetabolicRate * 1.33;
-                                String basalMetabolicRatePrint = String.format("%.0f", basalMetabolicRate);
                                 String dailyCaloriesPrint = String.format("%.0f", dailyCaloriesNeed);
-                                tvBasalMetabolicRate.setText(getResources().getString(R.string.basal_metabolic_rate) + ": " + basalMetabolicRatePrint + " " + getResources().getString(R.string.unit_of_measure));
                                 tvCalories.setText(getResources().getString(R.string.daily_calories_need) + ": " + dailyCaloriesPrint + " " + getResources().getString(R.string.unit_of_measure));
                             }
                         }
@@ -283,86 +269,72 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
                                 basalMetabolicRate = 14.7 * userInfo.getWeight() + 496;
                             else
                                 basalMetabolicRate = 8.7 * userInfo.getWeight() + 829;
+                            String basalMetabolicRatePrint = String.format("%.0f", basalMetabolicRate);
+                            tvBasalMetabolicRate.setText(getResources().getString(R.string.basal_metabolic_rate) + ": " + basalMetabolicRatePrint + " " + getResources().getString(R.string.unit_of_measure));
                             if(userInfo.getWorkHeaviness() == 1) {
                                 if(userInfo.getSportPracticed() == true) {
                                     dailyCaloriesNeed = basalMetabolicRate * 1.56;
-                                    String basalMetabolicRatePrint = String.format("%.0f", basalMetabolicRate);
                                     String dailyCaloriesPrint = String.format("%.0f", dailyCaloriesNeed);
-                                    tvBasalMetabolicRate.setText(getResources().getString(R.string.basal_metabolic_rate) + ": " + basalMetabolicRatePrint + " " + getResources().getString(R.string.unit_of_measure));
                                     tvCalories.setText(getResources().getString(R.string.daily_calories_need) + ": " + dailyCaloriesPrint + " " + getResources().getString(R.string.unit_of_measure));
                                 }
                                 else {
                                     dailyCaloriesNeed = basalMetabolicRate * 1.42;
-                                    String basalMetabolicRatePrint = String.format("%.0f", basalMetabolicRate);
                                     String dailyCaloriesPrint = String.format("%.0f", dailyCaloriesNeed);
-                                    tvBasalMetabolicRate.setText(getResources().getString(R.string.basal_metabolic_rate) + ": " + basalMetabolicRatePrint + " " + getResources().getString(R.string.unit_of_measure));
                                     tvCalories.setText(getResources().getString(R.string.daily_calories_need) + ": " + dailyCaloriesPrint + " " + getResources().getString(R.string.unit_of_measure));
                                 }
                             }
                             else if(userInfo.getWorkHeaviness() == 2) {
                                 if(userInfo.getSportPracticed() == true) {
                                     dailyCaloriesNeed = basalMetabolicRate * 1.64;
-                                    String basalMetabolicRatePrint = String.format("%.0f", basalMetabolicRate);
                                     String dailyCaloriesPrint = String.format("%.0f", dailyCaloriesNeed);
-                                    tvBasalMetabolicRate.setText(getResources().getString(R.string.basal_metabolic_rate) + ": " + basalMetabolicRatePrint + " " + getResources().getString(R.string.unit_of_measure));
                                     tvCalories.setText(getResources().getString(R.string.daily_calories_need) + ": " + dailyCaloriesPrint + " " + getResources().getString(R.string.unit_of_measure));
                                 }
                                 else {
                                     dailyCaloriesNeed = basalMetabolicRate * 1.56;
-                                    String basalMetabolicRatePrint = String.format("%.0f", basalMetabolicRate);
                                     String dailyCaloriesPrint = String.format("%.0f", dailyCaloriesNeed);
-                                    tvBasalMetabolicRate.setText(getResources().getString(R.string.basal_metabolic_rate) + ": " + basalMetabolicRatePrint + " " + getResources().getString(R.string.unit_of_measure));
                                     tvCalories.setText(getResources().getString(R.string.daily_calories_need) + ": " + dailyCaloriesPrint + " " + getResources().getString(R.string.unit_of_measure));
                                 }
                             }
                             else if(userInfo.getWorkHeaviness() == 3) {
                                 if(userInfo.getSportPracticed() == true) {
                                     dailyCaloriesNeed = basalMetabolicRate * 1.82;
-                                    String basalMetabolicRatePrint = String.format("%.0f", basalMetabolicRate);
                                     String dailyCaloriesPrint = String.format("%.0f", dailyCaloriesNeed);
-                                    tvBasalMetabolicRate.setText(getResources().getString(R.string.basal_metabolic_rate) + ": " + basalMetabolicRatePrint + " " + getResources().getString(R.string.unit_of_measure));
                                     tvCalories.setText(getResources().getString(R.string.daily_calories_need) + ": " + dailyCaloriesPrint + " " + getResources().getString(R.string.unit_of_measure));
                                 }
                                 else {
                                     dailyCaloriesNeed = basalMetabolicRate * 1.73;
-                                    String basalMetabolicRatePrint = String.format("%.0f", basalMetabolicRate);
                                     String dailyCaloriesPrint = String.format("%.0f", dailyCaloriesNeed);
-                                    tvBasalMetabolicRate.setText(getResources().getString(R.string.basal_metabolic_rate) + ": " + basalMetabolicRatePrint + " " + getResources().getString(R.string.unit_of_measure));
                                     tvCalories.setText(getResources().getString(R.string.daily_calories_need) + ": " + dailyCaloriesPrint + " " + getResources().getString(R.string.unit_of_measure));
                                 }
                             }
                         }
                         else if(age >= MEDIUM_AGE_2 && age <= MAX_AGE-1) {
                             basalMetabolicRate = 9.2 * userInfo.getWeight() + 688;
+                            String basalMetabolicRatePrint = String.format("%.0f", basalMetabolicRate);
+                            tvBasalMetabolicRate.setText(getResources().getString(R.string.basal_metabolic_rate) + ": " + basalMetabolicRatePrint + " " + getResources().getString(R.string.unit_of_measure));
                             if(userInfo.getSportPracticed() == true) {
                                 dailyCaloriesNeed = basalMetabolicRate * 1.56;
-                                String basalMetabolicRatePrint = String.format("%.0f", basalMetabolicRate);
                                 String dailyCaloriesPrint = String.format("%.0f", dailyCaloriesNeed);
-                                tvBasalMetabolicRate.setText(getResources().getString(R.string.basal_metabolic_rate) + ": " + basalMetabolicRatePrint + " " + getResources().getString(R.string.unit_of_measure));
                                 tvCalories.setText(getResources().getString(R.string.daily_calories_need) + ": " + dailyCaloriesPrint + " " + getResources().getString(R.string.unit_of_measure));
                             }
                             else {
                                 dailyCaloriesNeed = basalMetabolicRate * 1.44;
-                                String basalMetabolicRatePrint = String.format("%.0f", basalMetabolicRate);
                                 String dailyCaloriesPrint = String.format("%.0f", dailyCaloriesNeed);
-                                tvBasalMetabolicRate.setText(getResources().getString(R.string.basal_metabolic_rate) + ": " + basalMetabolicRatePrint + " " + getResources().getString(R.string.unit_of_measure));
                                 tvCalories.setText(getResources().getString(R.string.daily_calories_need) + ": " + dailyCaloriesPrint + " " + getResources().getString(R.string.unit_of_measure));
                             }
                         }
                         else if(age >= MAX_AGE) {
                             basalMetabolicRate = 9.8 * userInfo.getWeight() + 624;
+                            String basalMetabolicRatePrint = String.format("%.0f", basalMetabolicRate);
+                            tvBasalMetabolicRate.setText(getResources().getString(R.string.basal_metabolic_rate) + ": " + basalMetabolicRatePrint + " " + getResources().getString(R.string.unit_of_measure));
                             if(userInfo.getSportPracticed() == true) {
                                 dailyCaloriesNeed = basalMetabolicRate * 1.56;
-                                String basalMetabolicRatePrint = String.format("%.0f", basalMetabolicRate);
                                 String dailyCaloriesPrint = String.format("%.0f", dailyCaloriesNeed);
-                                tvBasalMetabolicRate.setText(getResources().getString(R.string.basal_metabolic_rate) + ": " + basalMetabolicRatePrint + " " + getResources().getString(R.string.unit_of_measure));
                                 tvCalories.setText(getResources().getString(R.string.daily_calories_need) + ": " + dailyCaloriesPrint + " " + getResources().getString(R.string.unit_of_measure));
                             }
                             else {
                                 dailyCaloriesNeed = basalMetabolicRate * 1.37;
-                                String basalMetabolicRatePrint = String.format("%.0f", basalMetabolicRate);
                                 String dailyCaloriesPrint = String.format("%.0f", dailyCaloriesNeed);
-                                tvBasalMetabolicRate.setText(getResources().getString(R.string.basal_metabolic_rate) + ": " + basalMetabolicRatePrint + " " + getResources().getString(R.string.unit_of_measure));
                                 tvCalories.setText(getResources().getString(R.string.daily_calories_need) + ": " + dailyCaloriesPrint + " " + getResources().getString(R.string.unit_of_measure));
                             }
                         }

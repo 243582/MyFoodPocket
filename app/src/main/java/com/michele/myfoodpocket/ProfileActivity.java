@@ -62,8 +62,8 @@ public class ProfileActivity extends AppCompatActivity {
                     TextView tvSex = (TextView)(findViewById(R.id.profile_sex));
                     String tvSexString = (userProfile.getSex() == 1 ? getResources().getString(R.string.sex_1) : getResources().getString(R.string.sex_2));
                     tvSex.setText(tvSexString);
-                    EditText etHeight = (EditText)(findViewById(R.id.profile_height));
-                    etHeight.setText("" + userProfile.getHeight());
+                    TextView tvHeight = (TextView)(findViewById(R.id.profile_height));
+                    tvHeight.setText("" + userProfile.getHeight());
                     EditText etWeight = (EditText) (findViewById(R.id.profile_weight));
                     etWeight.setText("" + userProfile.getWeight());
                     TextView tvBirthdate = (TextView)(findViewById(R.id.profile_birthdate));
@@ -91,14 +91,12 @@ public class ProfileActivity extends AppCompatActivity {
     public void profileOnClick(View view) {
         databaseReference = database.getReference("User");
 
-        int newHeight = Integer.parseInt(((EditText)(findViewById(R.id.profile_height))).getText().toString());
         float newWeight = Float.parseFloat(((EditText)(findViewById(R.id.profile_weight))).getText().toString());
         int newWorkheaviness = ((Spinner)(findViewById(R.id.profile_spinner_work_heaviness))).getSelectedItemPosition() + 1; // Lavoro: 1 leggero, 2 moderato, 3 pesante. Il +1 è per l'indice degli item dello spinner che partono da 0
         int newSportPracticedInt = ((Spinner)(findViewById(R.id.profile_spinner_sport_practiced))).getSelectedItemPosition();
         boolean newSportPracticedBool = (newSportPracticedInt == 0 ? true : false);
 
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put(userKey + "/height", newHeight);
         childUpdates.put(userKey + "/weight", newWeight);
         childUpdates.put(userKey + "/workHeaviness", newWorkheaviness);
         childUpdates.put(userKey + "/sportPracticed", newSportPracticedBool);

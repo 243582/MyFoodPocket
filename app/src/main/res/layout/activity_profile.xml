@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:text="@string/profile_textview_height" />
-            <EditText
+            <TextView
                 android:textSize="20dp"
                 android:id="@+id/profile_height"
                 android:layout_width="wrap_content"
