@@ -360,7 +360,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
                 public void onCancelled(DatabaseError error)
                 {
                     // Failed to read value
-                    Log.w("DEBUG", "Failed to read value.", error.toException());
+                    Log.w("DEBUG", "Failed to read value...", error.toException());
                 }
             });
         }
