@@ -1,21 +1,29 @@
 package com.michele.myfoodpocket;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.core.view.GravityCompat;
+import androidx.fragment.app.DialogFragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -32,7 +40,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.michele.myfoodpocket.databinding.ActivityMainBinding;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener {
 
@@ -44,6 +54,9 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     private DatabaseReference databaseReference;
     private String userKey;
     private User userInfo;
+    private TextView textViewDate;
+    private Button dateButton;
+    private Calendar myCalendar;
 
     private double basalMetabolicRate = 0;
     private double dailyCaloriesNeed = 0;
@@ -87,6 +100,15 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
 
         // Calcolo apporto calorico giornaliero
         dailyCalories();
+
+        // Impostazione della data
+        dateButton = findViewById(R.id.main_date_button);
+        myCalendar = Calendar.getInstance();
+        textViewDate = (TextView) findViewById(R.id.main_text_view_date);
+        String myFormat = "dd/MM/yyyy";
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
+        textViewDate.setText(sdf.format(myCalendar.getTime()));
+        dateSetup();
     }
 
     @Override
@@ -367,5 +389,34 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     public void action_button_on_click(View view) {
         Intent newIntent = new Intent(this, AddMealActivity.class);
         startActivity(newIntent);
+    }
+
+    private void updateLabel() {
+        String myFormat = "dd/MM/yyyy";
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
+        textViewDate.setText(sdf.format(myCalendar.getTime()));
+    }
+
+    private void dateSetup() {
+        DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
+
+        };
+        dateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(MainActivity.this, date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
     }
 }

@@ -54,6 +54,7 @@
     <string name="basal_metabolic_rate">Metabolismo basale</string>
     <string name="daily_calories_need">Apporto calorico giornaliero</string>
     <string name="unit_of_measure">kcal</string>
+    <string name="main_set_date">Seleziona data</string>
 
     /* Sign up / Profile */
     <string-array name="work_heaviness_choices">
