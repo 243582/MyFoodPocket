@@ -62,14 +62,9 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // Barra di supporto
         setSupportActionBar(binding.appBarMain.toolbar);
-        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
 
@@ -198,7 +193,6 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
                             if(userInfo.getWorkHeaviness() == 1) {
                                 if(userInfo.getSportPracticed() == true) {
                                     dailyCaloriesNeed = basalMetabolicRate * 1.55;
-                                    Toast.makeText(getBaseContext(), dailyCaloriesNeed + "", Toast.LENGTH_SHORT).show();
                                     String dailyCaloriesPrint = String.format("%.0f", dailyCaloriesNeed);
                                     tvCalories.setText(getResources().getString(R.string.daily_calories_need) + ": " + dailyCaloriesPrint + " " + getResources().getString(R.string.unit_of_measure));
                                 }
@@ -367,5 +361,11 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         else {
             Toast.makeText(this, getResources().getString(R.string.profile_toast_user_fail), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    // Action button: aggiungere un pasto
+    public void action_button_on_click(View view) {
+        Intent newIntent = new Intent(this, AddMealActivity.class);
+        startActivity(newIntent);
     }
 }

@@ -54,7 +54,6 @@
     <string name="basal_metabolic_rate">Metabolismo basale</string>
     <string name="daily_calories_need">Apporto calorico giornaliero</string>
     <string name="unit_of_measure">kcal</string>
-    <string name="main_toast_error_age">Errore nel calcolo dell\'età</string>
 
     /* Sign up / Profile */
     <string-array name="work_heaviness_choices">
@@ -66,8 +65,14 @@
     <string name="work_heaviness_2">Attività lavorativa moderata</string>
     <string name="work_heaviness_3">Attività lavorativa pesante</string>
     <string name="main_calories_taken">Calorie assunte oggi</string>
+    <string name="add_meal_text_view_add_meal">Aggiungi un pasto</string>
     <string-array name="sport_practiced">
         <item>Sport praticato</item>
         <item>Sport non praticato</item>
     </string-array>
+
+    /* AddMealActivity */
+    <string name="main_toast_error_age">Errore nel calcolo dell\'età</string>
+    <string name="add_meal_date">Data</string>
+
 </resources>
