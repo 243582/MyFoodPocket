@@ -1,4 +1,5 @@
 <resources>
+
     /* Login */
     <string name="login_hint_email">Email</string>
     <string name="login_hint_password">Password</string>
@@ -55,6 +56,7 @@
     <string name="daily_calories_need">Apporto calorico giornaliero</string>
     <string name="unit_of_measure">kcal</string>
     <string name="main_set_date">Seleziona data</string>
+    <string name="main_null_meals">Aggiungi un pasto al tuo diario</string>
 
     /* Sign up / Profile */
     <string-array name="work_heaviness_choices">

@@ -13,7 +13,9 @@ import android.view.Menu;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -22,6 +24,7 @@ import android.widget.Toast;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.navigation.NavController;
@@ -41,6 +44,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.michele.myfoodpocket.databinding.ActivityMainBinding;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -65,6 +69,8 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     static final int MEDIUM_AGE_1 = 30;
     static final int MEDIUM_AGE_2 = 60;
     static final int MAX_AGE = 75;
+
+    private ArrayList <Meal> meals;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +115,9 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
         textViewDate.setText(sdf.format(myCalendar.getTime()));
         dateSetup();
+        
+        // Reperimento pasto
+        getMeal();
     }
 
     @Override
@@ -164,7 +173,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         return Integer.parseInt(ageS);
     }
 
-    public void dailyCalories()
+    private void dailyCalories()
     {
         /* Per calcolare le calorie giornaliere viene applicata la formula del metabolismo basale
            moltiplicata per il LAF (Livello Attività Fisica).
@@ -395,6 +404,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         String myFormat = "dd/MM/yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
         textViewDate.setText(sdf.format(myCalendar.getTime()));
+        getMeal(); // Chiamo una refresh sui dati per visualizzare i nuovi pasti giornalieri
     }
 
     private void dateSetup() {
@@ -418,5 +428,53 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
+    }
+    
+    private void getMeal() {
+        if(user != null) {
+            // Ho dovuto specificare l'URL perché quello ottenuto automaticamente non corrispondeva a quello effettivo del database Firebase
+            database = FirebaseDatabase.getInstance("https://myfoodpocket-bf82e-default-rtdb.europe-west1.firebasedatabase.app/");
+            databaseReference = database.getReference();
+            databaseReference = database.getReference("Meal");
+
+            databaseReference.orderByChild("emailDate").equalTo(user.getEmail() + ":" + textViewDate.getText()).addValueEventListener(new ValueEventListener() {
+
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    LinearLayout newLinearLayout = findViewById(R.id.main_scroll_linear_layout_meals);
+                    newLinearLayout.removeAllViews(); // Pulizia delle views prima di reinserirle
+
+                    if(dataSnapshot.hasChildren() == false) { // Se non c'è nessun pasto nella tal data
+                        TextView nullMealsTextView = new TextView(getBaseContext());
+                        nullMealsTextView.setText(getResources().getString(R.string.main_null_meals));
+                        newLinearLayout.addView(nullMealsTextView);
+                    }
+                    else { // Se c'è almeno un pasto nella tal data
+                        String mealKey;
+                        meals = new ArrayList<Meal>();
+                        for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) { //insieme di risposta
+                            if(postSnapshot!= null && postSnapshot.getValue()!= null) {
+                                mealKey = postSnapshot.getKey();
+                                meals.add(postSnapshot.getValue(Meal.class)); // <= reference al nostro oggetto
+                                Log.d("DEBUGMAINMEAL", postSnapshot.getValue().toString());
+                            }
+                        }
+
+                        for(int i = 0; i < meals.size(); i++) {
+                            TextView newTextView = new TextView(getBaseContext());
+                            newTextView.setText(meals.get(i).toString());
+                            newLinearLayout.addView(newTextView);
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    // Failed to read value
+                    Log.w("DEBUG", "Failed to read value.", error.toException());
+                }
+            });
+        }
     }
 }

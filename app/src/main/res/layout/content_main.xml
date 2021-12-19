@@ -53,5 +53,11 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/main_scroll_linear_layout_meals"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </LinearLayout>
     </ScrollView>
 </LinearLayout>
