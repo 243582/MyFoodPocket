@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     static final int MAX_AGE = 75;
 
     private ArrayList <Meal> meals;
+    private int caloriesOfTheDay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +118,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         dateSetup();
         
         // Reperimento pasto
+        caloriesOfTheDay = 0;
         getMeal();
     }
 
@@ -372,13 +374,6 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
                             Toast.makeText(getBaseContext(), getResources().getString(R.string.main_toast_error_age), Toast.LENGTH_SHORT).show();
                         }
                     }
-
-                    // Una volta calcolato metabolismo basale e apporto calorico giornaliero, vengono segnalati i progressi giornalieri dell'utente
-                    ProgressBar pb = findViewById(R.id.main_progress_bar);
-                    TextView tvCaloriesTaken = findViewById(R.id.main_text_view_calories_taken);
-                    tvCaloriesTaken.setText(tvCaloriesTaken.getText() + ": " + 50); // 50 provvisorio, da sostituire poi
-                    pb.setProgress((int)(((2000 * 100) / dailyCaloriesNeed)));
-
                 }
 
                 @Override
@@ -404,7 +399,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         String myFormat = "dd/MM/yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
         textViewDate.setText(sdf.format(myCalendar.getTime()));
-        getMeal(); // Chiamo una refresh sui dati per visualizzare i nuovi pasti giornalieri
+        getMeal(); // Chiamo un refresh sui dati per visualizzare i nuovi pasti giornalieri
     }
 
     private void dateSetup() {
@@ -432,6 +427,9 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     
     private void getMeal() {
         if(user != null) {
+            // Azzero le calorie giornaliere in quanto vengono ricalcolate
+            caloriesOfTheDay = 0;
+
             // Ho dovuto specificare l'URL perché quello ottenuto automaticamente non corrispondeva a quello effettivo del database Firebase
             database = FirebaseDatabase.getInstance("https://myfoodpocket-bf82e-default-rtdb.europe-west1.firebasedatabase.app/");
             databaseReference = database.getReference();
@@ -449,6 +447,12 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
                         TextView nullMealsTextView = new TextView(getBaseContext());
                         nullMealsTextView.setText(getResources().getString(R.string.main_null_meals));
                         newLinearLayout.addView(nullMealsTextView);
+
+                        // Anche nel caso in cui non ci siano pasti bisogna aggiornare calorie assunte in tal giorno e progress bar
+                        ProgressBar pb = findViewById(R.id.main_progress_bar);
+                        TextView tvCaloriesTaken = findViewById(R.id.main_text_view_calories_taken);
+                        tvCaloriesTaken.setText(getResources().getString(R.string.main_calories_taken) + ": " + caloriesOfTheDay); // 50 provvisorio, da sostituire poi
+                        pb.setProgress((int)(((caloriesOfTheDay * 100) / dailyCaloriesNeed)));
                     }
                     else { // Se c'è almeno un pasto nella tal data
                         String mealKey;
@@ -462,10 +466,17 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
                         }
 
                         for(int i = 0; i < meals.size(); i++) {
+                            caloriesOfTheDay += meals.get(i).getCalories();
                             TextView newTextView = new TextView(getBaseContext());
                             newTextView.setText(meals.get(i).toString());
                             newLinearLayout.addView(newTextView);
                         }
+
+                        // Una volta calcolato metabolismo basale e apporto calorico giornaliero, vengono segnalati i progressi giornalieri dell'utente
+                        ProgressBar pb = findViewById(R.id.main_progress_bar);
+                        TextView tvCaloriesTaken = findViewById(R.id.main_text_view_calories_taken);
+                        tvCaloriesTaken.setText(getResources().getString(R.string.main_calories_taken) + ": " + caloriesOfTheDay); // 50 provvisorio, da sostituire poi
+                        pb.setProgress((int)(((caloriesOfTheDay * 100) / dailyCaloriesNeed)));
                     }
                 }
 

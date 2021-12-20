@@ -67,7 +67,7 @@
     <string name="work_heaviness_1">Attività lavorativa leggera</string>
     <string name="work_heaviness_2">Attività lavorativa moderata</string>
     <string name="work_heaviness_3">Attività lavorativa pesante</string>
-    <string name="main_calories_taken">Calorie assunte oggi</string>
+    <string name="main_calories_taken">Calorie assunte</string>
     <string name="add_meal_text_view_add_meal">Aggiungi un pasto</string>
     <string-array name="sport_practiced">
         <item>Sport praticato</item>
@@ -77,5 +77,19 @@
     /* AddMealActivity */
     <string name="main_toast_error_age">Errore nel calcolo dell\'età</string>
     <string name="add_meal_date">Data</string>
+    <string name="add_meal_category">Categoria</string>
+    <string name="add_meal_description">Descrizione</string>
+    <string name="add_meal_calories">Calorie</string>
+    <string name="add_meal_button_add_meal">Aggiungi pasto</string>
+    <string name="add_meal_success">Pasto aggiunto correttamente</string>
+    <string name="add_meal_failed">Inserimento del pasto fallito</string>
+    <string-array name="add_meal_category_choices">
+        <item>Colazione</item>
+        <item>Merenda a metà mattina</item>
+        <item>Pranzo</item>
+        <item>Merenda a metà pomeriggio</item>
+        <item>Cena</item>
+        <item>Altro</item>
+    </string-array>
 
 </resources>

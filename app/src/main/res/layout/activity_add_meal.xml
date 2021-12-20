@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <TextView
+            android:textSize="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -20,19 +21,61 @@
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:rowCount="1"
+            android:rowCount="2"
             android:columnCount="2">
             <TextView
+                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/add_meal_date" />
             <TextView
+                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/add_meal_date_print"
                 android:text="-" />
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_meal_category" />
+            <Spinner
+                android:layout_marginTop="10dp"
+                android:id="@+id/add_meal_spinner_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/add_meal_category_choices" />
         </GridLayout>
-
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/add_meal_description" />
+        <EditText
+            android:layout_marginTop="10dp"
+            android:id="@+id/add_meal_edit_text_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLength="50" />
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/add_meal_calories" />
+        <EditText
+            android:layout_marginTop="10dp"
+            android:id="@+id/add_meal_edit_text_calories"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:maxLength="4" />
+        <Button
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/add_meal_button_add_meal"
+            android:onClick="action_button_on_click" />
     </LinearLayout>
 
 </LinearLayout>
