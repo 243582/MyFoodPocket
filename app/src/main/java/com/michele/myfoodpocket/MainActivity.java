@@ -62,8 +62,8 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     private Button dateButton;
     private Calendar myCalendar;
 
-    private double basalMetabolicRate = 0;
-    private double dailyCaloriesNeed = 0;
+    private static double basalMetabolicRate = 0;
+    private static double dailyCaloriesNeed = 0;
 
     static final int MIN_AGE = 18;
     static final int MEDIUM_AGE_1 = 30;
@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         navigationView.getMenu().findItem(R.id.nav_profile).setOnMenuItemClickListener(this);
         navigationView.getMenu().findItem(R.id.nav_results).setOnMenuItemClickListener(this);
         navigationView.getMenu().findItem(R.id.nav_exit).setOnMenuItemClickListener(this);
+        navigationView.getMenu().findItem(R.id.nav_characteristics).setOnMenuItemClickListener(this);
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -141,6 +142,10 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         switch(menuItem.getItemId()) {
             case R.id.nav_profile:
                 newIntent = new Intent(MainActivity.this, ProfileActivity.class);
+                startActivity(newIntent);
+                break;
+            case R.id.nav_characteristics:
+                newIntent = new Intent(MainActivity.this, MyCharacteristicsActivity.class);
                 startActivity(newIntent);
                 break;
             case R.id.nav_results:
@@ -196,7 +201,6 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot)
                 {
-                    Log.d("DEBUGMAIN", "DENTRO3");
                     for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) { //insieme di risposta
                         if(postSnapshot!= null && postSnapshot.getValue()!= null) {
                             userKey = postSnapshot.getKey();
@@ -487,5 +491,13 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
                 }
             });
         }
+    }
+
+    public static double getDailyCaloriesNeed() {
+        return dailyCaloriesNeed;
+    }
+
+    public static double getBasalMetabolicRate() {
+        return basalMetabolicRate;
     }
 }

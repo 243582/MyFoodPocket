@@ -9,6 +9,10 @@
             android:icon="@drawable/ic_baseline_person_24"
             android:title="@string/menu_profile" />
         <item
+            android:id="@+id/nav_characteristics"
+            android:icon="@drawable/ic_baseline_balance_24"
+            android:title="@string/menu_characteristics" />
+        <item
             android:id="@+id/nav_results"
             android:icon="@drawable/ic_baseline_format_list_numbered_24"
             android:title="@string/menu_results" />
