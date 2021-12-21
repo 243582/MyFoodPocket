@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.michele.myfoodpocket">
 
+    <uses-feature android:name="android.hardware.camera"
+        android:required="false" /> <!-- False perché la fotocamera è facoltativa -->
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

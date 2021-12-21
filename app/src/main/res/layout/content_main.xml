@@ -12,15 +12,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/main_text_view_basal_metabolic_rate" />
-        <TextView
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/main_text_view_daily_calories" />
-        <TextView
             android:id="@+id/main_text_view_calories_taken"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"

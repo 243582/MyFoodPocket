@@ -88,6 +88,7 @@
     <string name="characteristics_daily_calories">Fabbisogno calorico giornaliero</string>
     <string name="characteristics_body_mass_index">Indice di massa corporea</string>
     <string name="characteristics_my_characteristics_print">Le mie caratteristiche</string>
+    <string name="add_meal_button_take_photo">Scatta una foto</string>
     <string-array name="add_meal_category_choices">
         <item>Colazione</item>
         <item>Merenda a metà mattina</item>

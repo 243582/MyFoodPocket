@@ -63,9 +63,9 @@ public class MyCharacteristicsActivity extends AppCompatActivity {
                     nf.setMaximumFractionDigits(2);
 
                     TextView textViewBasalMetabolism = findViewById(R.id.characteristics_text_view_basal_metabolism);
-                    textViewBasalMetabolism.setText("" + MainActivity.getBasalMetabolicRate() + getResources().getString(R.string.unit_of_measure));
+                    textViewBasalMetabolism.setText("" + String.format("%.0f", MainActivity.getBasalMetabolicRate()) + getResources().getString(R.string.unit_of_measure));
                     TextView textViewDailyCalories = findViewById(R.id.characteristics_text_view_daily_calories);
-                    textViewDailyCalories.setText("" + MainActivity.getDailyCaloriesNeed() + getResources().getString(R.string.unit_of_measure));
+                    textViewDailyCalories.setText("" + String.format("%.0f", MainActivity.getDailyCaloriesNeed()) + getResources().getString(R.string.unit_of_measure));
                     TextView textViewBodyMassIndex = findViewById(R.id.characteristics_text_view_body_mass_index);
                     textViewBodyMassIndex.setText("" + nf.format(bodyMassIndex));
                 }
