@@ -2,8 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.michele.myfoodpocket">
 
-    <uses-feature android:name="android.hardware.camera"
-        android:required="false" /> <!-- False perché la fotocamera è facoltativa -->
+    <!-- Permessi per la fotocamera e per salvare foto -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" /> <!-- False perché la fotocamera è facoltativa -->
 
     <application
         android:allowBackup="true"
@@ -12,6 +14,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyFoodPocket">
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.michele.myfoodpocket.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"></meta-data>
+        </provider>
+
         <activity
             android:name=".MyCharacteristicsActivity"
             android:exported="false" />
