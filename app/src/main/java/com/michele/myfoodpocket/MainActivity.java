@@ -10,10 +10,12 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.Spinner;
@@ -73,9 +75,18 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     private ArrayList <Meal> meals;
     private int caloriesOfTheDay;
 
+    private String stringDate = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Se vengo da AddMealActivity recupero la data alla quale ho appena aggiunto un pasto e imposto la visualizzazione dei pasti su tale data
+        Bundle extras = getIntent().getExtras();
+        if (extras != null)
+            stringDate = extras.getString("dateChoice");
+        else
+            stringDate = "none"; // Altrimenti imposto tale stringa al valore "none"
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -110,13 +121,19 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         dailyCalories();
 
         // Impostazione della data
+        textViewDate = (TextView) findViewById(R.id.main_text_view_date);
         dateButton = findViewById(R.id.main_date_button);
         myCalendar = Calendar.getInstance();
-        textViewDate = (TextView) findViewById(R.id.main_text_view_date);
-        String myFormat = "dd/MM/yyyy";
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
-        textViewDate.setText(sdf.format(myCalendar.getTime()));
-        dateSetup();
+        if(!stringDate.equals("none")) { // Se mi è stata passata una data da AddMealActivity imposto tale data
+            textViewDate.setText(stringDate);
+        }
+        else { // Altrimenti prendo la data odierna
+            String myFormat = "dd/MM/yyyy";
+            SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
+            textViewDate.setText(sdf.format(myCalendar.getTime()));
+            stringDate = sdf.format(myCalendar.getTime()).toString();
+        }
+        dateSetup(); // In ogni caso chiamo la dateSetup()
         
         // Reperimento pasto
         caloriesOfTheDay = 0;
@@ -342,6 +359,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     // Action button: aggiungere un pasto
     public void action_button_on_click(View view) {
         Intent newIntent = new Intent(this, AddMealActivity.class);
+        newIntent.putExtra("choiceDate", stringDate);
         startActivity(newIntent);
     }
 
@@ -349,6 +367,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         String myFormat = "dd/MM/yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
         textViewDate.setText(sdf.format(myCalendar.getTime()));
+        stringDate = sdf.format(myCalendar.getTime()).toString(); // Aggiorno la stringa da passare all'intent dell'aggiunta di un nuovo pasto
         getMeal(); // Chiamo un refresh sui dati per visualizzare i nuovi pasti giornalieri
     }
 
@@ -390,13 +409,12 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                    LinearLayout newLinearLayout = findViewById(R.id.main_scroll_linear_layout_meals);
-                    newLinearLayout.removeAllViews(); // Pulizia delle views prima di reinserirle
+                    ListView newListView = findViewById(R.id.main_list_view);
+                    newListView.setAdapter(null); // Pulizia delle righe prima di inserire quelle nuove
+                    TextView newNullMealsTextView = findViewById(R.id.main_null_meals);
 
                     if(dataSnapshot.hasChildren() == false) { // Se non c'è nessun pasto nella tal data
-                        TextView nullMealsTextView = new TextView(getBaseContext());
-                        nullMealsTextView.setText(getResources().getString(R.string.main_null_meals));
-                        newLinearLayout.addView(nullMealsTextView);
+                        newNullMealsTextView.setText(getResources().getString(R.string.main_null_meals)); // Indico che non ci sono pasti e di aggiungerne uno nuovo
 
                         // Anche nel caso in cui non ci siano pasti bisogna aggiornare calorie assunte in tal giorno e progress bar
                         ProgressBar pb = findViewById(R.id.main_progress_bar);
@@ -405,6 +423,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
                         pb.setProgress((int)(((caloriesOfTheDay * 100) / dailyCaloriesNeed)));
                     }
                     else { // Se c'è almeno un pasto nella tal data
+                        newNullMealsTextView.setText(""); // Lascio vuota la text view che suggerisce di aggiungere un nuovo pasto
                         String mealKey;
                         meals = new ArrayList<Meal>();
                         for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) { //insieme di risposta
@@ -415,11 +434,12 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
                             }
                         }
 
+
+                        CustomAdapter adapter = new CustomAdapter(getBaseContext(), R.layout.meal_row, meals.toArray(new Meal[0])); // Passo un array di Meal come richiesto dall'adapter, new Meal[0] serve per il tipo su cui viene costruito l'array della funzione toArray
+                        newListView.setAdapter(adapter);
+
                         for(int i = 0; i < meals.size(); i++) {
                             caloriesOfTheDay += meals.get(i).getCalories();
-                            TextView newTextView = new TextView(getBaseContext());
-                            newTextView.setText(meals.get(i).toString());
-                            newLinearLayout.addView(newTextView);
                         }
 
                         // Una volta calcolato metabolismo basale e apporto calorico giornaliero, vengono segnalati i progressi giornalieri dell'utente

@@ -40,16 +40,22 @@ public class AddMealActivity extends AppCompatActivity {
     private String currentPhotoPath;
     private Bitmap photo;
     private String photoPath = "none"; // Inizializzo il percorso della foto a "none": se verrà scattata verrà sostituito con il vero percorso, altrimenti rimarrà "none"
+    private String stringDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_meal);
 
+        // Recupero la data selezionata
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            stringDate = extras.getString("choiceDate");
+        }
+
         // Rilevo la data e la stampo
         TextView tvDate = (TextView)(findViewById(R.id.add_meal_date_print));
-        tvDate.setText(Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + "/" +
-                (Calendar.getInstance().get(Calendar.MONTH) + 1) + "/" + Calendar.getInstance().get(Calendar.YEAR));
+        tvDate.setText(stringDate);
     }
 
     public void action_button_on_click(View view) {
@@ -82,6 +88,7 @@ public class AddMealActivity extends AppCompatActivity {
 
         Intent newIntent = new Intent(AddMealActivity.this, MainActivity.class);
         newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK); // Kill di tutte le activity nello stack
+        newIntent.putExtra("dateChoice", stringDate);
         startActivity(newIntent);
     }
 

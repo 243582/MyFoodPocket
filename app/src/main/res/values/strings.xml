@@ -58,6 +58,15 @@
     <string name="unit_of_measure">kcal</string>
     <string name="main_set_date">Seleziona data</string>
     <string name="main_null_meals">Aggiungi un pasto al tuo diario</string>
+    <string name="main_row_category">Categoria</string>
+    <string name="main_row_description">Descrizione</string>
+    <string name="main_row_calories">Calorie</string>
+    <string name="main_category_breakfast">Colazione</string>
+    <string name="main_category_snack_morning">Merenda a metà mattina</string>
+    <string name="main_category_lunch">Pranzo</string>
+    <string name="main_category_snack_afternoon">Merenda a metà pomeriggio</string>
+    <string name="main_category_dinner">Cena</string>
+    <string name="main_category_other">Altro</string>
 
     /* Sign up / Profile */
     <string-array name="work_heaviness_choices">
@@ -97,8 +106,5 @@
         <item>Cena</item>
         <item>Altro</item>
     </string-array>
-
-    /* MyCharacteristicsActivity */
-
 
 </resources>

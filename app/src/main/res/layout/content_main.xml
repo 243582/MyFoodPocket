@@ -41,15 +41,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
-    <ScrollView
-        android:layout_marginTop="10dp"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-        <LinearLayout
-            android:orientation="vertical"
-            android:id="@+id/main_scroll_linear_layout_meals"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </LinearLayout>
-    </ScrollView>
+        android:layout_height="wrap_content"
+        android:id="@+id/main_null_meals" />
+    <ListView
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10.0dp"
+        android:layout_margin="10dp"
+        android:id="@+id/main_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </ListView>
 </LinearLayout>
