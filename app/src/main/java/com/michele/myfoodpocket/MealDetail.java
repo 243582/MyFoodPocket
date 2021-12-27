@@ -63,9 +63,9 @@ public class MealDetail extends AppCompatActivity {
         TextView textViewCalories = (TextView)findViewById(R.id.detail_text_view_calories);
         textViewCalories.setText("" + meal.getCalories());
 
-        if(meal.getPhotoPath() != "none") {
+        ImageView imageViewMeal = (ImageView)findViewById(R.id.detail_image_view_picture);
+        if(!meal.getPhotoPath().equals("none")) {
             // Ottenimento della foto del pasto (se presente)
-            ImageView imageViewMeal = (ImageView)findViewById(R.id.detail_image_view_picture);
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageRef = storage.getReference();
             StorageReference picReference = storageRef.child(meal.getPhotoPath());
@@ -83,6 +83,20 @@ public class MealDetail extends AppCompatActivity {
                     //Toast.makeText(getBaseContext(), getResources().getString(R.string.meal_detail_picture_error), Toast.LENGTH_SHORT).show();
                 }
             });
+        }
+        else {
+            if(meal.getCategory().equals(getResources().getString(R.string.main_category_breakfast)))
+                imageViewMeal.setImageResource(R.drawable.ic_breakfast);
+            else if(meal.getCategory().equals(getResources().getString(R.string.main_category_snack_morning)))
+                imageViewMeal.setImageResource(R.drawable.ic_snack_morning);
+            else if(meal.getCategory().equals(getResources().getString(R.string.main_category_lunch)))
+                imageViewMeal.setImageResource(R.drawable.ic_lunch);
+            else if(meal.getCategory().equals(getResources().getString(R.string.main_category_snack_afternoon)))
+                imageViewMeal.setImageResource(R.drawable.ic_snack_afternoon);
+            else if(meal.getCategory().equals(getResources().getString(R.string.main_category_dinner)))
+                imageViewMeal.setImageResource(R.drawable.ic_dinner);
+            else if(meal.getCategory().equals(getResources().getString(R.string.main_category_other)))
+                imageViewMeal.setImageResource(R.drawable.ic_other);
         }
     }
 
