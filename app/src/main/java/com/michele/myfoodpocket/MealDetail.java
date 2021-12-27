@@ -115,6 +115,7 @@ public class MealDetail extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), getResources().getString(R.string.meal_detail_delete_success), Toast.LENGTH_SHORT).show();
                 Intent newIntent = new Intent(MealDetail.this, MainActivity.class);
                 newIntent.putExtra("dateChoice", stringDate);
+                newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK); // Kill di tutte le activity nello stack
                 startActivity(newIntent);
             }
 

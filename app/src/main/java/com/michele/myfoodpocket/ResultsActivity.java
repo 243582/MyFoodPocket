@@ -19,6 +19,6 @@ public class ResultsActivity extends AppCompatActivity {
 
         Calendar calendar = Calendar.getInstance(Locale.getDefault());
 
-        Toast.makeText(getBaseContext(), "" + calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE) + ":" + calendar.get(Calendar.SECOND), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getBaseContext(), "" + calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE) + ":" + calendar.get(Calendar.SECOND), Toast.LENGTH_SHORT).show();
     }
 }

@@ -68,7 +68,7 @@ public class AddMealActivity extends AppCompatActivity {
 
         // Creo l'identificativo del pasto mediante email + timestamp
         Calendar calendar = Calendar.getInstance(Locale.getDefault());
-        String id = user.getEmail() + ":" + textViewDate.getText().toString() + ":" + calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE) + ":" + calendar.get(Calendar.SECOND);
+        String id = user.getEmail() + ":" + textViewDate.getText().toString() + ":" + calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE) + ":" + calendar.get(Calendar.SECOND);
 
         String emailDate = user.getEmail() + ":" + textViewDate.getText().toString();
         String category = ((Spinner)(findViewById(R.id.add_meal_spinner_category))).getSelectedItem().toString();
