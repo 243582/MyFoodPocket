@@ -1,0 +1,117 @@
+package com.michele.myfoodpocket;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
+
+public class MealDetail extends AppCompatActivity {
+
+    private FirebaseDatabase database;
+    private DatabaseReference databaseReference;
+    private Meal meal;
+    private String stringDate;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_meal_detail);
+
+        // Ho dovuto specificare l'URL perché quello ottenuto automaticamente non corrispondeva a quello effettivo del database Firebase
+        database = FirebaseDatabase.getInstance("https://myfoodpocket-bf82e-default-rtdb.europe-west1.firebasedatabase.app/");
+        databaseReference = database.getReference();
+
+        Bundle extras = getIntent().getExtras();
+
+        if(extras != null) { // Se il passaggio del parametro tra intent è avvenuto correttamente
+            meal = (Meal) extras.getSerializable("detailMeal");
+            stringDate = extras.getString("stringDate");
+        }
+
+        TextView textViewCategory = (TextView)findViewById(R.id.detail_text_view_category);
+        textViewCategory.setText(meal.getCategory());
+        TextView textViewDescription = (TextView)findViewById(R.id.detail_text_view_description);
+        textViewDescription.setText(meal.getDescription());
+        TextView textViewCalories = (TextView)findViewById(R.id.detail_text_view_calories);
+        textViewCalories.setText("" + meal.getCalories());
+
+        if(meal.getPhotoPath() != "none") {
+            // Ottenimento della foto del pasto (se presente)
+            ImageView imageViewMeal = (ImageView)findViewById(R.id.detail_image_view_picture);
+            FirebaseStorage storage = FirebaseStorage.getInstance();
+            StorageReference storageRef = storage.getReference();
+            StorageReference picReference = storageRef.child(meal.getPhotoPath());
+            final long ONE_MEGABYTE = 1024 * 1024;
+            picReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                @Override
+                public void onSuccess(byte[] bytes) {
+                    Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+
+                    imageViewMeal.setImageBitmap(bm);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    //Toast.makeText(getBaseContext(), getResources().getString(R.string.meal_detail_picture_error), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+    public void delete_on_click(View view) {
+        databaseReference = database.getReference("Meal");
+
+        databaseReference.orderByChild("id").equalTo(meal.getId()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) { //insieme di risposta
+                    if(postSnapshot!= null && postSnapshot.getValue()!= null) {
+                        String key = postSnapshot.getKey();
+                       dataSnapshot.getRef().child(key).removeValue();
+                    }
+                }
+                Toast.makeText(getBaseContext(), getResources().getString(R.string.meal_detail_delete_success), Toast.LENGTH_SHORT).show();
+                Intent newIntent = new Intent(MealDetail.this, MainActivity.class);
+                newIntent.putExtra("dateChoice", stringDate);
+                startActivity(newIntent);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getBaseContext(), getResources().getString(R.string.meal_detail_delete_fail), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void modify_on_click(View view) {
+
+    }
+}

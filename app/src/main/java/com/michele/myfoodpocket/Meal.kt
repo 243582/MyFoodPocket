@@ -1,6 +1,8 @@
 package com.michele.myfoodpocket
+import java.io.Serializable
 
-class Meal {
+class Meal : Serializable {
+    private var id : String =""; // ID: email + timestamp (contenente anche il tempo)
     private var emailDate : String = "";
     private var category : String = "";
     private var description : String = "";
@@ -9,12 +11,13 @@ class Meal {
 
     constructor() {}
 
-    constructor(emailDate : String, category : String, description: String, calories : Int, photoPath : String) {
+    constructor(emailDate : String, category : String, description: String, calories : Int, photoPath : String, id : String) {
         this.emailDate = emailDate;
         this.category = category;
         this.description = description;
         this.calories = calories;
         this.photoPath = photoPath;
+        this.id = id;
     }
 
     override fun toString() : String {
@@ -63,6 +66,15 @@ class Meal {
 
     fun setPhotoPath(description : String) : Void? {
         this.photoPath = photoPath;
+        return null;
+    }
+
+    fun getId() : String {
+        return this.id;
+    }
+
+    fun setId(id : String) : Void? {
+        this.id = id;
         return null;
     }
 }

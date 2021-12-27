@@ -32,13 +32,13 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class AddMealActivity extends AppCompatActivity {
 
     // Variabili per scattare foto e memorizzarla
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private String currentPhotoPath;
-    private Bitmap photo;
     private String photoPath = "none"; // Inizializzo il percorso della foto a "none": se verrà scattata verrà sostituito con il vero percorso, altrimenti rimarrà "none"
     private String stringDate;
 
@@ -65,12 +65,17 @@ public class AddMealActivity extends AppCompatActivity {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         TextView textViewDate = (TextView)(findViewById(R.id.add_meal_date_print));
+
+        // Creo l'identificativo del pasto mediante email + timestamp
+        Calendar calendar = Calendar.getInstance(Locale.getDefault());
+        String id = user.getEmail() + ":" + textViewDate.getText().toString() + ":" + calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE) + ":" + calendar.get(Calendar.SECOND);
+
         String emailDate = user.getEmail() + ":" + textViewDate.getText().toString();
         String category = ((Spinner)(findViewById(R.id.add_meal_spinner_category))).getSelectedItem().toString();
         EditText editTextDescription = (EditText)(findViewById(R.id.add_meal_edit_text_description));
         EditText editTextCalories = (EditText)(findViewById(R.id.add_meal_edit_text_calories));
 
-        Meal newMeal = new Meal(emailDate, category, editTextDescription.getText().toString(), Integer.parseInt(editTextCalories.getText().toString()), photoPath);
+        Meal newMeal = new Meal(emailDate, category, editTextDescription.getText().toString(), Integer.parseInt(editTextCalories.getText().toString()), photoPath, id);
         databaseReference.child("Meal").push().setValue(newMeal).addOnSuccessListener(new OnSuccessListener<Void>()
         {
             @Override

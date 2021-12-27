@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -77,11 +78,13 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
 
     private String stringDate = "";
 
+    private String mealKey;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Se vengo da AddMealActivity recupero la data alla quale ho appena aggiunto un pasto e imposto la visualizzazione dei pasti su tale data
+        // Se vengo da AddMealActivity o DetailActivity recupero la data alla quale ho appena aggiunto un pasto e imposto la visualizzazione dei pasti su tale data
         Bundle extras = getIntent().getExtras();
         if (extras != null)
             stringDate = extras.getString("dateChoice");
@@ -424,7 +427,6 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
                     }
                     else { // Se c'è almeno un pasto nella tal data
                         newNullMealsTextView.setText(""); // Lascio vuota la text view che suggerisce di aggiungere un nuovo pasto
-                        String mealKey;
                         meals = new ArrayList<Meal>();
                         for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) { //insieme di risposta
                             if(postSnapshot!= null && postSnapshot.getValue()!= null) {
@@ -433,7 +435,6 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
                                 Log.d("DEBUGMAINMEAL", postSnapshot.getValue().toString());
                             }
                         }
-
 
                         CustomAdapter adapter = new CustomAdapter(getBaseContext(), R.layout.meal_row, meals.toArray(new Meal[0])); // Passo un array di Meal come richiesto dall'adapter, new Meal[0] serve per il tipo su cui viene costruito l'array della funzione toArray
                         newListView.setAdapter(adapter);
@@ -447,6 +448,21 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
                         TextView tvCaloriesTaken = findViewById(R.id.main_text_view_calories_taken);
                         tvCaloriesTaken.setText(getResources().getString(R.string.main_calories_taken) + ": " + caloriesOfTheDay + "/" + String.format("%.0f", dailyCaloriesNeed));
                         pb.setProgress((int)(((caloriesOfTheDay * 100) / dailyCaloriesNeed)));
+
+                        // Imposto i listener degli elementi della listview
+                        AdapterView.OnItemClickListener clickListener = new AdapterView.OnItemClickListener() {
+
+                            @Override
+                            public void onItemClick(AdapterView<?> adapter, View view,
+                                                    int position, long id) {
+                                Intent newIntent = new Intent(MainActivity.this, MealDetail.class);
+                                Meal m = (Meal)adapter.getItemAtPosition(position);
+                                newIntent.putExtra("detailMeal", m);
+                                newIntent.putExtra("stringDate", stringDate);
+                                startActivity(newIntent);
+                            }
+                        };
+                        newListView.setOnItemClickListener(clickListener);
                     }
                 }
 
