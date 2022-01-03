@@ -106,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
 
         navigationView.getMenu().findItem(R.id.nav_profile).setOnMenuItemClickListener(this);
         navigationView.getMenu().findItem(R.id.nav_results).setOnMenuItemClickListener(this);
+        navigationView.getMenu().findItem(R.id.nav_food_plan).setOnMenuItemClickListener(this);
         navigationView.getMenu().findItem(R.id.nav_exit).setOnMenuItemClickListener(this);
         navigationView.getMenu().findItem(R.id.nav_characteristics).setOnMenuItemClickListener(this);
 
@@ -172,6 +173,10 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
                 newIntent = new Intent(MainActivity.this, ResultsActivity.class);
                 startActivity(newIntent);
                 break;
+            case R.id.nav_food_plan:
+                newIntent = new Intent(MainActivity.this, FoodPlanActivity.class);
+                startActivity(newIntent);
+                break;
             case R.id.nav_exit:
                 mAuth.signOut();
                 newIntent = new Intent(MainActivity.this, LoginActivity.class);
@@ -225,7 +230,6 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
                         if(postSnapshot!= null && postSnapshot.getValue()!= null) {
                             userKey = postSnapshot.getKey();
                             userInfo = postSnapshot.getValue(User.class); // <= reference al nostro oggetto
-                            Log.d("DEBUGMAIN", userInfo.toString());
                         }
                     }
 
@@ -432,7 +436,6 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
                             if(postSnapshot!= null && postSnapshot.getValue()!= null) {
                                 mealKey = postSnapshot.getKey();
                                 meals.add(postSnapshot.getValue(Meal.class)); // <= reference al nostro oggetto
-                                Log.d("DEBUGMAINMEAL", postSnapshot.getValue().toString());
                             }
                         }
 

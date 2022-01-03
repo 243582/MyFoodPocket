@@ -8,16 +8,18 @@ class Meal : Serializable {
     private var description : String = "";
     private var calories : Int = 0; // Calorie provvisorie che verranno poi sostituite con quelle del pasto
     private var photoPath : String = "";
+    private var email : String = "";
 
     constructor() {}
 
-    constructor(emailDate : String, category : String, description: String, calories : Int, photoPath : String, id : String) {
+    constructor(emailDate : String, category : String, description: String, calories : Int, photoPath : String, id : String, email : String) {
         this.emailDate = emailDate;
         this.category = category;
         this.description = description;
         this.calories = calories;
         this.photoPath = photoPath;
         this.id = id;
+        this.email = email;
     }
 
     override fun toString() : String {
@@ -75,6 +77,15 @@ class Meal : Serializable {
 
     fun setId(id : String) : Void? {
         this.id = id;
+        return null;
+    }
+
+    fun getEmail() : String {
+        return this.email;
+    }
+
+    fun setEmail(email : String) : Void? {
+        this.email = email;
         return null;
     }
 }

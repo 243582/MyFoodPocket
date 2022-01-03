@@ -10,12 +10,16 @@
         android:required="false" />
 
     <application
+        android:requestLegacyExternalStorage="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyFoodPocket">
+        <activity
+            android:name=".FoodPlanActivity"
+            android:exported="false" />
         <activity
             android:name=".MealDetail"
             android:exported="false" />
