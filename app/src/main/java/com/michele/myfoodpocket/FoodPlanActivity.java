@@ -8,6 +8,7 @@ import android.Manifest;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -23,21 +24,23 @@ import java.util.ArrayList;
 
 public class FoodPlanActivity extends AppCompatActivity {
 
-    public ProgressBar pBar;
     private AsyncFoodPlanDownloader asyncFoodPlanDownloader;
-
     private ArrayList<Meal> meals;
-
     private boolean firstDownload = true; // Booleano che serve per far partire il thread solo la prima volta che si entra in questa activity (altrimenti il thread parte ad ogni cambiamento dei dati su Firebase)
+    private Button downloadButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_plan);
+
+        downloadButton = findViewById(R.id.food_plan_download_button);
+        downloadButton.setClickable(true);
     }
 
-    public void food_plan_button_download(View view) {
-        pBar = findViewById(R.id.food_plan_progress_bar);
+    public void foodPlanButtonDownload(View view) {
+
+        downloadButton.setClickable(false);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -61,7 +64,7 @@ public class FoodPlanActivity extends AppCompatActivity {
                         }
                     }
                     if(firstDownload == true) {
-                        asyncFoodPlanDownloader = new AsyncFoodPlanDownloader(pBar, 0, meals);
+                        asyncFoodPlanDownloader = new AsyncFoodPlanDownloader(meals, getBaseContext());
                         asyncFoodPlanDownloader.execute();
                         firstDownload = false;
                     }

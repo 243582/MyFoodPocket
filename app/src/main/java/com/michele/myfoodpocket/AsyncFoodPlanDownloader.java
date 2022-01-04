@@ -1,5 +1,6 @@
 package com.michele.myfoodpocket;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Environment;
@@ -28,59 +29,52 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class AsyncFoodPlanDownloader extends AsyncTask<Integer, Integer, Integer> {
 
-    private ProgressBar pBar;
     private int num;
     private ArrayList<Meal> meals;
+    private Context context;
 
-    public AsyncFoodPlanDownloader(ProgressBar pBar, int num, ArrayList<Meal> meals) {
-        this.pBar = pBar;
+    public AsyncFoodPlanDownloader(ArrayList<Meal> meals, Context context) {
         this.num = num;
         this.meals = meals;
+        this.context = context;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        pBar.setProgress(0);
+        Toast.makeText(context, context.getResources().getString(R.string.food_plan_download_started), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     protected void onPostExecute(Integer result) {
         super.onPostExecute(result);
-        pBar.setProgress(100);
+        Toast.makeText(context, context.getResources().getString(R.string.food_plan_download_finished), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     protected void onProgressUpdate(Integer... prog) {
         super.onProgressUpdate(prog);
-        float progress = (int)(prog[0])/(float)num;
-        pBar.setProgress((int)(progress*100));
     }
 
     @Override
     protected Integer doInBackground(Integer... params) { // ... significa che 0 o n oggetti possono essere passati come parametri (vedi varargs)
-        int i = 0;
-        for(i = 0; i < meals.size(); i++)
-            Log.d("DEBUGASYNC", "" + meals.get(i).toString());
-            publishProgress(i);
-
         // Scrittura del file CSV
         try {
             Calendar calendar = Calendar.getInstance(Locale.getDefault());
             String filename = "MyFoodPocket_" + calendar.get(Calendar.YEAR) + calendar.get(Calendar.MONTH) + calendar.get(Calendar.DAY_OF_MONTH) +
                     calendar.get(Calendar.HOUR_OF_DAY) + calendar.get(Calendar.MINUTE) +  calendar.get(Calendar.SECOND);
 
-            File file = new File(pBar.getContext().getExternalFilesDir(null) + File.separator + filename + ".csv");
-
-            Log.d("DEBUGASYNCPLUS", file.getAbsolutePath());
-
+            File file = new File(context.getExternalFilesDir(null) + File.separator + filename + ".csv");
 
             if(!file.exists()) {
                 file.createNewFile();
             }
+
+            TimeUnit.SECONDS.sleep(5);
 
             FileWriter fw = new FileWriter(file.getAbsoluteFile());
             BufferedWriter bw = new BufferedWriter(fw);
