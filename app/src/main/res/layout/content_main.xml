@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <Button
+            android:textColor="@color/white"
             android:id="@+id/main_date_button"
             android:layout_marginTop="10dp"
             android:layout_gravity="center"

@@ -153,6 +153,9 @@ public class AddMealActivity extends AppCompatActivity {
             UploadTask uploadTask;
             uploadTask = riversRef.putFile(file);
 
+            TextView picTakenTextView = (TextView)findViewById(R.id.add_meal_pic_taken);
+            picTakenTextView.setText(getResources().getString(R.string.add_meal_pic_taken_string));
+
             // Register observers to listen for when the download is done or if it fails
             uploadTask.addOnFailureListener(new OnFailureListener() {
                 @Override
