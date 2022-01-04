@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -36,6 +38,29 @@ public class FoodPlanActivity extends AppCompatActivity {
 
         downloadButton = findViewById(R.id.food_plan_download_button);
         downloadButton.setClickable(true);
+
+        verifyStoragePermissions(FoodPlanActivity.this); // Verifico i permessi per la memorizzazione di file
+    }
+
+    // Storage Permissions: da Android 11 in poi è necessario chiedere i permessi oltre che a specificarli nel manifest per poter memorizzare file
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
+
+    public static void verifyStoragePermissions(Activity activity) {
+        // Check if we have write permission
+        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(
+                    activity,
+                    PERMISSIONS_STORAGE,
+                    REQUEST_EXTERNAL_STORAGE
+            );
+        }
     }
 
     public void foodPlanButtonDownload(View view) {

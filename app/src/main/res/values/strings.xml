@@ -116,6 +116,6 @@
     /* FoodPlanActivity */
     <string name="food_plan_download">Scarica piano alimentare</string>
     <string name="food_plan_download_started">Download del piano alimentare...</string>
-    <string name="food_plan_download_finished">Download del piano alimentare terminato!</string>
+    <string name="food_plan_download_finished">Piano alimentare scaricato nella cartella Download</string>
 
 </resources>
