@@ -57,7 +57,7 @@
     <string name="basal_metabolic_rate">Metabolismo basale</string>
     <string name="daily_calories_need">Apporto calorico giornaliero</string>
     <string name="unit_of_measure">kcal</string>
-    <string name="main_set_date">Seleziona data</string>
+    <string name="main_set_date">Data</string>
     <string name="main_null_meals">Aggiungi un pasto al tuo diario</string>
     <string name="main_row_category">Categoria</string>
     <string name="main_row_description">Descrizione</string>
@@ -112,6 +112,9 @@
     <string name="meal_detail_delete_success">Pasto cancellato correttamente</string>
     <string name="meal_detail_picture_error">Errore nel reperimento della foto</string>
     <string name="meal_detail_delete_fail">Errore nel reperimento della foto</string>
+    <string name="meal_detail_category">Categoria</string>
+    <string name="meal_detail_description">Descrizione</string>
+    <string name="meal_detail_calories">Calorie</string>
 
     /* FoodPlanActivity */
     <string name="food_plan_download">Scarica piano alimentare</string>

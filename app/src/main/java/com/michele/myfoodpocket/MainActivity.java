@@ -422,6 +422,8 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
 
                     if(dataSnapshot.hasChildren() == false) { // Se non c'è nessun pasto nella tal data
                         newNullMealsTextView.setText(getResources().getString(R.string.main_null_meals)); // Indico che non ci sono pasti e di aggiungerne uno nuovo
+                        newNullMealsTextView.setVisibility(View.VISIBLE); // Imposto che sia visibile
+                        newListView.setVisibility(View.GONE); // Rimuovo la visibilità della listview
 
                         // Anche nel caso in cui non ci siano pasti bisogna aggiornare calorie assunte in tal giorno e progress bar
                         ProgressBar pb = findViewById(R.id.main_progress_bar);
@@ -431,6 +433,9 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
                     }
                     else { // Se c'è almeno un pasto nella tal data
                         newNullMealsTextView.setText(""); // Lascio vuota la text view che suggerisce di aggiungere un nuovo pasto
+                        newNullMealsTextView.setVisibility(View.GONE); // Rimuovo la visibilità di tale text view in modo che non lasci dello spazio vuoto in mezzo allo schermo
+                        newListView.setVisibility(View.VISIBLE); // Reimposto la visibilità della listview
+
                         meals = new ArrayList<Meal>();
                         for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) { //insieme di risposta
                             if(postSnapshot!= null && postSnapshot.getValue()!= null) {
