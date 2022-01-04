@@ -7,22 +7,13 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,9 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.util.ArrayList;
-
-public class MealDetail extends AppCompatActivity {
+public class MealDetailActivity extends AppCompatActivity {
 
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
@@ -69,12 +58,13 @@ public class MealDetail extends AppCompatActivity {
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageRef = storage.getReference();
             StorageReference picReference = storageRef.child(meal.getPhotoPath());
-            final long ONE_MEGABYTE = 1024 * 1024;
+            final long ONE_MEGABYTE = 1024 * 1024 * 10; // Foto al massimo di 10 megabyte
             picReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                 @Override
                 public void onSuccess(byte[] bytes) {
                     Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-
+                    //int nh = (int) ( bm.getHeight() * (800.0 / bm.getWidth()) );
+                    //Bitmap scaled = Bitmap.createScaledBitmap(bm, 600, nh, true);
                     imageViewMeal.setImageBitmap(bm);
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -113,7 +103,7 @@ public class MealDetail extends AppCompatActivity {
                     }
                 }
                 Toast.makeText(getBaseContext(), getResources().getString(R.string.meal_detail_delete_success), Toast.LENGTH_SHORT).show();
-                Intent newIntent = new Intent(MealDetail.this, MainActivity.class);
+                Intent newIntent = new Intent(MealDetailActivity.this, MainActivity.class);
                 newIntent.putExtra("dateChoice", stringDate);
                 newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK); // Kill di tutte le activity nello stack
                 startActivity(newIntent);

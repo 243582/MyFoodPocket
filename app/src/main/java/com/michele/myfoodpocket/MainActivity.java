@@ -1,39 +1,25 @@
 package com.michele.myfoodpocket;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.ScrollView;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
-import androidx.fragment.app.DialogFragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -49,7 +35,6 @@ import com.michele.myfoodpocket.databinding.ActivityMainBinding;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener {
 
@@ -463,7 +448,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
                             @Override
                             public void onItemClick(AdapterView<?> adapter, View view,
                                                     int position, long id) {
-                                Intent newIntent = new Intent(MainActivity.this, MealDetail.class);
+                                Intent newIntent = new Intent(MainActivity.this, MealDetailActivity.class);
                                 Meal m = (Meal)adapter.getItemAtPosition(position);
                                 newIntent.putExtra("detailMeal", m);
                                 newIntent.putExtra("stringDate", stringDate);

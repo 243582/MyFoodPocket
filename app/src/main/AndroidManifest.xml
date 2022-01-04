@@ -21,7 +21,7 @@
             android:name=".FoodPlanActivity"
             android:exported="false" />
         <activity
-            android:name=".MealDetail"
+            android:name=".MealDetailActivity"
             android:exported="false" />
 
         <provider
