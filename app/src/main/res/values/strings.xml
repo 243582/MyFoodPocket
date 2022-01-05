@@ -7,6 +7,7 @@
     <string name="login_button_signup">Registrati</string>
     <string name="login_toast_welcome_back">Bentornato</string>
     <string name="login_toast_autentication_failed">Autenticazione fallita</string>
+    <string name="login_input_not_ok">Informazioni non valide</string>
 
     /* Sign up */
     <string name="sign_up_hint_email">Email</string>
@@ -76,6 +77,7 @@
         <item>Attività lavorativa moderata</item>
         <item>Attività lavorativa pesante</item>
     </string-array>
+    <string name="profile_back_button">Indietro</string>
     <string name="work_heaviness_1">Attività lavorativa leggera</string>
     <string name="work_heaviness_2">Attività lavorativa moderata</string>
     <string name="work_heaviness_3">Attività lavorativa pesante</string>
@@ -124,5 +126,6 @@
     <string name="food_plan_download">Scarica piano alimentare</string>
     <string name="food_plan_download_started">Download del piano alimentare...</string>
     <string name="food_plan_download_finished">Piano alimentare scaricato nella cartella Download</string>
+    <string name="characteristics_download_food_plan">Scarica piano alimentare</string>
 
 </resources>

@@ -9,51 +9,77 @@
     tools:context=".MyCharacteristicsActivity">
 
     <TextView
-        android:textSize="25dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:layout_marginTop="25dp"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/characteristics_my_characteristics_print" />
     <GridLayout
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="25dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:rowCount="3"
-        android:columnCount="2">
+        android:rowCount="6"
+        android:columnCount="1">
         <TextView
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/characteristics_basal_metabolism" />
         <TextView
-            android:layout_marginLeft="10dp"
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"
             android:id="@+id/characteristics_text_view_basal_metabolism"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="-" />
         <TextView
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="20dp"
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/characteristics_daily_calories" />
         <TextView
-            android:layout_marginLeft="10dp"
+            android:textSize="20dp"
             android:id="@+id/characteristics_text_view_daily_calories"
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="-" />
         <TextView
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="20dp"
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/characteristics_body_mass_index" />
         <TextView
-            android:layout_marginLeft="10dp"
+            android:textSize="20dp"
             android:id="@+id/characteristics_text_view_body_mass_index"
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="-" />
     </GridLayout>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/bodymassindexpicture" />
+    <Button
+        android:id="@+id/my_characteristics_food_plan_download_button"
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="action_button_on_click"
+        android:text="@string/characteristics_download_food_plan" />
 
 </LinearLayout>

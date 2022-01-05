@@ -122,4 +122,8 @@ public class ProfileActivity extends AppCompatActivity {
         else
             return false;
     }
+
+    public void back_button_on_click(View view) {
+        super.onBackPressed();
+    }
 }

@@ -31,28 +31,31 @@ public class LoginActivity extends AppCompatActivity implements MenuItem.OnMenuI
     }
 
     private void signIn(String email, String password) {
-        // [START sign_in_with_email]
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(LoginActivity.this, getResources().getString(R.string.login_toast_welcome_back) + " " + user.getEmail().toString(),
-                                    Toast.LENGTH_SHORT).show();
+        if(checkInputOk(email, password)) {
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                Toast.makeText(LoginActivity.this, getResources().getString(R.string.login_toast_welcome_back) + " " + user.getEmail().toString(),
+                                        Toast.LENGTH_SHORT).show();
 
-                            Intent newIntent = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(newIntent);
-                            finish(); // Kill dell'activity così non può essere ripresa con il back button
+                                Intent newIntent = new Intent(LoginActivity.this, MainActivity.class);
+                                startActivity(newIntent);
+                                finish(); // Kill dell'activity così non può essere ripresa con il back button
 
-                        } else {
-                            Toast.makeText(LoginActivity.this, getResources().getString(R.string.login_toast_autentication_failed),
-                                    Toast.LENGTH_SHORT).show();
-                            //updateUI(null);
+                            } else {
+                                Toast.makeText(LoginActivity.this, getResources().getString(R.string.login_toast_autentication_failed),
+                                        Toast.LENGTH_SHORT).show();
+                                //updateUI(null);
+                            }
                         }
-                    }
-                });
-        // [END sign_in_with_email]
+                    });
+        }
+        else
+            Toast.makeText(getBaseContext(), getResources().getString(R.string.login_input_not_ok), Toast.LENGTH_SHORT).show();
+
     }
 
     public void signUpOnClick(View view) {
@@ -72,5 +75,12 @@ public class LoginActivity extends AppCompatActivity implements MenuItem.OnMenuI
         String password = ((EditText)(findViewById(R.id.sign_in_password))).getText().toString();
 
         signIn(email, password);
+    }
+
+    private boolean checkInputOk(String email, String password) {
+        if(!email.isEmpty() && !password.isEmpty())
+            return true;
+        else
+            return false;
     }
 }

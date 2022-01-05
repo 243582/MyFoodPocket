@@ -12,15 +12,6 @@
             android:id="@+id/nav_characteristics"
             android:icon="@drawable/ic_baseline_balance_24"
             android:title="@string/menu_characteristics" />
-        <item
-            android:id="@+id/nav_results"
-            android:icon="@drawable/ic_baseline_format_list_numbered_24"
-            android:title="@string/menu_results" />
-
-        <item
-            android:id="@+id/nav_food_plan"
-            android:icon="@drawable/ic_baseline_format_list_numbered_24"
-            android:title="@string/menu_food_plan" />
 
         <item
             android:id="@+id/nav_exit"

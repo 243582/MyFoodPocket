@@ -137,15 +137,30 @@
             android:layout_marginTop="10dp"
             android:id="@+id/profile_spinner_sport_practiced"
             android:entries="@array/sport_practiced" />
-        <Button
-            android:layout_marginTop="50dp"
-            android:textSize="20dp"
-            android:textColor="@color/white"
+        <LinearLayout
             android:layout_gravity="center"
+            android:layout_marginTop="50dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="profileOnClick"
-            android:text="@string/profile_button_modify"/>
+            android:orientation="horizontal">
+            <Button
+                android:onClick="back_button_on_click"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/profile_back_button"
+                android:textColor="@color/white"
+                android:textSize="15dp" />
+
+            <Button
+                android:layout_marginLeft="10dp"
+                android:textSize="15dp"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="profileOnClick"
+                android:text="@string/profile_button_modify"/>
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

@@ -90,15 +90,13 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         View navHeader = navigationView.inflateHeaderView(R.layout.nav_header_main) ;
 
         navigationView.getMenu().findItem(R.id.nav_profile).setOnMenuItemClickListener(this);
-        navigationView.getMenu().findItem(R.id.nav_results).setOnMenuItemClickListener(this);
-        navigationView.getMenu().findItem(R.id.nav_food_plan).setOnMenuItemClickListener(this);
         navigationView.getMenu().findItem(R.id.nav_exit).setOnMenuItemClickListener(this);
         navigationView.getMenu().findItem(R.id.nav_characteristics).setOnMenuItemClickListener(this);
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_profile, R.id.nav_results, R.id.nav_exit)
+                R.id.nav_profile, R.id.nav_exit)
                 .setOpenableLayout(drawer)
                 .build();
 
@@ -152,14 +150,6 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
                 break;
             case R.id.nav_characteristics:
                 newIntent = new Intent(MainActivity.this, MyCharacteristicsActivity.class);
-                startActivity(newIntent);
-                break;
-            case R.id.nav_results:
-                newIntent = new Intent(MainActivity.this, ResultsActivity.class);
-                startActivity(newIntent);
-                break;
-            case R.id.nav_food_plan:
-                newIntent = new Intent(MainActivity.this, FoodPlanActivity.class);
                 startActivity(newIntent);
                 break;
             case R.id.nav_exit:
