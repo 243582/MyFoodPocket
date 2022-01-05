@@ -20,7 +20,7 @@
     <string name="sign_up_button_sign_up">Registrati</string>
     <string name="sign_up_toast_welcome">Benvenuto</string>
     <string name="sign_up_toast_register_success">Registrazione effettuata con successo</string>
-    <string name="sign_up_toast_register_failed">Registrazione fallita</string>
+    <string name="sign_up_toast_register_failed">Registrazione fallita, riprovare. La password deve contenere numeri e caratteri speciali</string>
     <string-array name="array_sex">
         <item>Maschio</item>
         <item>Femmina</item>
@@ -83,6 +83,8 @@
     <string name="work_heaviness_3">Attività lavorativa pesante</string>
     <string name="main_calories_taken">Calorie assunte</string>
     <string name="add_meal_text_view_add_meal">Aggiungi un pasto</string>
+    <string name="sign_up_input_not_ok">Informazioni non valide, riprovare</string>
+    <string name="sign_up_not_adult">Devi essere maggiorenne per poterti iscrivere</string>
     <string-array name="sport_practiced">
         <item>Sport praticato</item>
         <item>Sport non praticato</item>
@@ -127,5 +129,6 @@
     <string name="food_plan_download_started">Download del piano alimentare...</string>
     <string name="food_plan_download_finished">Piano alimentare scaricato nella cartella Download</string>
     <string name="characteristics_download_food_plan">Scarica piano alimentare</string>
+    <string name="sign_up_insert_birth_date">Clicca qui per inserire</string>
 
 </resources>

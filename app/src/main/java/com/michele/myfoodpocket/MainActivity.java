@@ -33,6 +33,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.michele.myfoodpocket.databinding.ActivityMainBinding;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -163,21 +165,9 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     }
 
     private int getAge(int day, int month, int year){
-        Calendar dob = Calendar.getInstance();
-        Calendar today = Calendar.getInstance();
-
-        dob.set(year, month, day);
-
-        int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
-
-        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)){
-            age--;
-        }
-
-        Integer ageInt = new Integer(age);
-        String ageS = ageInt.toString();
-
-        return Integer.parseInt(ageS);
+        LocalDate birthDate = LocalDate.of(year, month, day);
+        LocalDate today = LocalDate.now();
+        return Period.between(birthDate, today).getYears();
     }
 
     private void dailyCalories()

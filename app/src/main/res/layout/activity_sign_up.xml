@@ -8,10 +8,11 @@
     tools:context=".SignUpActivity">
 
     <ScrollView
+        android:layout_marginTop="25dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
-            android:layout_margin="10dp"
+            android:layout_marginHorizontal="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
@@ -22,24 +23,30 @@
                 android:layout_height="100dp"
                 android:src="@drawable/myfoodpocketlogo" />
             <EditText
+                android:maxLines="1"
+                android:textSize="15dp"
                 android:layout_marginTop="10dp"
                 android:id="@+id/sign_up_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="mariorossi@gmail.com"
                 android:hint="@string/sign_up_hint_email"/>
             <EditText
+                android:maxLines="1"
+                android:inputType="textPassword"
+                android:textSize="15dp"
                 android:layout_marginTop="10dp"
                 android:id="@+id/sign_up_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="prova123!"
                 android:hint="@string/sign_up_hint_password"/>
             <EditText
+                android:maxLines="1"
+                android:inputType="textPassword"
+                android:id="@+id/sign_up_password_repeat"
+                android:textSize="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="prova123!"
                 android:hint="@string/sign_up_hint_password_repeat"/>
             <Spinner
                 android:layout_marginTop="10dp"
@@ -48,26 +55,45 @@
                 android:layout_height="wrap_content"
                 android:entries="@array/array_sex" />
             <EditText
+                android:maxLines="1"
+                android:inputType="number"
+                android:textSize="15dp"
                 android:layout_marginTop="10dp"
                 android:id="@+id/sign_up_height"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="172"
                 android:hint="@string/sign_up_hint_height"/>
             <EditText
+                android:maxLines="1"
+                android:inputType="number"
+                android:textSize="15dp"
                 android:layout_marginTop="10dp"
                 android:id="@+id/sign_up_weight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="73"
                 android:hint="@string/sign_up_hint_weight"/>
-            <EditText
-                android:layout_marginTop="10dp"
-                android:id="@+id/sign_up_birthdate"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_marginLeft="7dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="11/05/1998"
-                android:hint="@string/sign_up_hint_birth_date"/>
+                android:orientation="horizontal">
+                <TextView
+                    android:textSize="15dp"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/sign_up_birthdate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="@string/sign_up_hint_birth_date"/>
+                <TextView
+                    android:onClick="birthDateButtonOnClick"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/sign_up_hint_birth_date_string"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:hint="@string/sign_up_insert_birth_date" />
+            </LinearLayout>
             <Spinner
                 android:id="@+id/spinner_work_heaviness"
                 android:layout_marginTop="10dp"
@@ -81,7 +107,9 @@
                 android:id="@+id/spinner_sport_practiced"
                 android:entries="@array/sport_practiced" />
             <Button
-                android:layout_marginTop="10dp"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:layout_marginTop="25dp"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
