@@ -75,27 +75,32 @@ public class AddMealActivity extends AppCompatActivity {
         EditText editTextDescription = (EditText)(findViewById(R.id.add_meal_edit_text_description));
         EditText editTextCalories = (EditText)(findViewById(R.id.add_meal_edit_text_calories));
 
-        Meal newMeal = new Meal(emailDate, category, editTextDescription.getText().toString(), Integer.parseInt(editTextCalories.getText().toString()), photoPath, id, user.getEmail());
+        if(inputControlOk(editTextDescription, editTextCalories)) {
+            Meal newMeal = new Meal(emailDate, category, editTextDescription.getText().toString(), Integer.parseInt(editTextCalories.getText().toString()), photoPath, id, user.getEmail());
 
-        databaseReference.child("Meal").push().setValue(newMeal).addOnSuccessListener(new OnSuccessListener<Void>()
-        {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Toast.makeText(getBaseContext(), getResources().getString(R.string.add_meal_success), Toast.LENGTH_SHORT).show();
-            }
-        }).addOnFailureListener(new OnFailureListener()
-        {
-            @Override
-            public void onFailure(@NonNull Exception e)
+            databaseReference.child("Meal").push().setValue(newMeal).addOnSuccessListener(new OnSuccessListener<Void>()
             {
-                Toast.makeText(getBaseContext(), getResources().getString(R.string.add_meal_failed), Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Toast.makeText(getBaseContext(), getResources().getString(R.string.add_meal_success), Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener()
+            {
+                @Override
+                public void onFailure(@NonNull Exception e)
+                {
+                    Toast.makeText(getBaseContext(), getResources().getString(R.string.add_meal_failed), Toast.LENGTH_SHORT).show();
+                }
+            });
 
-        Intent newIntent = new Intent(AddMealActivity.this, MainActivity.class);
-        newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK); // Kill di tutte le activity nello stack
-        newIntent.putExtra("dateChoice", stringDate);
-        startActivity(newIntent);
+            Intent newIntent = new Intent(AddMealActivity.this, MainActivity.class);
+            newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK); // Kill di tutte le activity nello stack
+            newIntent.putExtra("dateChoice", stringDate);
+            startActivity(newIntent);
+        }
+        else {
+            Toast.makeText(getBaseContext(), getResources().getString(R.string.add_meal_input_control_not_ok), Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void take_photo(View view) {
@@ -171,5 +176,12 @@ public class AddMealActivity extends AppCompatActivity {
             });
             // [END upload_file]
         }
+    }
+
+    public boolean inputControlOk(EditText editTextDescripton, EditText editTextCalories) {
+        if(!editTextDescripton.getText().toString().isEmpty() && !editTextCalories.getText().toString().isEmpty())
+            return true;
+        else
+            return false;
     }
 }

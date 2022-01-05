@@ -52,6 +52,7 @@
     <string name="profile_textview_height">Altezza:</string>
     <string name="profile_textview_weight">Peso:</string>
     <string name="profile_textview_birth_date">Data di nascita:</string>
+    <string name="profile_check_input_not_ok">Compilare il form correttamente</string>
 
     /* Main */
     <string name="basal_metabolic_rate">Metabolismo basale</string>
@@ -101,6 +102,7 @@
     <string name="add_meal_button_take_photo">Scatta una foto</string>
     <string name="add_meail_insert_text">Inserisci qui la descrizione</string>
     <string name="add_meal_pic_taken_string">Foto scattata</string>
+    <string name="add_meal_input_control_not_ok">Compilare correttamente il form</string>
     <string-array name="add_meal_category_choices">
         <item>Colazione</item>
         <item>Merenda a metà mattina</item>

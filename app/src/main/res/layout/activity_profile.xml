@@ -14,45 +14,95 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
         <TextView
+            android:layout_marginTop="50dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="45dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
             android:layout_gravity="center"
             android:text="@string/profile_textview_my_profile" />
-        <ImageView
-            android:layout_marginTop="20dp"
-            android:layout_gravity="center"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:src="@drawable/myfoodpocketlogo" />
-        <TextView
-            android:layout_marginTop="20dp"
-            android:textSize="20dp"
-            android:text="-"
-            android:id="@+id/profile_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:layout_marginTop="20dp"
-            android:id="@+id/profile_sex"
-            android:textSize="20dp"
-            android:text="-"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_marginTop="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_marginLeft="7dp"
+                android:textSize="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:text="@string/profile_textview_email" />
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:textSize="20dp"
+                android:text="-"
+                android:id="@+id/profile_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_marginLeft="7dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="@string/profile_textview_sex"
+                android:textColor="@color/black"
+                android:textSize="20dp" />
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:id="@+id/profile_sex"
+                android:textSize="20dp"
+                android:text="-"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
         <LinearLayout
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
+                android:layout_marginLeft="7dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:text="@string/profile_textview_height" />
             <TextView
+                android:layout_marginLeft="10dp"
                 android:textSize="20dp"
                 android:id="@+id/profile_height"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_marginLeft="7dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:textColor="@color/black"
+                android:text="@string/profile_textview_birth_date" />
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:text="-"
+                android:textSize="20dp"
+                android:id="@+id/profile_birthdate"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
         <LinearLayout
@@ -60,23 +110,21 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
+                android:layout_marginLeft="7dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:text="@string/profile_textview_weight" />
             <EditText
+                android:inputType="number"
+                android:layout_marginLeft="10dp"
                 android:textSize="20dp"
                 android:id="@+id/profile_weight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
-        <TextView
-            android:layout_marginTop="20dp"
-            android:text="-"
-            android:textSize="20dp"
-            android:id="@+id/profile_birthdate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
         <Spinner
             android:id="@+id/profile_spinner_work_heaviness"
             android:layout_marginTop="10dp"
@@ -90,8 +138,9 @@
             android:id="@+id/profile_spinner_sport_practiced"
             android:entries="@array/sport_practiced" />
         <Button
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="50dp"
             android:textSize="20dp"
+            android:textColor="@color/white"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
