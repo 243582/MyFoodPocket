@@ -1,7 +1,9 @@
 package com.michele.myfoodpocket;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -71,7 +73,14 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Se vengo da AddMealActivity o DetailActivity recupero la data alla quale ho appena aggiunto un pasto e imposto la visualizzazione dei pasti su tale data
+        if(!isNetworkConnected()) {
+            Intent newIntentNoConnection = new Intent(MainActivity.this, NoInternetConnectionActivity.class);
+            newIntentNoConnection.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK); // Kill di tutte le activity nello stack
+            startActivity(newIntentNoConnection);
+            finish(); // Kill dell'activity così non può essere ripresa con il back button
+        }
+
+        // Se vengo da AddMealActivity o DetailActivity recupero la data alla quale ho appena aggiunto un pasto o visualizzato un pasto e imposto la visualizzazione dei pasti su tale data
         Bundle extras = getIntent().getExtras();
         if (extras != null)
             stringDate = extras.getString("dateChoice");
@@ -127,6 +136,12 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         // Reperimento pasto
         caloriesOfTheDay = 0;
         getMeal();
+    }
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
     }
 
     @Override
@@ -336,11 +351,15 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     }
 
     private void updateLabel() {
-        String myFormat = "dd/MM/yyyy";
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
-        textViewDate.setText(sdf.format(myCalendar.getTime()));
-        stringDate = sdf.format(myCalendar.getTime()).toString(); // Aggiorno la stringa da passare all'intent dell'aggiunta di un nuovo pasto
-        getMeal(); // Chiamo un refresh sui dati per visualizzare i nuovi pasti giornalieri
+        if(isNetworkConnected()) {
+            String myFormat = "dd/MM/yyyy";
+            SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
+            textViewDate.setText(sdf.format(myCalendar.getTime()));
+            stringDate = sdf.format(myCalendar.getTime()).toString(); // Aggiorno la stringa da passare all'intent dell'aggiunta di un nuovo pasto
+            getMeal(); // Chiamo un refresh sui dati per visualizzare i nuovi pasti giornalieri
+        }
+        else
+            Toast.makeText(getBaseContext(), getResources().getString(R.string.no_internet_connection_not_available), Toast.LENGTH_SHORT).show();
     }
 
     private void dateSetup() {

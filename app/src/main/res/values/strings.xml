@@ -131,4 +131,10 @@
     <string name="characteristics_download_food_plan">Scarica piano alimentare</string>
     <string name="sign_up_insert_birth_date">Clicca qui per inserire</string>
 
+    /* NoInternetConnectionActivity */
+    <string name="no_internet_connection">Connessione a Internet assente</string>
+    <string name="no_internet_connection_retry">Riprova</string>
+    <string name="no_internet_connection_still_not_available">Connessione ancora non disponibile, riprovare</string>
+    <string name="no_internet_connection_not_available">Connessione non disponibile, riprovare</string>
+
 </resources>

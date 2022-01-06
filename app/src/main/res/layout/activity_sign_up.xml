@@ -23,6 +23,7 @@
                 android:layout_height="100dp"
                 android:src="@drawable/myfoodpocketlogo" />
             <EditText
+                android:inputType="text"
                 android:maxLines="1"
                 android:textSize="15dp"
                 android:layout_marginTop="10dp"

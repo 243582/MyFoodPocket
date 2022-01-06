@@ -2,7 +2,9 @@ package com.michele.myfoodpocket;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -34,6 +36,14 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(!isNetworkConnected()) {
+            Intent newIntentNoConnection = new Intent(ProfileActivity.this, NoInternetConnectionActivity.class);
+            newIntentNoConnection.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK); // Kill di tutte le activity nello stack
+            startActivity(newIntentNoConnection);
+            finish(); // Kill dell'activity così non può essere ripresa con il back button
+        }
+
         setContentView(R.layout.activity_profile);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -89,31 +99,40 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
+    }
+
     public void profileOnClick(View view) {
-        if(checkInputOk()) {
-            databaseReference = database.getReference("User");
+        if(isNetworkConnected()) {
+            if(checkInputOk()) {
+                databaseReference = database.getReference("User");
 
-            float newWeight = Float.parseFloat(((EditText)(findViewById(R.id.profile_weight))).getText().toString());
-            int newWorkheaviness = ((Spinner)(findViewById(R.id.profile_spinner_work_heaviness))).getSelectedItemPosition() + 1; // Lavoro: 1 leggero, 2 moderato, 3 pesante. Il +1 è per l'indice degli item dello spinner che partono da 0
-            int newSportPracticedInt = ((Spinner)(findViewById(R.id.profile_spinner_sport_practiced))).getSelectedItemPosition();
-            boolean newSportPracticedBool = (newSportPracticedInt == 0 ? true : false);
+                float newWeight = Float.parseFloat(((EditText)(findViewById(R.id.profile_weight))).getText().toString());
+                int newWorkheaviness = ((Spinner)(findViewById(R.id.profile_spinner_work_heaviness))).getSelectedItemPosition() + 1; // Lavoro: 1 leggero, 2 moderato, 3 pesante. Il +1 è per l'indice degli item dello spinner che partono da 0
+                int newSportPracticedInt = ((Spinner)(findViewById(R.id.profile_spinner_sport_practiced))).getSelectedItemPosition();
+                boolean newSportPracticedBool = (newSportPracticedInt == 0 ? true : false);
 
-            Map<String, Object> childUpdates = new HashMap<>();
-            childUpdates.put(userKey + "/weight", newWeight);
-            childUpdates.put(userKey + "/workHeaviness", newWorkheaviness);
-            childUpdates.put(userKey + "/sportPracticed", newSportPracticedBool);
+                Map<String, Object> childUpdates = new HashMap<>();
+                childUpdates.put(userKey + "/weight", newWeight);
+                childUpdates.put(userKey + "/workHeaviness", newWorkheaviness);
+                childUpdates.put(userKey + "/sportPracticed", newSportPracticedBool);
 
-            databaseReference.updateChildren(childUpdates);
+                databaseReference.updateChildren(childUpdates);
 
-            Toast.makeText(this, getResources().getString(R.string.profile_toast_modify_success), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getResources().getString(R.string.profile_toast_modify_success), Toast.LENGTH_SHORT).show();
 
-            Intent newIntent = new Intent(ProfileActivity.this, MainActivity.class);
-            newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK); // Kill di tutte le activity pregresse
-            startActivity(newIntent);
-            finish(); // Kill dell'activity così non può essere ripresa con il back button
+                Intent newIntent = new Intent(ProfileActivity.this, MainActivity.class);
+                newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK); // Kill di tutte le activity pregresse
+                startActivity(newIntent);
+                finish(); // Kill dell'activity così non può essere ripresa con il back button
+            }
+            else
+                Toast.makeText(getBaseContext(), getResources().getString(R.string.profile_check_input_not_ok), Toast.LENGTH_SHORT).show();
         }
         else
-            Toast.makeText(getBaseContext(), getResources().getString(R.string.profile_check_input_not_ok), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), getResources().getString(R.string.no_internet_connection_still_not_available), Toast.LENGTH_SHORT).show();
     }
 
     private boolean checkInputOk() {

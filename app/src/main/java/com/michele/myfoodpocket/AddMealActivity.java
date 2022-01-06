@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -45,6 +47,14 @@ public class AddMealActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(!isNetworkConnected()) {
+            Intent newIntentNoConnection = new Intent(AddMealActivity.this, NoInternetConnectionActivity.class);
+            newIntentNoConnection.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK); // Kill di tutte le activity nello stack
+            startActivity(newIntentNoConnection);
+            finish(); // Kill dell'activity così non può essere ripresa con il back button
+        }
+
         setContentView(R.layout.activity_add_meal);
 
         // Recupero la data selezionata
@@ -58,49 +68,58 @@ public class AddMealActivity extends AppCompatActivity {
         tvDate.setText(stringDate);
     }
 
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
+    }
+
     public void action_button_on_click(View view) {
-        // Ho dovuto specificare l'URL perché quello ottenuto automaticamente non corrispondeva a quello effettivo del database Firebase
-        FirebaseDatabase database = FirebaseDatabase.getInstance("https://myfoodpocket-bf82e-default-rtdb.europe-west1.firebasedatabase.app/");
-        DatabaseReference databaseReference = database.getReference();
+        if(isNetworkConnected()) {
+            // Ho dovuto specificare l'URL perché quello ottenuto automaticamente non corrispondeva a quello effettivo del database Firebase
+            FirebaseDatabase database = FirebaseDatabase.getInstance("https://myfoodpocket-bf82e-default-rtdb.europe-west1.firebasedatabase.app/");
+            DatabaseReference databaseReference = database.getReference();
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        TextView textViewDate = (TextView)(findViewById(R.id.add_meal_date_print));
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            TextView textViewDate = (TextView)(findViewById(R.id.add_meal_date_print));
 
-        // Creo l'identificativo del pasto mediante email + timestamp
-        Calendar calendar = Calendar.getInstance(Locale.getDefault());
-        String id = user.getEmail() + ":" + textViewDate.getText().toString() + ":" + calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE) + ":" + calendar.get(Calendar.SECOND);
+            // Creo l'identificativo del pasto mediante email + timestamp
+            Calendar calendar = Calendar.getInstance(Locale.getDefault());
+            String id = user.getEmail() + ":" + textViewDate.getText().toString() + ":" + calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE) + ":" + calendar.get(Calendar.SECOND);
 
-        String emailDate = user.getEmail() + ":" + textViewDate.getText().toString();
-        String category = ((Spinner)(findViewById(R.id.add_meal_spinner_category))).getSelectedItem().toString();
-        EditText editTextDescription = (EditText)(findViewById(R.id.add_meal_edit_text_description));
-        EditText editTextCalories = (EditText)(findViewById(R.id.add_meal_edit_text_calories));
+            String emailDate = user.getEmail() + ":" + textViewDate.getText().toString();
+            String category = ((Spinner)(findViewById(R.id.add_meal_spinner_category))).getSelectedItem().toString();
+            EditText editTextDescription = (EditText)(findViewById(R.id.add_meal_edit_text_description));
+            EditText editTextCalories = (EditText)(findViewById(R.id.add_meal_edit_text_calories));
 
-        if(inputControlOk(editTextDescription, editTextCalories)) {
-            Meal newMeal = new Meal(emailDate, category, editTextDescription.getText().toString(), Integer.parseInt(editTextCalories.getText().toString()), photoPath, id, user.getEmail());
+            if(inputControlOk(editTextDescription, editTextCalories)) {
+                Meal newMeal = new Meal(emailDate, category, editTextDescription.getText().toString(), Integer.parseInt(editTextCalories.getText().toString()), photoPath, id, user.getEmail());
 
-            databaseReference.child("Meal").push().setValue(newMeal).addOnSuccessListener(new OnSuccessListener<Void>()
-            {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    Toast.makeText(getBaseContext(), getResources().getString(R.string.add_meal_success), Toast.LENGTH_SHORT).show();
-                }
-            }).addOnFailureListener(new OnFailureListener()
-            {
-                @Override
-                public void onFailure(@NonNull Exception e)
+                databaseReference.child("Meal").push().setValue(newMeal).addOnSuccessListener(new OnSuccessListener<Void>()
                 {
-                    Toast.makeText(getBaseContext(), getResources().getString(R.string.add_meal_failed), Toast.LENGTH_SHORT).show();
-                }
-            });
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getBaseContext(), getResources().getString(R.string.add_meal_success), Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener()
+                {
+                    @Override
+                    public void onFailure(@NonNull Exception e)
+                    {
+                        Toast.makeText(getBaseContext(), getResources().getString(R.string.add_meal_failed), Toast.LENGTH_SHORT).show();
+                    }
+                });
 
-            Intent newIntent = new Intent(AddMealActivity.this, MainActivity.class);
-            newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK); // Kill di tutte le activity nello stack
-            newIntent.putExtra("dateChoice", stringDate);
-            startActivity(newIntent);
+                Intent newIntent = new Intent(AddMealActivity.this, MainActivity.class);
+                newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK); // Kill di tutte le activity nello stack
+                newIntent.putExtra("dateChoice", stringDate);
+                startActivity(newIntent);
+            }
+            else {
+                Toast.makeText(getBaseContext(), getResources().getString(R.string.add_meal_input_control_not_ok), Toast.LENGTH_SHORT).show();
+            }
         }
-        else {
-            Toast.makeText(getBaseContext(), getResources().getString(R.string.add_meal_input_control_not_ok), Toast.LENGTH_SHORT).show();
-        }
+        else
+            Toast.makeText(getBaseContext(), getResources().getString(R.string.no_internet_connection_not_available), Toast.LENGTH_SHORT).show();
     }
 
     public void take_photo(View view) {

@@ -78,6 +78,12 @@ public class AsyncFoodPlanDownloader extends AsyncTask<Integer, Integer, String>
 
     @Override
     protected String doInBackground(Integer... params) { // ... significa che 0 o n oggetti possono essere passati come parametri (vedi varargs)
+        // Simulo un delay di 5 secondi per l'esecuzione del thread
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         String filePath = saveData();
         return filePath;
     }

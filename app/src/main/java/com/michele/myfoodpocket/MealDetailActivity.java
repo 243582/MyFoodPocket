@@ -3,9 +3,11 @@ package com.michele.myfoodpocket;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -32,6 +34,14 @@ public class MealDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(!isNetworkConnected()) {
+            Intent newIntentNoConnection = new Intent(MealDetailActivity.this, NoInternetConnectionActivity.class);
+            newIntentNoConnection.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK); // Kill di tutte le activity nello stack
+            startActivity(newIntentNoConnection);
+            finish(); // Kill dell'activity così non può essere ripresa con il back button
+        }
+
         setContentView(R.layout.activity_meal_detail);
 
         // Ho dovuto specificare l'URL perché quello ottenuto automaticamente non corrispondeva a quello effettivo del database Firebase
@@ -88,6 +98,11 @@ public class MealDetailActivity extends AppCompatActivity {
             else if(meal.getCategory().equals(getResources().getString(R.string.main_category_other)))
                 imageViewMeal.setImageResource(R.drawable.ic_other);
         }
+    }
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
     }
 
     public void delete_on_click(View view) {

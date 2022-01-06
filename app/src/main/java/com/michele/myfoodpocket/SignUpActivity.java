@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -48,21 +50,31 @@ public class SignUpActivity extends AppCompatActivity {
         dateSetup();
     }
 
-    public void signUpOnClick(View view) {
-        String email = ((EditText)(findViewById(R.id.sign_up_email))).getText().toString();
-        String password = ((EditText)(findViewById(R.id.sign_up_password))).getText().toString();
-        String passwordRepeat = ((EditText)(findViewById(R.id.sign_up_password_repeat))).getText().toString();
-        int sex = ((Spinner)(findViewById(R.id.sign_up_sex))).getSelectedItemPosition();
-        String height = ((EditText)(findViewById(R.id.sign_up_height))).getText().toString();
-        String weight = ((EditText)(findViewById(R.id.sign_up_weight))).getText().toString();
-        String birthdate = ((TextView)(findViewById(R.id.sign_up_hint_birth_date_string))).getText().toString();
-        int workHeaviness = ((Spinner)(findViewById(R.id.spinner_work_heaviness))).getSelectedItemPosition();
-        int sportPracticed = ((Spinner)(findViewById(R.id.spinner_sport_practiced))).getSelectedItemPosition();
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        if(checkInputOk(email, password, passwordRepeat, height, weight, birthdate))
-            createAccount(email, password, passwordRepeat, sex, Integer.parseInt(height), Float.parseFloat(weight), birthdate, workHeaviness, sportPracticed);
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
+    }
+
+    public void signUpOnClick(View view) {
+        if(isNetworkConnected()) {
+            String email = ((EditText)(findViewById(R.id.sign_up_email))).getText().toString();
+            String password = ((EditText)(findViewById(R.id.sign_up_password))).getText().toString();
+            String passwordRepeat = ((EditText)(findViewById(R.id.sign_up_password_repeat))).getText().toString();
+            int sex = ((Spinner)(findViewById(R.id.sign_up_sex))).getSelectedItemPosition();
+            String height = ((EditText)(findViewById(R.id.sign_up_height))).getText().toString();
+            String weight = ((EditText)(findViewById(R.id.sign_up_weight))).getText().toString();
+            String birthdate = ((TextView)(findViewById(R.id.sign_up_hint_birth_date_string))).getText().toString();
+            int workHeaviness = ((Spinner)(findViewById(R.id.spinner_work_heaviness))).getSelectedItemPosition();
+            int sportPracticed = ((Spinner)(findViewById(R.id.spinner_sport_practiced))).getSelectedItemPosition();
+
+            if(checkInputOk(email, password, passwordRepeat, height, weight, birthdate))
+                createAccount(email, password, passwordRepeat, sex, Integer.parseInt(height), Float.parseFloat(weight), birthdate, workHeaviness, sportPracticed);
+            else
+                Toast.makeText(getBaseContext(), getResources().getString(R.string.sign_up_input_not_ok), Toast.LENGTH_SHORT).show();
+        }
         else
-            Toast.makeText(getBaseContext(), getResources().getString(R.string.sign_up_input_not_ok), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), getResources().getString(R.string.no_internet_connection_still_not_available), Toast.LENGTH_SHORT).show();
     }
 
     private boolean checkInputOk(String email, String password, String passwordRepeat, String height, String weight, String birthdate) {

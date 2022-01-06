@@ -30,6 +30,8 @@
             android:layout_height="200dp"
             android:src="@drawable/myfoodpocketlogo" />
         <EditText
+            android:maxLines="1"
+            android:inputType="text"
             android:layout_marginTop="25dp"
             android:id="@+id/sign_in_email"
             android:layout_width="match_parent"

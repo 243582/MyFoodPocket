@@ -6,7 +6,10 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -37,6 +40,14 @@ public class MyCharacteristicsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(!isNetworkConnected()) {
+            Intent newIntentNoConnection = new Intent(MyCharacteristicsActivity.this, NoInternetConnectionActivity.class);
+            newIntentNoConnection.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK); // Kill di tutte le activity nello stack
+            startActivity(newIntentNoConnection);
+            finish(); // Kill dell'activity così non può essere ripresa con il back button
+        }
+
         setContentView(R.layout.activity_my_characteristics);
 
         downloadButton = findViewById(R.id.my_characteristics_food_plan_download_button);
@@ -46,6 +57,11 @@ public class MyCharacteristicsActivity extends AppCompatActivity {
         bodyMassIndex();
 
         verifyStoragePermissions(MyCharacteristicsActivity.this); // Verifico i permessi per la memorizzazione di file
+    }
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
     }
 
     // Storage Permissions: da Android 11 in poi è necessario chiedere i permessi oltre che a specificarli nel manifest per poter memorizzare file

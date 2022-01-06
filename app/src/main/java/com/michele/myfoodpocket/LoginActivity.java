@@ -3,7 +3,9 @@ package com.michele.myfoodpocket;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -70,11 +72,21 @@ public class LoginActivity extends AppCompatActivity implements MenuItem.OnMenuI
         return false;
     }
 
-    public void signInOnClick(View view) {
-        String email = ((EditText)(findViewById(R.id.sign_in_email))).getText().toString();
-        String password = ((EditText)(findViewById(R.id.sign_in_password))).getText().toString();
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        signIn(email, password);
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
+    }
+
+    public void signInOnClick(View view) {
+        if(isNetworkConnected()) {
+            String email = ((EditText)(findViewById(R.id.sign_in_email))).getText().toString();
+            String password = ((EditText)(findViewById(R.id.sign_in_password))).getText().toString();
+
+            signIn(email, password);
+        }
+        else
+            Toast.makeText(getBaseContext(), getResources().getString(R.string.no_internet_connection_still_not_available), Toast.LENGTH_SHORT).show();
     }
 
     private boolean checkInputOk(String email, String password) {
