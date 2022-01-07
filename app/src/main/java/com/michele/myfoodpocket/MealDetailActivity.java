@@ -119,6 +119,13 @@ public class MealDetailActivity extends AppCompatActivity {
                        dataSnapshot.getRef().child(key).removeValue();
                     }
                 }
+
+                // Cancello anche la foto dallo storage di Firebase
+                FirebaseStorage storage = FirebaseStorage.getInstance();
+                StorageReference storageReference = storage.getReference();
+                StorageReference picRef = storageReference.child(meal.getPhotoPath());
+                picRef.delete();
+
                 Toast.makeText(getBaseContext(), getResources().getString(R.string.meal_detail_delete_success), Toast.LENGTH_SHORT).show();
                 Intent newIntent = new Intent(MealDetailActivity.this, MainActivity.class);
                 newIntent.putExtra("dateChoice", stringDate);

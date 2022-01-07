@@ -132,6 +132,13 @@ public class AddMealActivity extends AppCompatActivity {
                     // [END upload_file]
                 }
 
+                /* Aggiungo un delay di 1000 secondi per permettere il corretto caricamento dell'immagine sullo storage di Firebase */
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
                 Intent newIntent = new Intent(AddMealActivity.this, MainActivity.class);
                 newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK); // Kill di tutte le activity nello stack
                 newIntent.putExtra("dateChoice", stringDate);

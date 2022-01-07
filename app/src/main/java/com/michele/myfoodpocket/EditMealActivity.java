@@ -153,11 +153,23 @@ public class EditMealActivity extends AppCompatActivity {
             EditText editTextCalories = (EditText)(findViewById(R.id.edit_meal_edit_text_calories));
             int newCalories = Integer.parseInt(editTextCalories.getText().toString());
 
+            // Se l'utente ha deciso di eliminare la foto
+            if(isPhotoDeleted) {
+                FirebaseStorage storage = FirebaseStorage.getInstance();
+                StorageReference storageReference = storage.getReference();
+                StorageReference picRef = storageReference.child(meal.getPhotoPath());
+                picRef.delete();
+            }
+
             if(inputControlOk(editTextDescription, editTextCalories)) {
                 Map<String, Object> childUpdates = new HashMap<>();
                 childUpdates.put(mealKey + "/category", newCategory);
                 childUpdates.put(mealKey + "/description", newDescription);
                 childUpdates.put(mealKey + "/calories", newCalories);
+
+                if(isPhotoChanged == false && isPhotoDeleted == false)
+                    photoPath = meal.getPhotoPath();
+
                 childUpdates.put(mealKey + "/photoPath", photoPath);
 
                 databaseReference.updateChildren(childUpdates);
@@ -183,14 +195,15 @@ public class EditMealActivity extends AppCompatActivity {
                     // [END upload_file]
                 }
 
-                if(isPhotoDeleted) {
-                    FirebaseStorage storage = FirebaseStorage.getInstance();
-                    StorageReference storageRef = storage.getReference();
-                    StorageReference picRef = storageRef.child(meal.getPhotoPath());
-                    picRef.delete();
-                }
 
                 Toast.makeText(this, getResources().getString(R.string.profile_toast_modify_success), Toast.LENGTH_SHORT).show();
+
+                /* Aggiungo un delay di 1000 secondi per permettere l'eventuale corretto caricamento dell'immagine sullo storage di Firebase */
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
                 Intent newIntent = new Intent(EditMealActivity.this, MainActivity.class);
                 newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK); // Kill di tutte le activity pregresse
@@ -301,12 +314,9 @@ public class EditMealActivity extends AppCompatActivity {
         if(!meal.getPhotoPath().equals("none")) {
             photoPath = "none";
             isPhotoDeleted = true;
-
-            // Se elimino la foto corrente (e decido quindi di non sostituirla), non permetto all'utente di aggiornare la foto
-            Button buttonAdd = (Button)(findViewById(R.id.edit_meal_button_add));
-            buttonAdd.setVisibility(View.GONE);
-            buttonAdd.setClickable(false);
-
+            Button addButton = (Button)(findViewById(R.id.edit_meal_button_add));
+            addButton.setVisibility(View.GONE);
+            addButton.setClickable(false);
             picTakenTextView.setText(getResources().getString(R.string.edit_meal_pic_delete_string));
         }
         else {
