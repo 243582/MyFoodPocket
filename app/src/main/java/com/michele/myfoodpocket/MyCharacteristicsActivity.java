@@ -56,7 +56,8 @@ public class MyCharacteristicsActivity extends AppCompatActivity {
         // Calcolo l'indice di massa corporea
         bodyMassIndex();
 
-        verifyStoragePermissions(MyCharacteristicsActivity.this); // Verifico i permessi per la memorizzazione di file
+        // Commentato perché non necessario per quello che fa l'app
+        //verifyStoragePermissions(MyCharacteristicsActivity.this); // Verifico i permessi per la memorizzazione di file
     }
 
     private boolean isNetworkConnected() {
@@ -64,13 +65,12 @@ public class MyCharacteristicsActivity extends AppCompatActivity {
         return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
     }
 
-    // Storage Permissions: da Android 11 in poi è necessario chiedere i permessi oltre che a specificarli nel manifest per poter memorizzare file
+    // Storage Permissions
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
-
     public static void verifyStoragePermissions(Activity activity) {
         // Check if we have write permission
         int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);

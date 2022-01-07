@@ -45,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:indeterminate="false"
-        android:progress="50"
+        android:progress="0"
         android:progressDrawable="@drawable/greenprogress"
         android:id="@+id/main_progress_bar" />
     <TextView
