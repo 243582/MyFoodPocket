@@ -116,12 +116,14 @@
                 android:rowCount="1"
                 android:columnCount="2" >
                 <Button
+                    android:id="@+id/edit_meal_button_delete"
                     android:textColor="@color/white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="deletePhoto"
                     android:text="@string/edit_meal_button_delete_photo" />
                 <Button
+                    android:id="@+id/edit_meal_button_add"
                     android:layout_marginLeft="10dp"
                     android:textColor="@color/white"
                     android:layout_width="wrap_content"

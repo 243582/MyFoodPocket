@@ -43,6 +43,9 @@ public class AddMealActivity extends AppCompatActivity {
     private String currentPhotoPath;
     private String photoPath = "none"; // Inizializzo il percorso della foto a "none": se verrà scattata verrà sostituito con il vero percorso, altrimenti rimarrà "none"
     private String stringDate;
+    private StorageReference riversRef;
+    private Uri file;
+    private boolean isPhotoTaken = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +112,26 @@ public class AddMealActivity extends AppCompatActivity {
                     }
                 });
 
+                if(isPhotoTaken) { // Se la foto è stata scattata la memorizzo nello storage Firebase
+                    UploadTask uploadTask;
+                    uploadTask = riversRef.putFile(file);
+
+                    // Register observers to listen for when the download is done or if it fails
+                    uploadTask.addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle unsuccessful uploads
+                        }
+                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                            // ...
+                        }
+                    });
+                    // [END upload_file]
+                }
+
                 Intent newIntent = new Intent(AddMealActivity.this, MainActivity.class);
                 newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK); // Kill di tutte le activity nello stack
                 newIntent.putExtra("dateChoice", stringDate);
@@ -167,33 +190,18 @@ public class AddMealActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
 
+            isPhotoTaken = true; // La foto è stata scattata, allora la memorizzerò
+
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageRef = storage.getReference();
 
             // [START upload_file]
-            Uri file = Uri.fromFile(new File(currentPhotoPath));
-            StorageReference riversRef = storageRef.child("Images/" + file.getLastPathSegment());
+            file = Uri.fromFile(new File(currentPhotoPath));
+            riversRef = storageRef.child("Images/" + file.getLastPathSegment());
             photoPath = "Images/" + file.getLastPathSegment();
-            UploadTask uploadTask;
-            uploadTask = riversRef.putFile(file);
 
             TextView picTakenTextView = (TextView)findViewById(R.id.add_meal_pic_taken);
             picTakenTextView.setText(getResources().getString(R.string.add_meal_pic_taken_string));
-
-            // Register observers to listen for when the download is done or if it fails
-            uploadTask.addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    // Handle unsuccessful uploads
-                }
-            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-                    // ...
-                }
-            });
-            // [END upload_file]
         }
     }
 

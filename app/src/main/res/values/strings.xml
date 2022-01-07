@@ -163,7 +163,7 @@
     <string name="edit_category_name_other">Altro</string>
     <string name="edit_meal_pic_taken_string">Foto scattata</string>
     <string name="edit_meal_button_delete_photo">Elimina foto</string>
-    <string name="edit_meal_pic_delete_string">Foto eliminata</string>
+    <string name="edit_meal_pic_delete_string">La foto verrà eliminata</string>
     <string name="edit_meal_no_pic_found_string">Nessuna foto da eliminare trovata</string>
 
 </resources>

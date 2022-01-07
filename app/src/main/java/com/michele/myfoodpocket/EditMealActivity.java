@@ -15,6 +15,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -61,6 +62,12 @@ public class EditMealActivity extends AppCompatActivity {
 
     private boolean isFirstPhoto; // Booleano che mi serve per capire se l'utente sta scattando la foto al pasto per la prima volta (e sostituendo)
                                   // la foto di default, oppure se sta facendo una nuova foto al pasto e sta sostituendo una precedente foto
+    private boolean isPhotoChanged = false; // Booleano che mi serve per capire se è stata effettuata una modifica alla foto oppure no
+                                            // Lo inizializzo a false e poi eventualmente verrà modificato
+    private boolean isPhotoDeleted = false; // Booleano che mi serve per capire se l'utente ha deciso di eliminare la foto del pasto oppure no
+
+    private Uri file;
+    private StorageReference riversRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,6 +162,34 @@ public class EditMealActivity extends AppCompatActivity {
 
                 databaseReference.updateChildren(childUpdates);
 
+                // Aggiornamento immagine
+                if(isPhotoChanged) { // Se la foto è cambiata allora la aggiorno, altrimenti no
+                    UploadTask uploadTask;
+                    uploadTask = riversRef.putFile(file);
+
+                    // Register observers to listen for when the download is done or if it fails
+                    uploadTask.addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle unsuccessful uploads
+                        }
+                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                            // ...
+                        }
+                    });
+                    // [END upload_file]
+                }
+
+                if(isPhotoDeleted) {
+                    FirebaseStorage storage = FirebaseStorage.getInstance();
+                    StorageReference storageRef = storage.getReference();
+                    StorageReference picRef = storageRef.child(meal.getPhotoPath());
+                    picRef.delete();
+                }
+
                 Toast.makeText(this, getResources().getString(R.string.profile_toast_modify_success), Toast.LENGTH_SHORT).show();
 
                 Intent newIntent = new Intent(EditMealActivity.this, MainActivity.class);
@@ -237,11 +272,18 @@ public class EditMealActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
 
+            TextView picTakenTextView = (TextView)findViewById(R.id.edit_meal_pic_taken);
+            picTakenTextView.setText(getResources().getString(R.string.edit_meal_pic_taken_string));
+
+            // Se scatto la foto, non permetto di eliminarla
+            Button deleteButton = (Button)findViewById(R.id.edit_meal_button_delete);
+            deleteButton.setVisibility(View.GONE);
+            deleteButton.setClickable(false);
+
+            isPhotoChanged = true; // La foto è stata modificata, allora la aggiornerò sullo storage di Firebase
+
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageRef = storage.getReference();
-
-            Uri file;
-            StorageReference riversRef;
 
             if(isFirstPhoto) {
                 file = Uri.fromFile(new File(currentPhotoPath));
@@ -251,27 +293,6 @@ public class EditMealActivity extends AppCompatActivity {
                 file = Uri.fromFile(new File(currentPhotoPath));
                 riversRef = storageRef.child(photoPath);
             }
-
-            UploadTask uploadTask;
-            uploadTask = riversRef.putFile(file);
-
-            TextView picTakenTextView = (TextView)findViewById(R.id.edit_meal_pic_taken);
-            picTakenTextView.setText(getResources().getString(R.string.edit_meal_pic_taken_string));
-
-            // Register observers to listen for when the download is done or if it fails
-            uploadTask.addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    // Handle unsuccessful uploads
-                }
-            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-                    // ...
-                }
-            });
-            // [END upload_file]
         }
     }
 
@@ -279,6 +300,13 @@ public class EditMealActivity extends AppCompatActivity {
         TextView picTakenTextView = (TextView)findViewById(R.id.edit_meal_pic_taken);
         if(!meal.getPhotoPath().equals("none")) {
             photoPath = "none";
+            isPhotoDeleted = true;
+
+            // Se elimino la foto corrente (e decido quindi di non sostituirla), non permetto all'utente di aggiornare la foto
+            Button buttonAdd = (Button)(findViewById(R.id.edit_meal_button_add));
+            buttonAdd.setVisibility(View.GONE);
+            buttonAdd.setClickable(false);
+
             picTakenTextView.setText(getResources().getString(R.string.edit_meal_pic_delete_string));
         }
         else {
