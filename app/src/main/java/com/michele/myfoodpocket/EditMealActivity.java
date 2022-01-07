@@ -274,4 +274,16 @@ public class EditMealActivity extends AppCompatActivity {
             // [END upload_file]
         }
     }
+
+    public void deletePhoto(View view) {
+        TextView picTakenTextView = (TextView)findViewById(R.id.edit_meal_pic_taken);
+        if(!meal.getPhotoPath().equals("none")) {
+            photoPath = "none";
+            picTakenTextView.setText(getResources().getString(R.string.edit_meal_pic_delete_string));
+        }
+        else {
+            photoPath = "none";
+            picTakenTextView.setText(getResources().getString(R.string.edit_meal_no_pic_found_string));
+        }
+    }
 }
