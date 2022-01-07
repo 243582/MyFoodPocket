@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".AddMealActivity">
+    tools:context=".EditMealActivity">
 
     <LinearLayout
         android:layout_margin="10dp"
@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/add_meal_text_view_add_meal" />
+            android:text="@string/edit_meal_text_view_edit_meal" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,14 +32,14 @@
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/add_meal_date" />
+                android:text="@string/edit_meal_date" />
             <TextView
                 android:layout_marginLeft="7dp"
                 android:textSize="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/add_meal_date_print"
+                android:id="@+id/edit_meal_date_print"
                 android:text="-" />
         </LinearLayout>
         <LinearLayout
@@ -54,14 +54,14 @@
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/add_meal_category" />
+                android:text="@string/edit_meal_category" />
             <Spinner
                 android:textSize="20dp"
                 android:layout_marginTop="10dp"
-                android:id="@+id/add_meal_spinner_category"
+                android:id="@+id/edit_meal_spinner_category"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:entries="@array/add_meal_category_choices" />
+                android:entries="@array/edit_meal_category_choices" />
         </LinearLayout>
         <TextView
             android:layout_marginLeft="7dp"
@@ -71,13 +71,13 @@
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/add_meal_description" />
+            android:text="@string/edit_meal_description" />
         <EditText
-            android:hint="@string/add_meail_insert_text"
+            android:hint="@string/edit_meail_insert_text"
             android:layout_marginLeft="7dp"
             android:textSize="20dp"
             android:layout_marginTop="10dp"
-            android:id="@+id/add_meal_edit_text_description"
+            android:id="@+id/edit_meal_edit_text_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLength="50" />
@@ -93,13 +93,13 @@
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/add_meal_calories" />
+                android:text="@string/edit_meal_calories" />
             <EditText
                 android:hint="0"
                 android:layout_marginLeft="10dp"
                 android:textSize="20dp"
                 android:layout_marginTop="10dp"
-                android:id="@+id/add_meal_edit_text_calories"
+                android:id="@+id/edit_meal_edit_text_calories"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:inputType="number"
@@ -114,12 +114,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="takePhoto"
-                android:text="@string/add_meal_button_take_photo" />
+                android:text="@string/edit_meal_button_take_photo" />
             <TextView
                 android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/add_meal_pic_taken"
+                android:id="@+id/edit_meal_pic_taken"
                 android:textSize="20dp" />
         </LinearLayout>
         <Button
@@ -129,7 +129,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/add_meal_button_add_meal"
+            android:text="@string/edit_meal_button_edit_meal"
             android:onClick="action_button_on_click" />
     </LinearLayout>
 

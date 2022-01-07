@@ -22,6 +22,13 @@
             <ImageView
                 android:layout_marginLeft="20dp"
                 android:clickable="true"
+                android:onClick="edit_on_click"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_baseline_pencil_24" />
+            <ImageView
+                android:layout_marginLeft="20dp"
+                android:clickable="true"
                 android:onClick="delete_on_click"
                 android:layout_width="50dp"
                 android:layout_height="50dp"

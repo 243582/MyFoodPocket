@@ -20,6 +20,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyFoodPocket">
         <activity
+            android:name=".EditMealActivity"
+            android:exported="false" />
+        <activity
             android:name=".NoInternetConnectionActivity"
             android:exported="false" />
         <activity

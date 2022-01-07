@@ -80,7 +80,8 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
             finish(); // Kill dell'activity così non può essere ripresa con il back button
         }
 
-        // Se vengo da AddMealActivity o DetailActivity recupero la data alla quale ho appena aggiunto un pasto o visualizzato un pasto e imposto la visualizzazione dei pasti su tale data
+        // Se vengo da AddMealActivity, MealDetailActivity o EditMealActivity recupero la data alla quale ho appena aggiunto un pasto, visualizzato un pasto
+        // o modificato un pasto e imposto la visualizzazione dei pasti su tale data
         Bundle extras = getIntent().getExtras();
         if (extras != null)
             stringDate = extras.getString("dateChoice");

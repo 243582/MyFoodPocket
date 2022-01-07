@@ -122,7 +122,7 @@ public class AddMealActivity extends AppCompatActivity {
             Toast.makeText(getBaseContext(), getResources().getString(R.string.no_internet_connection_not_available), Toast.LENGTH_SHORT).show();
     }
 
-    public void take_photo(View view) {
+    public void takePhoto(View view) {
         dispatchTakePictureIntent();
     }
 

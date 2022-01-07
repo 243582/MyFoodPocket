@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -67,6 +68,7 @@ public class MealDetailActivity extends AppCompatActivity {
             // Ottenimento della foto del pasto (se presente)
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageRef = storage.getReference();
+            Log.d("DEBUGPATH", "QUI:" + meal.getPhotoPath());
             StorageReference picReference = storageRef.child(meal.getPhotoPath());
             final long ONE_MEGABYTE = 1024 * 1024 * 10; // Foto al massimo di 10 megabyte
             picReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
@@ -133,5 +135,12 @@ public class MealDetailActivity extends AppCompatActivity {
 
     public void modify_on_click(View view) {
 
+    }
+
+    public void edit_on_click(View view) {
+        Intent newIntent = new Intent(MealDetailActivity.this, EditMealActivity.class);
+        newIntent.putExtra("detailMeal", meal);
+        startActivity(newIntent);
+        finish(); // Kill dell'activity così non può essere ripresa con il back button
     }
 }

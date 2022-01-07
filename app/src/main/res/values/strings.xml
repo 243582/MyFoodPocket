@@ -137,4 +137,30 @@
     <string name="no_internet_connection_still_not_available">Connessione ancora non disponibile, riprovare</string>
     <string name="no_internet_connection_not_available">Connessione non disponibile, riprovare</string>
 
+    /* EditMealActivity */
+    <string name="edit_meal_text_view_edit_meal">Modifica pasto</string>
+    <string name="edit_meal_date">Data</string>
+    <string name="edit_meal_category">Categoria</string>
+    <string name="edit_meal_description">Descrizione</string>
+    <string name="edit_meail_insert_text">Inserisci qui la descrizione</string>
+    <string name="edit_meal_calories">Calorie</string>
+    <string name="edit_meal_button_take_photo">Scatta una foto</string>
+    <string name="edit_meal_button_edit_meal">Modifica pasto</string>
+    <string name="edit_meal_input_control_not_ok">Informazioni non valide</string>
+    <string-array name="edit_meal_category_choices">
+        <item>Colazione</item>
+        <item>Merenda a metà mattina</item>
+        <item>Pranzo</item>
+        <item>Merenda a metà pomeriggio</item>
+        <item>Cena</item>
+        <item>Altro</item>
+    </string-array>
+    <string name="edit_category_name_breakfast">Colazione</string>
+    <string name="edit_category_name_snack_morning">Merenda a metà mattina</string>
+    <string name="edit_category_name_lunch">Pranzo</string>
+    <string name="edit_category_name_snack_afternoon">Merenda a metà pomeriggio</string>
+    <string name="edit_category_name_dinner">Cena</string>
+    <string name="edit_category_name_other">Altro</string>
+    <string name="edit_meal_pic_taken_string">Foto scattata</string>
+
 </resources>
