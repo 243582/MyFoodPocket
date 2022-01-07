@@ -118,6 +118,7 @@
                 android:textSize="20dp"
                 android:text="@string/profile_textview_weight" />
             <EditText
+                android:maxLength="4"
                 android:inputType="number"
                 android:layout_marginLeft="10dp"
                 android:textSize="20dp"

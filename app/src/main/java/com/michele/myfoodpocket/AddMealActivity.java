@@ -95,7 +95,7 @@ public class AddMealActivity extends AppCompatActivity {
             EditText editTextCalories = (EditText)(findViewById(R.id.add_meal_edit_text_calories));
 
             if(inputControlOk(editTextDescription, editTextCalories)) {
-                Meal newMeal = new Meal(emailDate, category, editTextDescription.getText().toString(), Integer.parseInt(editTextCalories.getText().toString()), photoPath, id, user.getEmail());
+                Meal newMeal = new Meal(emailDate, category, editTextDescription.getText().toString().replace("\n", ""), Integer.parseInt(editTextCalories.getText().toString()), photoPath, id, user.getEmail());
 
                 databaseReference.child("Meal").push().setValue(newMeal).addOnSuccessListener(new OnSuccessListener<Void>()
                 {
@@ -134,7 +134,7 @@ public class AddMealActivity extends AppCompatActivity {
 
                 /* Aggiungo un delay di 1000 secondi per permettere il corretto caricamento dell'immagine sullo storage di Firebase */
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -213,7 +213,8 @@ public class AddMealActivity extends AppCompatActivity {
     }
 
     public boolean inputControlOk(EditText editTextDescripton, EditText editTextCalories) {
-        if(!editTextDescripton.getText().toString().isEmpty() && !editTextCalories.getText().toString().isEmpty())
+        if(!editTextDescripton.getText().toString().isEmpty() && !editTextCalories.getText().toString().isEmpty()
+                && !editTextCalories.getText().toString().contains(".") && !editTextCalories.getText().toString().contains(","))
             return true;
         else
             return false;

@@ -109,7 +109,13 @@ public class ProfileActivity extends AppCompatActivity {
             if(checkInputOk()) {
                 databaseReference = database.getReference("User");
 
-                float newWeight = Float.parseFloat(((EditText)(findViewById(R.id.profile_weight))).getText().toString());
+                String stringWeight = ((EditText)(findViewById(R.id.profile_weight))).getText().toString();
+                String formattedWeight; // Stringa che userò per rimuovere l'eventuale virgola inserita dall'utente al posto del punto
+                if(stringWeight.contains(","))
+                    formattedWeight = stringWeight.replace(",", ".");
+                else
+                    formattedWeight = stringWeight;
+                float newWeight = Float.parseFloat(formattedWeight);
                 int newWorkheaviness = ((Spinner)(findViewById(R.id.profile_spinner_work_heaviness))).getSelectedItemPosition() + 1; // Lavoro: 1 leggero, 2 moderato, 3 pesante. Il +1 è per l'indice degli item dello spinner che partono da 0
                 int newSportPracticedInt = ((Spinner)(findViewById(R.id.profile_spinner_sport_practiced))).getSelectedItemPosition();
                 boolean newSportPracticedBool = (newSportPracticedInt == 0 ? true : false);

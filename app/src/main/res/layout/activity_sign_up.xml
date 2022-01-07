@@ -23,6 +23,7 @@
                 android:layout_height="100dp"
                 android:src="@drawable/myfoodpocketlogo" />
             <EditText
+                android:maxLength="35"
                 android:inputType="text"
                 android:maxLines="1"
                 android:textSize="15dp"
@@ -32,6 +33,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/sign_up_hint_email"/>
             <EditText
+                android:maxLength="35"
                 android:maxLines="1"
                 android:inputType="textPassword"
                 android:textSize="15dp"
@@ -41,6 +43,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/sign_up_hint_password"/>
             <EditText
+                android:maxLength="35"
                 android:maxLines="1"
                 android:inputType="textPassword"
                 android:id="@+id/sign_up_password_repeat"
@@ -56,6 +59,7 @@
                 android:layout_height="wrap_content"
                 android:entries="@array/array_sex" />
             <EditText
+                android:maxLength="3"
                 android:maxLines="1"
                 android:inputType="number"
                 android:textSize="15dp"
@@ -65,6 +69,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/sign_up_hint_height"/>
             <EditText
+                android:maxLength="4"
                 android:maxLines="1"
                 android:inputType="number"
                 android:textSize="15dp"
@@ -87,7 +92,6 @@
                     android:textColor="@color/black"
                     android:text="@string/sign_up_hint_birth_date"/>
                 <TextView
-                    android:onClick="birthDateButtonOnClick"
                     android:layout_marginTop="10dp"
                     android:id="@+id/sign_up_hint_birth_date_string"
                     android:layout_width="wrap_content"

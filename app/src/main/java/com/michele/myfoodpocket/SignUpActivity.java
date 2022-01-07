@@ -64,12 +64,17 @@ public class SignUpActivity extends AppCompatActivity {
             int sex = ((Spinner)(findViewById(R.id.sign_up_sex))).getSelectedItemPosition();
             String height = ((EditText)(findViewById(R.id.sign_up_height))).getText().toString();
             String weight = ((EditText)(findViewById(R.id.sign_up_weight))).getText().toString();
+            String formattedWeight; // Stringa che userò per rimuovere l'eventuale virgola inserita dall'utente al posto del punto
+            if(weight.contains(","))
+                formattedWeight = weight.replace(",", ".");
+            else
+                formattedWeight = weight;
             String birthdate = ((TextView)(findViewById(R.id.sign_up_hint_birth_date_string))).getText().toString();
             int workHeaviness = ((Spinner)(findViewById(R.id.spinner_work_heaviness))).getSelectedItemPosition();
             int sportPracticed = ((Spinner)(findViewById(R.id.spinner_sport_practiced))).getSelectedItemPosition();
 
             if(checkInputOk(email, password, passwordRepeat, height, weight, birthdate))
-                createAccount(email, password, passwordRepeat, sex, Integer.parseInt(height), Float.parseFloat(weight), birthdate, workHeaviness, sportPracticed);
+                createAccount(email, password, passwordRepeat, sex, Integer.parseInt(height), Float.parseFloat(formattedWeight), birthdate, workHeaviness, sportPracticed);
             else
                 Toast.makeText(getBaseContext(), getResources().getString(R.string.sign_up_input_not_ok), Toast.LENGTH_SHORT).show();
         }
@@ -125,7 +130,7 @@ public class SignUpActivity extends AppCompatActivity {
                     {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Toast.makeText(getBaseContext(), getResources().getString(R.string.sign_up_toast_register_success), Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getBaseContext(), getResources().getString(R.string.sign_up_toast_register_success), Toast.LENGTH_SHORT).show();
                         }
                     }).addOnFailureListener(new OnFailureListener()
                     {

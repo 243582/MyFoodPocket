@@ -74,13 +74,15 @@
             android:text="@string/add_meal_description" />
         <EditText
             android:hint="@string/add_meail_insert_text"
+            android:inputType="textMultiLine"
             android:layout_marginLeft="7dp"
             android:textSize="20dp"
             android:layout_marginTop="10dp"
             android:id="@+id/add_meal_edit_text_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLength="50" />
+            android:maxHeight="100dp"
+            android:maxLength="100" />
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -149,9 +149,8 @@ public class EditMealActivity extends AppCompatActivity {
 
             String newCategory = ((Spinner)(findViewById(R.id.edit_meal_spinner_category))).getSelectedItem().toString();
             EditText editTextDescription = (EditText)(findViewById(R.id.edit_meal_edit_text_description));
-            String newDescription = editTextDescription.getText().toString();
+            String newDescription = editTextDescription.getText().toString().replace("\n", ""); // Rimuovo le andate a capo
             EditText editTextCalories = (EditText)(findViewById(R.id.edit_meal_edit_text_calories));
-            int newCalories = Integer.parseInt(editTextCalories.getText().toString());
 
             // Se l'utente ha deciso di eliminare la foto
             if(isPhotoDeleted) {
@@ -162,6 +161,8 @@ public class EditMealActivity extends AppCompatActivity {
             }
 
             if(inputControlOk(editTextDescription, editTextCalories)) {
+                int newCalories = Integer.parseInt(editTextCalories.getText().toString());
+
                 Map<String, Object> childUpdates = new HashMap<>();
                 childUpdates.put(mealKey + "/category", newCategory);
                 childUpdates.put(mealKey + "/description", newDescription);
@@ -200,7 +201,7 @@ public class EditMealActivity extends AppCompatActivity {
 
                 /* Aggiungo un delay di 1000 secondi per permettere l'eventuale corretto caricamento dell'immagine sullo storage di Firebase */
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -220,7 +221,8 @@ public class EditMealActivity extends AppCompatActivity {
     }
 
     public boolean inputControlOk(EditText editTextDescripton, EditText editTextCalories) {
-        if(!editTextDescripton.getText().toString().isEmpty() && !editTextCalories.getText().toString().isEmpty())
+        if(!editTextDescripton.getText().toString().isEmpty() && !editTextCalories.getText().toString().isEmpty()
+                && !editTextCalories.getText().toString().contains(".") && !editTextCalories.getText().toString().contains(","))
             return true;
         else
             return false;

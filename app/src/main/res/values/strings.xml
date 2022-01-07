@@ -14,8 +14,8 @@
     <string name="sign_up_hint_password">Password</string>
     <string name="sign_up_hint_password_repeat">Ripeti password</string>
     <string name="sign_up_hint_sex">Sesso</string>
-    <string name="sign_up_hint_height">Altezza</string>
-    <string name="sign_up_hint_weight">Peso</string>
+    <string name="sign_up_hint_height">Altezza (in cm)</string>
+    <string name="sign_up_hint_weight">Peso (in kg)</string>
     <string name="sign_up_hint_birth_date">Data di  nascita</string>
     <string name="sign_up_button_sign_up">Registrati</string>
     <string name="sign_up_toast_welcome">Benvenuto</string>
@@ -106,7 +106,7 @@
     <string name="add_meal_button_take_photo">Scatta una foto</string>
     <string name="add_meail_insert_text">Inserisci qui la descrizione</string>
     <string name="add_meal_pic_taken_string">Foto scattata</string>
-    <string name="add_meal_input_control_not_ok">Compilare correttamente il form</string>
+    <string name="add_meal_input_control_not_ok">Compilare correttamente il form, le calorie non devono contenere punti o virgole</string>
     <string-array name="add_meal_category_choices">
         <item>Colazione</item>
         <item>Merenda a metà mattina</item>
@@ -146,7 +146,7 @@
     <string name="edit_meal_calories">Calorie</string>
     <string name="edit_meal_button_take_photo">Scatta una foto</string>
     <string name="edit_meal_button_edit_meal">Modifica pasto</string>
-    <string name="edit_meal_input_control_not_ok">Informazioni non valide</string>
+    <string name="edit_meal_input_control_not_ok">Compilare correttamente il form, le calorie non devono contenere punti o virgole</string>
     <string-array name="edit_meal_category_choices">
         <item>Colazione</item>
         <item>Merenda a metà mattina</item>
