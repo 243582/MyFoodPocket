@@ -70,8 +70,8 @@ public class MealDetailActivity extends AppCompatActivity {
             StorageReference storageRef = storage.getReference();
             Log.d("DEBUGPATH", "QUI:" + meal.getPhotoPath());
             StorageReference picReference = storageRef.child(meal.getPhotoPath());
-            final long ONE_MEGABYTE = 1024 * 1024 * 10; // Foto al massimo di 10 megabyte
-            picReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            final long TEN_MEGABYTE = 1024 * 1024 * 10; // Foto al massimo di 10 megabyte
+            picReference.getBytes(TEN_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                 @Override
                 public void onSuccess(byte[] bytes) {
                     Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);

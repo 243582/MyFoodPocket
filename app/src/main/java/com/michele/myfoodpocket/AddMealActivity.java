@@ -125,8 +125,11 @@ public class AddMealActivity extends AppCompatActivity {
                     }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-                            // ...
+                            // Ora che ho caricato la foto, posso cancellarla dalla memoria del telefono
+                            File fdelete = new File(file.getPath());
+                            if (fdelete.exists()) {
+                                fdelete.delete();
+                            }
                         }
                     });
                     // [END upload_file]
@@ -203,7 +206,7 @@ public class AddMealActivity extends AppCompatActivity {
             StorageReference storageRef = storage.getReference();
 
             // [START upload_file]
-            file = Uri.fromFile(new File(currentPhotoPath));
+            file = Uri.fromFile(new File(currentPhotoPath)); // Qui l'immagine è memorizzata nel telefono
             riversRef = storageRef.child("Images/" + file.getLastPathSegment());
             photoPath = "Images/" + file.getLastPathSegment();
 
