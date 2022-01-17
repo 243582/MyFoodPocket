@@ -64,7 +64,6 @@ public class ProfileActivity extends AppCompatActivity {
                         if(postSnapshot!= null && postSnapshot.getValue()!= null) {
                             userKey = postSnapshot.getKey();
                             userProfile = postSnapshot.getValue(User.class); // <= reference al nostro oggetto
-                            Log.d("DEBUGPROFILE", postSnapshot.getValue().toString());
                         }
                     }
 

@@ -19,7 +19,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class LoginActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener {
+public class LoginActivity extends AppCompatActivity  {
 
     private FirebaseAuth mAuth;
 
@@ -28,7 +28,7 @@ public class LoginActivity extends AppCompatActivity implements MenuItem.OnMenuI
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Initialize Firebase Auth
+        // Inizializzo Firebase Auth
         mAuth = FirebaseAuth.getInstance();
     }
 
@@ -50,7 +50,6 @@ public class LoginActivity extends AppCompatActivity implements MenuItem.OnMenuI
                             } else {
                                 Toast.makeText(LoginActivity.this, getResources().getString(R.string.login_toast_autentication_failed),
                                         Toast.LENGTH_SHORT).show();
-                                //updateUI(null);
                             }
                         }
                     });
@@ -63,13 +62,6 @@ public class LoginActivity extends AppCompatActivity implements MenuItem.OnMenuI
     public void signUpOnClick(View view) {
         Intent newIntent = new Intent(LoginActivity.this, SignUpActivity.class);
         startActivity(newIntent);
-        //finish(); // Kill dell'activity così non può essere ripresa con il back button
-    }
-
-    @Override
-    public boolean onMenuItemClick(MenuItem menuItem) {
-
-        return false;
     }
 
     private boolean isNetworkConnected() {

@@ -80,38 +80,39 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
             finish(); // Kill dell'activity così non può essere ripresa con il back button
         }
 
-        // Se vengo da AddMealActivity, MealDetailActivity o EditMealActivity recupero la data alla quale ho appena aggiunto un pasto, visualizzato un pasto
+        // Se vengo da AddMealActivity, MealDetailActivity o EditMealActivity recupero la data alla quale ho appena aggiunto un pasto o visualizzato un pasto
         // o modificato un pasto e imposto la visualizzazione dei pasti su tale data
         Bundle extras = getIntent().getExtras();
         if (extras != null)
             stringDate = extras.getString("dateChoice");
         else
-            stringDate = "none"; // Altrimenti imposto tale stringa al valore "none"
+            stringDate = "none"; // Altrimenti imposto tale stringa al valore "none" e mi baso sulla data odierna
 
         mAuth = FirebaseAuth.getInstance();
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        binding = ActivityMainBinding.inflate(getLayoutInflater()); // Recupero il layout dell'activity
+        setContentView(binding.getRoot()); // Imposto il layout dell'activity come ContentView
 
         // Barra di supporto
         setSupportActionBar(binding.appBarMain.toolbar);
 
+        // Navigation drawer e header del navigation drawer
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
-
         View navHeader = navigationView.inflateHeaderView(R.layout.nav_header_main) ;
 
+        // Imposto i listener sui bottoni del navigation drawer
         navigationView.getMenu().findItem(R.id.nav_profile).setOnMenuItemClickListener(this);
         navigationView.getMenu().findItem(R.id.nav_exit).setOnMenuItemClickListener(this);
         navigationView.getMenu().findItem(R.id.nav_characteristics).setOnMenuItemClickListener(this);
 
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+        // Passaggio degli ID dei bottoni del menu del navigation drawer
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_profile, R.id.nav_exit)
+                R.id.nav_profile, R.id.nav_exit, R.id.nav_characteristics)
                 .setOpenableLayout(drawer)
                 .build();
 
+        // Imposto l'email dello user nell'header del navigation drawer
         user = FirebaseAuth.getInstance().getCurrentUser();
         TextView tv = navHeader.findViewById(R.id.nav_header_main_email);
         tv.setText(user.getEmail());
@@ -134,8 +135,8 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         }
         dateSetup(); // In ogni caso chiamo la dateSetup()
         
-        // Reperimento pasto
-        caloriesOfTheDay = 0;
+        // Reperimento pasti
+        caloriesOfTheDay = 0; // Imposto le calorie giornaliere a zero che poi verranno calcolate man mano
         getMeal();
     }
 
@@ -147,13 +148,14 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        // Inflate del menù: questa riga aggiunge gli item alla action bar se presenti
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     @Override
     public boolean onSupportNavigateUp() {
+        // Apertura del navigation drawer
         binding.drawerLayout.openDrawer(GravityCompat.START);
         return super.onSupportNavigateUp();
     }
@@ -210,7 +212,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
                     for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) { //insieme di risposta
                         if(postSnapshot!= null && postSnapshot.getValue()!= null) {
                             userKey = postSnapshot.getKey();
-                            userInfo = postSnapshot.getValue(User.class); // <= reference al nostro oggetto
+                            userInfo = postSnapshot.getValue(User.class); // <= reference all'oggetto
                         }
                     }
 
@@ -334,8 +336,8 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
                 @Override
                 public void onCancelled(DatabaseError error)
                 {
-                    // Failed to read value
-                    Log.w("DEBUG", "Failed to read value...", error.toException());
+                    // Fail nella lettura del valore
+                    Log.w("DEBUG", "Fail nella lettura del valore...", error.toException());
                 }
             });
         }
@@ -347,6 +349,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     // Action button: aggiungere un pasto
     public void action_button_on_click(View view) {
         Intent newIntent = new Intent(this, AddMealActivity.class);
+        // Passo la data selezionata come extra dell'intent
         newIntent.putExtra("choiceDate", stringDate);
         startActivity(newIntent);
     }
@@ -449,9 +452,9 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
                             public void onItemClick(AdapterView<?> adapter, View view,
                                                     int position, long id) {
                                 Intent newIntent = new Intent(MainActivity.this, MealDetailActivity.class);
-                                Meal m = (Meal)adapter.getItemAtPosition(position);
-                                newIntent.putExtra("detailMeal", m);
-                                newIntent.putExtra("stringDate", stringDate);
+                                Meal m = (Meal)adapter.getItemAtPosition(position); // Prendo il pasto selezionato alla posizione position
+                                newIntent.putExtra("detailMeal", m); // Passo il pasto selezionato
+                                newIntent.putExtra("stringDate", stringDate); // Passo la data relativa al pasto
                                 startActivity(newIntent);
                             }
                         };
@@ -461,8 +464,8 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    // Failed to read value
-                    Log.w("DEBUG", "Failed to read value.", error.toException());
+                    // Fail nella lettura del valore
+                    Log.w("DEBUG", "Fail nella lettura del valore", error.toException());
                 }
             });
         }

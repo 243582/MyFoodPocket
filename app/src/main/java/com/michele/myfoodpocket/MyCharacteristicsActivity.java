@@ -104,7 +104,6 @@ public class MyCharacteristicsActivity extends AppCompatActivity {
                     for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) { //insieme di risposta
                         if(postSnapshot!= null && postSnapshot.getValue()!= null) {
                             userCharacteristics = postSnapshot.getValue(User.class); // <= reference al nostro oggetto
-                            Log.d("DEBUGPROFILE", postSnapshot.getValue().toString());
                         }
                     }
 

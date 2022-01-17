@@ -67,8 +67,8 @@ public class AsyncFoodPlanDownloader extends AsyncTask<Integer, Integer, String>
     @Override
     protected void onPostExecute(String filePath) {
         super.onPostExecute(filePath);
+        Log.d("AsyncFoodPlanDownloaderFilePath", filePath);
         Toast.makeText(context, context.getResources().getString(R.string.food_plan_download_finished), Toast.LENGTH_SHORT).show();
-        Log.d("DEBUGASYNCFOODPLANDOWNLOADER", filePath);
     }
 
     @Override
@@ -78,7 +78,7 @@ public class AsyncFoodPlanDownloader extends AsyncTask<Integer, Integer, String>
 
     @Override
     protected String doInBackground(Integer... params) { // ... significa che 0 o n oggetti possono essere passati come parametri (vedi varargs)
-        // Simulo un delay di 5 secondi per l'esecuzione del thread
+        // Simulo un delay di 10 secondi per l'esecuzione del thread
         try {
             Thread.sleep(10000);
         } catch (InterruptedException e) {

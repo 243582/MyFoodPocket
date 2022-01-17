@@ -42,7 +42,7 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        // Initialize Firebase Auth
+        // Inizializzo Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
         myCalendar = Calendar.getInstance();
@@ -83,16 +83,26 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private boolean checkInputOk(String email, String password, String passwordRepeat, String height, String weight, String birthdate) {
-        if(!email.isEmpty() && !password.isEmpty() && !passwordRepeat.isEmpty() && !height.isEmpty() && !weight.isEmpty() && !birthdate.isEmpty() && password.equals(passwordRepeat)) {
-            int birthdayDay = Integer.parseInt(birthdate.split("/")[0]);
-            int birthdayMonth = Integer.parseInt(birthdate.split("/")[1]);
-            int birthdayYear = Integer.parseInt(birthdate.split("/")[2]);
-            int age = getAge(birthdayDay, birthdayMonth, birthdayYear);
-            if(age >= 18) // Se l'utente è maggiorenne ok
-                return true;
-            else
-                Toast.makeText(getBaseContext(), getResources().getString(R.string.sign_up_not_adult), Toast.LENGTH_SHORT).show();
+        if(!email.isEmpty() && !password.isEmpty() && !passwordRepeat.isEmpty() && !height.isEmpty() && !weight.isEmpty() &&
+                !birthdate.isEmpty() && password.equals(passwordRepeat) && !height.contains(",") && !height.contains(".") &&
+                !height.contains("-") && !height.contains(" ")) {
+
+            // Controllo che il formato numerico del peso sia corretto
+            try {
+                Double.parseDouble(weight);
+
+                int birthdayDay = Integer.parseInt(birthdate.split("/")[0]);
+                int birthdayMonth = Integer.parseInt(birthdate.split("/")[1]);
+                int birthdayYear = Integer.parseInt(birthdate.split("/")[2]);
+                int age = getAge(birthdayDay, birthdayMonth, birthdayYear);
+                if(age >= 18) // Se l'utente è maggiorenne ok
+                    return true;
+                else
+                    Toast.makeText(getBaseContext(), getResources().getString(R.string.sign_up_not_adult), Toast.LENGTH_SHORT).show();
                 return false;
+            } catch(NumberFormatException e){
+                return false;
+            }
         }
         else
             return false;
@@ -130,22 +140,23 @@ public class SignUpActivity extends AppCompatActivity {
                     {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            //Toast.makeText(getBaseContext(), getResources().getString(R.string.sign_up_toast_register_success), Toast.LENGTH_SHORT).show();
+                            // Utente inserito nel RealTime Database
                         }
                     }).addOnFailureListener(new OnFailureListener()
                     {
                         @Override
                         public void onFailure(@NonNull Exception e)
                         {
-                            Toast.makeText(getBaseContext(), getResources().getString(R.string.sign_up_toast_register_failed), Toast.LENGTH_SHORT).show();
+                            // Problema con l'inserimento dell'utente nel RealTime Database
                         }
                     });
+
                     Intent newIntent = new Intent(SignUpActivity.this, MainActivity.class);
-                    newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK); // Kill di tutte le activity nello stack, così il back button non mi ritorna al login ma esce dall'app dopola registrazione
+                    newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK); // Kill di tutte le activity nello stack, così il back button non mi ritorna al login ma esce dall'app dopo la registrazione
                     startActivity(newIntent);
                     finish(); // Kill dell'activity così non può essere ripresa con il back button
+
                 } else {
-                    Log.d("APPSTATE", "createUserWithEmail:failure", task.getException());
                     //Toast.makeText(SignUpActivity.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
                     Toast.makeText(SignUpActivity.this, getResources().getString(R.string.sign_up_toast_register_failed),
                             Toast.LENGTH_SHORT).show();

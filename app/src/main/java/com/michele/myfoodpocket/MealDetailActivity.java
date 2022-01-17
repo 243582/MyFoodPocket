@@ -68,7 +68,6 @@ public class MealDetailActivity extends AppCompatActivity {
             // Ottenimento della foto del pasto (se presente)
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageRef = storage.getReference();
-            Log.d("DEBUGPATH", "QUI:" + meal.getPhotoPath());
             StorageReference picReference = storageRef.child(meal.getPhotoPath());
             final long TEN_MEGABYTE = 1024 * 1024 * 10; // Foto al massimo di 10 megabyte
             picReference.getBytes(TEN_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
