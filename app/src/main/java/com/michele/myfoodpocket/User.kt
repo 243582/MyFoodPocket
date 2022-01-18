@@ -4,7 +4,7 @@ class User {
     private var email : String = "";
     private var sex : Int = 0; // Sesso provvisorio che verrà poi sostituito con quello dell'utente
     private var height : Int = 0; // Altezza provvisoria che verrà poi sostituita con l'altezza dell'utente
-    private var weight : Float = 0.0f; // peso provvisorio che verrà poi sostituito con il peso dell'utente
+    private var weight : Float = 0.0f; // Peso provvisorio che verrà poi sostituito con il peso dell'utente
     private var birthDate : String = "";
     private var workHeaviness : Int = 0; // Pesantezza del lavoro provvisoria che poi verrà sostituita con quella dell'utente
     private var sportPracticed : Boolean = false; // Attività fisica sportiva provvisoria che poi verrà sostituita con quella dell'utente

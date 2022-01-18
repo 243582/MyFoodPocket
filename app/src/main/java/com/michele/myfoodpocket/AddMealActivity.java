@@ -116,11 +116,10 @@ public class AddMealActivity extends AppCompatActivity {
                     UploadTask uploadTask;
                     uploadTask = riversRef.putFile(file);
 
-                    // Register observers to listen for when the download is done or if it fails
                     uploadTask.addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception exception) {
-                            // Handle unsuccessful uploads
+                            // Errore nell'upload della foto
                         }
                     }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -132,7 +131,6 @@ public class AddMealActivity extends AppCompatActivity {
                             }
                         }
                     });
-                    // [END upload_file]
                 }
 
                 /* Aggiungo un delay di 1000 secondi per permettere il corretto caricamento dell'immagine sullo storage di Firebase */
@@ -162,14 +160,14 @@ public class AddMealActivity extends AppCompatActivity {
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-        // Create the File where the photo should go
+        // Creo il File nel quale verrà memorizzata la foto
         File photoFile = null;
         try {
             photoFile = createImageFile();
         } catch (IOException ex) {
-            // Error occurred while creating the File
+            // Errore nella creazione del file
         }
-        // Continue only if the File was successfully created
+        // Se il file è stato creato correttamente continuo
         if (photoFile != null) {
             Uri photoURI = FileProvider.getUriForFile(this,
                     "com.michele.myfoodpocket.fileprovider",
@@ -180,17 +178,16 @@ public class AddMealActivity extends AppCompatActivity {
     }
 
     private File createImageFile() throws IOException {
-        // Create an image file name
+        // Creazione del nome dell'immagine
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
+                imageFileName,  /* prefisso */
+                ".jpg",         /* suffisso */
                 storageDir      /* directory */
         );
 
-        // Save a file: path for use with ACTION_VIEW intents
         currentPhotoPath = image.getAbsolutePath();
         return image;
     }
@@ -217,8 +214,20 @@ public class AddMealActivity extends AppCompatActivity {
 
     public boolean inputControlOk(EditText editTextDescripton, EditText editTextCalories) {
         if(!editTextDescripton.getText().toString().isEmpty() && !editTextCalories.getText().toString().isEmpty()
-                && !editTextCalories.getText().toString().contains(".") && !editTextCalories.getText().toString().contains(","))
-            return true;
+                && !editTextCalories.getText().toString().contains(".") && !editTextCalories.getText().toString().contains(",")
+                && !editTextCalories.getText().toString().contains("-") && !editTextCalories.getText().toString().contains(" ")) {
+            // Controllo che il formato numerico delle calorie sia corretto
+            try
+            {
+                Integer.parseInt(editTextCalories.getText().toString());
+
+                return true;
+            }
+            catch (NumberFormatException e)
+            {
+                return false;
+            }
+        }
         else
             return false;
     }

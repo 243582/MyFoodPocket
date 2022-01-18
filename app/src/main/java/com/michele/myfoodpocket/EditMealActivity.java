@@ -222,8 +222,19 @@ public class EditMealActivity extends AppCompatActivity {
 
     public boolean inputControlOk(EditText editTextDescripton, EditText editTextCalories) {
         if(!editTextDescripton.getText().toString().isEmpty() && !editTextCalories.getText().toString().isEmpty()
-                && !editTextCalories.getText().toString().contains(".") && !editTextCalories.getText().toString().contains(","))
-            return true;
+                && !editTextCalories.getText().toString().contains(".") && !editTextCalories.getText().toString().contains(",")
+                && !editTextCalories.getText().toString().contains("-") && !editTextCalories.getText().toString().contains(" "))
+            // Controllo che il formato numerico delle calorie sia corretto
+            try
+            {
+                Integer.parseInt(editTextCalories.getText().toString());
+
+                return true;
+            }
+            catch (NumberFormatException e)
+            {
+                return false;
+            }
         else
             return false;
     }
