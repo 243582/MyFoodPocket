@@ -8,6 +8,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -31,7 +32,10 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -204,6 +208,18 @@ public class AddMealActivity extends AppCompatActivity {
             StorageReference storageRef = storage.getReference();
 
             file = Uri.fromFile(new File(currentPhotoPath)); // Qui l'immagine è memorizzata nel telefono
+
+            // Compressione della foto
+            File fileToCompress = new File (file.getPath());
+            try {
+                Bitmap bitmap = BitmapFactory.decodeFile(fileToCompress.getPath ());
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 15, new FileOutputStream (fileToCompress));
+            }
+            catch (Throwable t) {
+                Log.d("DEBUG_ADD", "Errore nella compressione della foto" + t.toString ());
+                t.printStackTrace ();
+            }
+
             riversRef = storageRef.child("Images/" + file.getLastPathSegment()); // Preparo il riferimento per l'upload su Firebase Storage (che avviene nella actionButtonOnClick)
             photoPath = "Images/" + file.getLastPathSegment(); // Memorizzo il path della foto sul telefono perché poi la cancellerò dalla memoria
 
