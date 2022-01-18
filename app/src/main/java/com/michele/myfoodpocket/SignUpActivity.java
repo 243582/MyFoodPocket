@@ -85,7 +85,7 @@ public class SignUpActivity extends AppCompatActivity {
     private boolean checkInputOk(String email, String password, String passwordRepeat, String height, String weight, String birthdate) {
         if(!email.isEmpty() && !password.isEmpty() && !passwordRepeat.isEmpty() && !height.isEmpty() && !weight.isEmpty() &&
                 !birthdate.isEmpty() && password.equals(passwordRepeat) && !height.contains(",") && !height.contains(".") &&
-                !height.contains("-") && !height.contains(" ")) {
+                !height.contains("-") && !height.contains(" ") && !weight.contains("-") && !weight.contains(" ")) {
 
             // Controllo che il formato numerico del peso sia corretto
             try {

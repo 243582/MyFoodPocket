@@ -132,7 +132,7 @@ public class MealDetailActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getBaseContext(), getResources().getString(R.string.meal_detail_delete_fail), Toast.LENGTH_SHORT).show();
+                Log.d("DEBUG_DETAIL", "Fail nel reperimento della foto");
             }
         });
     }

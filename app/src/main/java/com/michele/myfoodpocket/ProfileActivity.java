@@ -140,8 +140,17 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private boolean checkInputOk() {
-        if(!editTextWeight.getText().toString().isEmpty())
-            return true;
+        if(!editTextWeight.getText().toString().isEmpty() && !editTextWeight.getText().toString().contains("-") &&
+                !editTextWeight.getText().toString().contains(" ") && !editTextWeight.getText().toString().contains(",")) {
+
+            // Controllo che il formato numerico del peso sia corretto
+            try {
+                Double.parseDouble(editTextWeight.getText().toString());
+                return true;
+            } catch(NumberFormatException e){
+                return false;
+            }
+        }
         else
             return false;
     }
