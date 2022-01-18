@@ -145,7 +145,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <Button
-                android:onClick="back_button_on_click"
+                android:onClick="backButtonOnClick"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/profile_back_button"

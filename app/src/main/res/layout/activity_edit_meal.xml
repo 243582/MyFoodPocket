@@ -148,7 +148,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/edit_meal_button_edit_meal"
-            android:onClick="action_button_on_click" />
+            android:onClick="actionButtonOnClick" />
     </LinearLayout>
 
 </LinearLayout>

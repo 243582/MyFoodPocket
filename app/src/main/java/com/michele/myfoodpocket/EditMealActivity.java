@@ -115,8 +115,7 @@ public class EditMealActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError error)
             {
-                // Failed to read value
-                Log.w("DEBUG", "Failed to read value.", error.toException());
+                Log.w("DEBUG_EDIT", "Fail nella lettura del pasto", error.toException());
             }
         });
 
@@ -141,7 +140,7 @@ public class EditMealActivity extends AppCompatActivity {
         return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
     }
 
-    public void action_button_on_click(View view) {
+    public void actionButtonOnClick(View view) {
         if(isNetworkConnected()) {
             // Ho dovuto specificare l'URL perché quello ottenuto automaticamente non corrispondeva a quello effettivo del database Firebase
             FirebaseDatabase database = FirebaseDatabase.getInstance("https://myfoodpocket-bf82e-default-rtdb.europe-west1.firebasedatabase.app/");
@@ -154,6 +153,7 @@ public class EditMealActivity extends AppCompatActivity {
 
             // Se l'utente ha deciso di eliminare la foto
             if(isPhotoDeleted) {
+                // Elimino la foto dal Firebase Storage
                 FirebaseStorage storage = FirebaseStorage.getInstance();
                 StorageReference storageReference = storage.getReference();
                 StorageReference picRef = storageReference.child(meal.getPhotoPath());
@@ -180,26 +180,23 @@ public class EditMealActivity extends AppCompatActivity {
                     UploadTask uploadTask;
                     uploadTask = riversRef.putFile(file);
 
-                    // Register observers to listen for when the download is done or if it fails
                     uploadTask.addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception exception) {
-                            // Handle unsuccessful uploads
+                            Log.d("DEBUG_EDIT", "Fail nel caricamento dell'immagine");
                         }
                     }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-                            // ...
+                            Log.d("DEBUG_EDIT", "Successo nel caricamento dell'immagine");
                         }
                     });
-                    // [END upload_file]
                 }
 
 
                 Toast.makeText(this, getResources().getString(R.string.profile_toast_modify_success), Toast.LENGTH_SHORT).show();
 
-                /* Aggiungo un delay di 1000 secondi per permettere l'eventuale corretto caricamento dell'immagine sullo storage di Firebase */
+                /* Aggiungo un delay di 500 millisecondi per permettere l'eventuale corretto caricamento dell'immagine sullo storage di Firebase */
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
@@ -246,14 +243,15 @@ public class EditMealActivity extends AppCompatActivity {
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-        // Create the File where the photo should go
+        // Creazione del file nel quale verrà memorizzata la foto
         File photoFile = null;
         try {
             photoFile = createImageFile();
         } catch (IOException ex) {
-            // Error occurred while creating the File
+            Log.d("DEBUG_EDIT", "Fail nella creazione dell'immagine");
         }
-        // Continue only if the File was successfully created
+
+        // Se il file è stato creato correttamente continuo
         if (photoFile != null) {
             Uri photoURI = FileProvider.getUriForFile(this,
                     "com.michele.myfoodpocket.fileprovider",

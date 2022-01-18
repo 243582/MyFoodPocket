@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -76,7 +77,7 @@ public class AddMealActivity extends AppCompatActivity {
         return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
     }
 
-    public void action_button_on_click(View view) {
+    public void actionButtonOnClick(View view) {
         if(isNetworkConnected()) {
             // Ho dovuto specificare l'URL perché quello ottenuto automaticamente non corrispondeva a quello effettivo del database Firebase
             FirebaseDatabase database = FirebaseDatabase.getInstance("https://myfoodpocket-bf82e-default-rtdb.europe-west1.firebasedatabase.app/");
@@ -119,7 +120,7 @@ public class AddMealActivity extends AppCompatActivity {
                     uploadTask.addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception exception) {
-                            // Errore nell'upload della foto
+                            Log.d("DEBUG_ADD", "Fail nel caricamento della foto");
                         }
                     }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -165,7 +166,7 @@ public class AddMealActivity extends AppCompatActivity {
         try {
             photoFile = createImageFile();
         } catch (IOException ex) {
-            // Errore nella creazione del file
+            Log.d("DEBUG_ADD", "Fail nella creazione del file");
         }
         // Se il file è stato creato correttamente continuo
         if (photoFile != null) {
@@ -202,10 +203,9 @@ public class AddMealActivity extends AppCompatActivity {
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageRef = storage.getReference();
 
-            // [START upload_file]
             file = Uri.fromFile(new File(currentPhotoPath)); // Qui l'immagine è memorizzata nel telefono
-            riversRef = storageRef.child("Images/" + file.getLastPathSegment());
-            photoPath = "Images/" + file.getLastPathSegment();
+            riversRef = storageRef.child("Images/" + file.getLastPathSegment()); // Preparo il riferimento per l'upload su Firebase Storage (che avviene nella actionButtonOnClick)
+            photoPath = "Images/" + file.getLastPathSegment(); // Memorizzo il path della foto sul telefono perché poi la cancellerò dalla memoria
 
             TextView picTakenTextView = (TextView)findViewById(R.id.add_meal_pic_taken);
             picTakenTextView.setText(getResources().getString(R.string.add_meal_pic_taken_string));

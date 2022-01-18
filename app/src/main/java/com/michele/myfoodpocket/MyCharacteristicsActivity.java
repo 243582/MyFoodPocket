@@ -55,34 +55,11 @@ public class MyCharacteristicsActivity extends AppCompatActivity {
 
         // Calcolo l'indice di massa corporea
         bodyMassIndex();
-
-        // Commentato perché non necessario per quello che fa l'app
-        //verifyStoragePermissions(MyCharacteristicsActivity.this); // Verifico i permessi per la memorizzazione di file
     }
 
     private boolean isNetworkConnected() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
-    }
-
-    // Storage Permissions
-    private static final int REQUEST_EXTERNAL_STORAGE = 1;
-    private static String[] PERMISSIONS_STORAGE = {
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-    };
-    public static void verifyStoragePermissions(Activity activity) {
-        // Check if we have write permission
-        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
-        if (permission != PackageManager.PERMISSION_GRANTED) {
-            // We don't have permission so prompt the user
-            ActivityCompat.requestPermissions(
-                    activity,
-                    PERMISSIONS_STORAGE,
-                    REQUEST_EXTERNAL_STORAGE
-            );
-        }
     }
 
     private void bodyMassIndex() {
@@ -125,8 +102,8 @@ public class MyCharacteristicsActivity extends AppCompatActivity {
                 @Override
                 public void onCancelled(DatabaseError error)
                 {
-                    // Failed to read value
-                    Log.w("DEBUG", "Failed to read value.", error.toException());
+                    // Fail nella lettura del profilo
+                    Log.w("DEBUG_CHARACTERISTICS", "Fail nella lettura del profilo utente nelle caratteristiche", error.toException());
                 }
             });
         }
@@ -135,7 +112,7 @@ public class MyCharacteristicsActivity extends AppCompatActivity {
         }
     }
 
-    public void action_button_on_click(View view) {
+    public void actionButtonOnClick(View view) {
         downloadButton.setClickable(false);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -154,9 +131,9 @@ public class MyCharacteristicsActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     meals.clear();
 
-                    for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) { //insieme di risposta
+                    for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) { // Insieme di risposta
                         if(postSnapshot!= null && postSnapshot.getValue()!= null) {
-                            meals.add(postSnapshot.getValue(Meal.class)); // <= reference al nostro oggetto
+                            meals.add(postSnapshot.getValue(Meal.class)); // <= Reference all'oggetto
                         }
                     }
                     if(firstDownload == true) {
@@ -167,8 +144,7 @@ public class MyCharacteristicsActivity extends AppCompatActivity {
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    // Failed to read value
-                    Log.w("DEBUG", "Failed to read value.", error.toException());
+                    Log.w("DEBUG_CHARACTERISTICS", "Fail nella lettura dei pasti nelle caratteristiche", error.toException());
                 }
             });
         }

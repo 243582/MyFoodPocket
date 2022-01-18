@@ -46,7 +46,7 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-public class AsyncFoodPlanDownloader extends AsyncTask<Integer, Integer, String> {
+public class AsyncFoodPlanDownloader extends AsyncTask<Integer, Integer, String> { // <Params, Update progress, Results>
 
     private int num;
     private ArrayList<Meal> meals;
@@ -67,7 +67,7 @@ public class AsyncFoodPlanDownloader extends AsyncTask<Integer, Integer, String>
     @Override
     protected void onPostExecute(String filePath) {
         super.onPostExecute(filePath);
-        Log.d("AsyncFoodPlanDownloaderFilePath", filePath);
+        Log.d("DEBUG_ASYNC_FILE_PATH", filePath);
         Toast.makeText(context, context.getResources().getString(R.string.food_plan_download_finished), Toast.LENGTH_SHORT).show();
     }
 

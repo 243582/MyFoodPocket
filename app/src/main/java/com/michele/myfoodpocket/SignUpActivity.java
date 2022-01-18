@@ -140,14 +140,14 @@ public class SignUpActivity extends AppCompatActivity {
                     {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            // Utente inserito nel RealTime Database
+                            Log.d("DEBUG_SIGNUP", "Successo nella registrazione dell'utente");
                         }
                     }).addOnFailureListener(new OnFailureListener()
                     {
                         @Override
                         public void onFailure(@NonNull Exception e)
                         {
-                            // Problema con l'inserimento dell'utente nel RealTime Database
+                            Log.d("DEBUG_SIGNUP", "Errore nella registrazione dell'utente");
                         }
                     });
 

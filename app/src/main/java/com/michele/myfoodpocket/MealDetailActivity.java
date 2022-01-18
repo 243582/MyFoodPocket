@@ -64,7 +64,7 @@ public class MealDetailActivity extends AppCompatActivity {
         textViewCalories.setText("" + meal.getCalories());
 
         ImageView imageViewMeal = (ImageView)findViewById(R.id.detail_image_view_picture);
-        if(!meal.getPhotoPath().equals("none")) {
+        if(!meal.getPhotoPath().equals("none")) { // Se il pasto ha una foto la scarico e la imposto
             // Ottenimento della foto del pasto (se presente)
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageRef = storage.getReference();
@@ -74,18 +74,16 @@ public class MealDetailActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(byte[] bytes) {
                     Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                    //int nh = (int) ( bm.getHeight() * (800.0 / bm.getWidth()) );
-                    //Bitmap scaled = Bitmap.createScaledBitmap(bm, 600, nh, true);
                     imageViewMeal.setImageBitmap(bm);
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    //Toast.makeText(getBaseContext(), getResources().getString(R.string.meal_detail_picture_error), Toast.LENGTH_SHORT).show();
+                    Log.d("DEBUG_DETAIL", "Errore foto");
                 }
             });
         }
-        else {
+        else { // Se il pasto non ha una foto ne metto una di default
             if(meal.getCategory().equals(getResources().getString(R.string.main_category_breakfast)))
                 imageViewMeal.setImageResource(R.drawable.ic_breakfast);
             else if(meal.getCategory().equals(getResources().getString(R.string.main_category_snack_morning)))
@@ -106,16 +104,16 @@ public class MealDetailActivity extends AppCompatActivity {
         return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
     }
 
-    public void delete_on_click(View view) {
+    public void deleteOnClick(View view) {
         databaseReference = database.getReference("Meal");
 
         databaseReference.orderByChild("id").equalTo(meal.getId()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) { //insieme di risposta
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) { // Insieme di risposta
                     if(postSnapshot!= null && postSnapshot.getValue()!= null) {
                         String key = postSnapshot.getKey();
-                       dataSnapshot.getRef().child(key).removeValue();
+                        dataSnapshot.getRef().child(key).removeValue();
                     }
                 }
 
@@ -139,11 +137,7 @@ public class MealDetailActivity extends AppCompatActivity {
         });
     }
 
-    public void modify_on_click(View view) {
-
-    }
-
-    public void edit_on_click(View view) {
+    public void editOnClick(View view) {
         Intent newIntent = new Intent(MealDetailActivity.this, EditMealActivity.class);
         newIntent.putExtra("detailMeal", meal);
         startActivity(newIntent);

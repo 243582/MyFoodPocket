@@ -88,8 +88,7 @@ public class ProfileActivity extends AppCompatActivity {
                 @Override
                 public void onCancelled(DatabaseError error)
                 {
-                    // Failed to read value
-                    Log.w("DEBUG", "Failed to read value.", error.toException());
+                    Log.w("DEBUG_PROFILE", "Fail nella lettura del profilo utente", error.toException());
                 }
             });
         }
@@ -147,7 +146,7 @@ public class ProfileActivity extends AppCompatActivity {
             return false;
     }
 
-    public void back_button_on_click(View view) {
+    public void backButtonOnClick(View view) {
         super.onBackPressed();
     }
 }

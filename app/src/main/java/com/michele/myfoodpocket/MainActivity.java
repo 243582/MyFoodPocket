@@ -336,8 +336,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
                 @Override
                 public void onCancelled(DatabaseError error)
                 {
-                    // Fail nella lettura del valore
-                    Log.w("DEBUG", "Fail nella lettura del valore...", error.toException());
+                    Log.w("DEBUG_MAIN", "Fail nella lettura del valore", error.toException());
                 }
             });
         }
@@ -347,7 +346,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     }
 
     // Action button: aggiungere un pasto
-    public void action_button_on_click(View view) {
+    public void actionButtonOnClickAddMeal(View view) {
         Intent newIntent = new Intent(this, AddMealActivity.class);
         // Passo la data selezionata come extra dell'intent
         newIntent.putExtra("choiceDate", stringDate);

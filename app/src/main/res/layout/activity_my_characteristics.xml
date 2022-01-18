@@ -79,7 +79,7 @@
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="action_button_on_click"
+        android:onClick="actionButtonOnClick"
         android:text="@string/characteristics_download_food_plan" />
 
 </LinearLayout>
